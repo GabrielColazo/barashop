@@ -87,6 +87,8 @@
 - Feedback post-publicación: banner verde al volver a `index.html?publicado=1`
 - Sanitización XSS: `escapeHtml()` en `index.html` y `anuncio.html`
 - CSS compilado en formato `expanded` (legible) para GitHub Pages
+- CSP headers agregados a todas las páginas
+- Sanitización XSS completa (escapeHtml en todos los templates)
 
 ## Pendientes
 
