@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anuncio - Barago</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><img class="logo-icon" src="assets/img/barago.webp" alt="Barago"></a>
+      <div class="d-flex align-items-center gap-2">
+        <a href="publicar.html" class="btn btn-sm" style="background:#059669;border:none;border-radius:8px;font-weight:600;color:white;">+ Publicar</a>
+        <a href="login.html" class="btn btn-outline-dark btn-sm" style="border-radius:8px;font-weight:500;" id="detalle-auth-btn">Ingresar</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="anuncio-detalle" id="anuncio-detalle">
+    <div class="text-center py-5" id="loading">
+      <div style="font-size:2rem;">⏳</div>
+      <p class="text-secondary mt-2">Cargando anuncio...</p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Barago &mdash; Compra y venta local. Hecho para tu barrio.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/anuncios.js"></script>
+  <script>
+    function escapeHtml(str) {
+      const d = document.createElement('div')
+      d.textContent = str
+      return d.innerHTML
+    }
+
+    let imagenActual = 0
+    let imagenes = []
+
+    async function cargarAnuncio() {
+      const params = new URLSearchParams(window.location.search)
+      const id = params.get('id')
+      if (!id) {
+        document.getElementById('anuncio-detalle').innerHTML = '<p class="text-center py-5 text-secondary">Anuncio no encontrado</p>'
+        return
+      }
+
+      try {
+        const a = await obtenerAnuncio(id)
+        document.getElementById('loading').classList.add('d-none')
+        imagenes = a.imagenes || []
+
+        const sesion = await obtenerSesion()
+        const esPropio = sesion.data.session && sesion.data.session.user.id === a.usuario_id
+
+        let galeriaHtml = ''
+        if (imagenes.length > 0) {
+          galeriaHtml = `
+            <div style="position:relative;">
+              <img class="anuncio-imagen" id="img-principal" src="${imagenes[0].url}" alt="${escapeHtml(a.titulo)}" style="cursor:pointer;" onclick="abrirLightbox(0)">
+              ${imagenes.length > 1 ? `
+                <div class="d-flex gap-2 flex-wrap mb-3" id="galeria-thumbs">
+                  ${imagenes.map((img, i) => `
+                    <img class="gallery-thumb ${i === 0 ? 'active' : ''}" src="${img.url}" alt="" onclick="cambiarImagen(${i})">
+                  `).join('')}
+                </div>
+              ` : ''}
+            </div>
+          `
+        } else {
+          galeriaHtml = `<img class="anuncio-imagen" src="assets/img/no-image.svg" alt="${a.titulo}">`
+        }
+
+        document.getElementById('anuncio-detalle').innerHTML = `
+          ${galeriaHtml}
+          <div class="anuncio-header">
+            <div>
+              <h1>${escapeHtml(a.titulo)}</h1>
+              <span class="badge-categoria mt-1">${escapeHtml(a.categorias?.icono || '📦')} ${escapeHtml(a.categorias?.nombre || 'Sin categoría')}</span>
+            </div>
+            <div class="anuncio-precio">$${Number(a.precio).toLocaleString('es-AR')}</div>
+          </div>
+          <div class="anuncio-meta">
+            <span>📅 ${new Date(a.created_at).toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            ${a.telefono ? `<span>📞 ${escapeHtml(a.telefono)}</span>` : ''}
+          </div>
+          ${a.descripcion ? `<div class="anuncio-descripcion">${escapeHtml(a.descripcion)}</div>` : ''}
+          <div class="mt-4 d-flex gap-2 flex-wrap">
+            <a href="index.html" class="btn-outline-custom">← Volver</a>
+            ${esPropio ? `<button class="btn-outline-custom" style="border-color:#EF4444;color:#EF4444;" onclick="eliminarAnuncioHandler('${a.id}')">🗑 Eliminar</button>` : ''}
+          </div>
+        `
+      } catch (err) {
+        document.getElementById('anuncio-detalle').innerHTML = `<p class="text-center py-5 text-secondary">Error al cargar el anuncio: ${err.message}</p>`
+      }
+    }
+
+    function cambiarImagen(index) {
+      imagenActual = index
+      document.getElementById('img-principal').src = imagenes[index].url
+      document.querySelectorAll('.gallery-thumb').forEach((el, i) => {
+        el.classList.toggle('active', i === index)
+      })
+    }
+
+    function abrirLightbox(index) {
+      if (!imagenes.length) return
+      window.open(imagenes[index].url, '_blank')
+    }
+
+    async function eliminarAnuncioHandler(id) {
+      if (!confirm('¿Estás seguro de eliminar este anuncio?')) return
+      try {
+        await window.eliminarAnuncio(id)
+        window.location.href = 'index.html'
+      } catch (err) {
+        alert(err.message)
+      }
+    }
+
+    cargarAnuncio()
+  </script>
+</body>
+</html>

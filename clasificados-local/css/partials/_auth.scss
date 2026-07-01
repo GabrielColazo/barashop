@@ -1,0 +1,59 @@
+@use 'variables' as v;
+
+.auth-page {
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.auth-card {
+  background: v.$surface;
+  border-radius: 16px;
+  padding: 2.25rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+
+  h2 {
+    font-weight: 800;
+    font-size: 1.35rem;
+    margin-bottom: 0.35rem;
+  }
+
+  p {
+    color: v.$text-secondary;
+    font-size: v.$font-size-sm;
+    margin-bottom: 1.5rem;
+  }
+
+  .auth-switch {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: v.$font-size-sm;
+    color: v.$text-secondary;
+
+    a {
+      color: v.$primary;
+      font-weight: 600;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.form-group {
+  margin-bottom: 1rem;
+
+  label {
+    display: block;
+    font-weight: 500;
+    font-size: v.$font-size-sm;
+    margin-bottom: 0.3rem;
+    color: v.$text;
+  }
+}

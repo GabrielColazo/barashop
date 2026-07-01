@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barago - Compra y Venta Local</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <img class="logo-icon" src="assets/img/barago.webp" alt="Barago">
+      </a>
+      <div class="d-flex align-items-center gap-2" id="header-actions">
+        <a href="publicar.html" class="btn btn-sm d-flex align-items-center gap-1" style="background:#059669;border:none;border-radius:8px;font-weight:600;padding:0.5rem 1rem;color:white;white-space:nowrap;">
+          + Publicar
+        </a>
+        <div id="auth-buttons">
+          <a href="login.html" class="btn btn-outline-dark btn-sm" style="border-radius:8px;font-weight:500;">
+            Ingresar
+          </a>
+        </div>
+        <div id="user-menu" class="d-none">
+          <div class="avatar" id="user-avatar" title="Mi cuenta">U</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="success-toast" class="d-none" style="background:#059669;color:white;text-align:center;padding:0.75rem;font-weight:600;font-size:0.95rem;">
+    ✅ ¡Anuncio publicado con éxito!
+  </div>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Bara<span class="hero-go">Go</span></h1>
+      <p class="hero-subtitle">El clasificado de Baradero</p>
+      <p class="hero-desc">Publicá gratis en 2 pasos</p>
+      <a href="publicar.html" class="btn-accent">📸 Publicá tu anuncio</a>
+    </div>
+  </section>
+
+  <main class="container">
+    <div class="d-flex gap-2 flex-wrap mb-3" id="categorias-container"></div>
+
+    <div id="search-section" class="mb-4">
+      <div class="row g-2">
+        <div class="col-md-8">
+          <input type="text" class="input-custom" id="search-input" placeholder="Buscá lo que necesites...">
+        </div>
+        <div class="col-md-4">
+          <select class="select-custom" id="categoria-select">
+            <option value="">Todas las categorías</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-anuncios" id="anuncios-container"></div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Barago &mdash; Compra y venta local. Hecho para tu barrio.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/anuncios.js"></script>
+  <script>
+    function escapeHtml(str) {
+      const d = document.createElement('div')
+      d.textContent = str
+      return d.innerHTML
+    }
+
+    let categoriaActiva = null
+
+    async function cargarCategorias() {
+      const categorias = await obtenerCategorias()
+      const container = document.getElementById('categorias-container')
+      const select = document.getElementById('categoria-select')
+
+      container.innerHTML = '<span class="badge-categoria active" data-id="">Todas</span>'
+      select.innerHTML = '<option value="">Todas las categorías</option>'
+
+      categorias.forEach(cat => {
+        const badge = document.createElement('span')
+        badge.className = 'badge-categoria'
+        badge.dataset.id = cat.id
+        badge.textContent = `${cat.icono} ${cat.nombre}`
+        badge.onclick = () => filtrarPorCategoria(cat.id, badge)
+        container.appendChild(badge)
+
+        const option = document.createElement('option')
+        option.value = cat.id
+        option.textContent = cat.nombre
+        select.appendChild(option)
+      })
+    }
+
+    function filtrarPorCategoria(id, el) {
+      categoriaActiva = id
+      document.querySelectorAll('.badge-categoria').forEach(b => b.classList.remove('active'))
+      if (el) el.classList.add('active')
+      else document.querySelector('.badge-categoria[data-id=""]')?.classList.add('active')
+      cargarAnuncios()
+    }
+
+    async function cargarAnuncios() {
+      const filtro = {}
+      if (categoriaActiva) filtro.categoria_id = categoriaActiva
+      const busqueda = document.getElementById('search-input').value
+      if (busqueda) filtro.busqueda = busqueda
+
+      const anuncios = await obtenerAnuncios(filtro)
+      const container = document.getElementById('anuncios-container')
+
+      if (anuncios.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state" style="grid-column:1/-1">
+            <div class="empty-icon">🔍</div>
+            <h3>No hay anuncios aún</h3>
+            <p>Sé el primero en publicar algo</p>
+            <a href="publicar.html" class="btn-primary-custom">Publicar anuncio</a>
+          </div>
+        `
+        return
+      }
+
+      container.innerHTML = anuncios.map(a => {
+        const imgUrl = a.imagenes?.[0]?.url || 'assets/img/no-image.svg'
+        const badge = a.imagenes?.length > 1 ? `<span class="gallery-badge">+${a.imagenes.length - 1}</span>` : ''
+        return `
+        <div class="card-anuncio" onclick="verAnuncio('${a.id}')">
+          <div class="card-img-wrap">
+            <img class="card-img" src="${imgUrl}" alt="${escapeHtml(a.titulo)}" loading="lazy">
+            ${badge}
+          </div>
+          <div class="card-body">
+            <div class="card-categoria">${escapeHtml(a.categorias?.icono || '📦')} ${escapeHtml(a.categorias?.nombre || 'Sin categoría')}</div>
+            <div class="card-titulo">${escapeHtml(a.titulo)}</div>
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="card-precio">$${Number(a.precio).toLocaleString('es-AR')}</div>
+              <div class="card-fecha">${new Date(a.created_at).toLocaleDateString('es-AR')}</div>
+            </div>
+          </div>
+        </div>`
+      }).join('')
+    }
+
+    function verAnuncio(id) {
+      window.location.href = `anuncio.html?id=${id}`
+    }
+
+    document.getElementById('search-input').addEventListener('input', debounce(() => {
+      cargarAnuncios()
+    }, 300))
+
+    document.getElementById('categoria-select').addEventListener('change', (e) => {
+      const badge = document.querySelector(`.badge-categoria[data-id="${e.target.value}"]`)
+      filtrarPorCategoria(e.target.value || null, badge)
+    })
+
+    function debounce(fn, ms) {
+      let timeout
+      return (...args) => {
+        clearTimeout(timeout)
+        timeout = setTimeout(() => fn(...args), ms)
+      }
+    }
+
+    escucharAuth((event, session) => {
+      const authButtons = document.getElementById('auth-buttons')
+      const userMenu = document.getElementById('user-menu')
+      const avatar = document.getElementById('user-avatar')
+
+      if (session) {
+        authButtons.classList.add('d-none')
+        userMenu.classList.remove('d-none')
+        const email = session.user.email
+        avatar.textContent = email.charAt(0).toUpperCase()
+        avatar.title = email
+      } else {
+        authButtons.classList.remove('d-none')
+        userMenu.classList.add('d-none')
+      }
+    })
+
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('publicado') === '1') {
+      const toast = document.getElementById('success-toast')
+      toast.classList.remove('d-none')
+      setTimeout(() => { toast.classList.add('d-none') }, 4000)
+      window.history.replaceState({}, '', 'index.html')
+    }
+
+    cargarCategorias()
+    cargarAnuncios()
+  </script>
+</body>
+</html>

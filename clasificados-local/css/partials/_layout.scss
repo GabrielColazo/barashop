@@ -1,0 +1,85 @@
+@use 'variables' as v;
+
+.header {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid v.$border;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+
+    img.logo-icon {
+      height: 64px;
+      width: auto;
+      display: block;
+    }
+  }
+}
+
+.hero {
+  text-align: center;
+  padding: 5rem 1rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, v.$primary-light 0%, v.$bg 60%);
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 0.25rem;
+    background: linear-gradient(135deg, #047857 0%, #065F46 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.04em;
+  }
+
+  .hero-go {
+    color: #059669;
+    -webkit-text-fill-color: #059669;
+    background: none;
+  }
+
+  .hero-subtitle {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: v.$text;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    color: v.$text-secondary;
+    max-width: 420px;
+    margin: 0 auto 1.25rem;
+  }
+}
+
+.footer {
+  background: v.$surface;
+  border-top: 1px solid v.$border;
+  padding: 2rem 0;
+  text-align: center;
+  color: v.$text-secondary;
+  font-size: v.$font-size-sm;
+  margin-top: 4rem;
+}

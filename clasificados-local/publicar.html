@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publicar - Barago</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><img class="logo-icon" src="assets/img/barago.webp" alt="Barago"></a>
+      <div id="user-indicator"></div>
+    </div>
+  </header>
+
+  <div class="publicar-page">
+    <h1>📸 Publicá tu anuncio</h1>
+
+    <div id="alerta-registro" class="d-none" style="background:#FEF3C7;border:1px solid #F59E0B;border-radius:12px;padding:1rem;margin-bottom:1.5rem;display:flex;align-items:flex-start;gap:0.75rem;">
+      <span style="font-size:1.5rem;">⚠️</span>
+      <div>
+        <strong style="display:block;margin-bottom:0.25rem;">No estás registrado</strong>
+        <span style="font-size:0.9rem;color:#92400E;">No te preocupes. Completá el formulario y al final creás tu cuenta con email y contraseña de forma rápida.</span>
+      </div>
+    </div>
+
+    <form id="publicar-form" onsubmit="return handlePublicar(event)">
+
+      <div class="form-group">
+        <label>Foto (opcional)</label>
+        <div class="drop-zone" onclick="document.getElementById('file-input').click()">
+          <div class="drop-icon" id="drop-icon">📷</div>
+          <p id="drop-text">Tocá para agregar una foto</p>
+          <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" class="d-none" onchange="manejarArchivos(event)">
+        </div>
+        <div id="previews" class="d-flex gap-2 mt-2 flex-wrap"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="titulo">¿Qué estás vendiendo? *</label>
+        <input type="text" id="titulo" class="input-custom input-lg" placeholder="Ej: Bicicleta mountain bike" required autofocus>
+      </div>
+
+      <div class="form-group">
+        <label for="categoria">Categoría</label>
+        <div class="d-flex gap-2 flex-wrap" id="categoria-badges"></div>
+        <input type="hidden" id="categoria" value="">
+      </div>
+
+      <div class="form-group">
+        <label for="precio">Precio *</label>
+        <div style="display:flex;align-items:stretch;border:2px solid #E5E7EB;border-radius:8px;overflow:hidden;">
+          <span style="background:#F3F4F6;padding:0.75rem 1rem;font-weight:600;color:#6B7280;display:flex;align-items:center;">$</span>
+          <input type="number" id="precio" class="input-custom" style="border:none;border-radius:0;" placeholder="0" min="0" step="0.01" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="telefono">Teléfono de contacto *</label>
+        <input type="tel" id="telefono" class="input-custom" placeholder="Ej: 11 5555-5555" required>
+      </div>
+
+      <div class="form-group">
+        <label for="descripcion">Descripción (opcional)</label>
+        <textarea id="descripcion" class="textarea-custom" rows="3" placeholder="Contale un poco sobre tu producto..."></textarea>
+      </div>
+
+      <div id="registro-inline" class="d-none" style="background:#F0FDF4;border:2px solid #86EFAC;border-radius:12px;padding:1.25rem;margin-top:1.5rem;transition:all 0.3s;">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.25rem;">
+          <span style="background:#059669;color:white;font-size:0.75rem;font-weight:700;padding:0.15rem 0.5rem;border-radius:4px;">PASO 1</span>
+          <span style="font-weight:700;font-size:1.05rem;">Creá tu cuenta gratis</span>
+        </div>
+        <p style="font-size:0.9rem;color:#166534;margin-bottom:1rem;">Completá estos datos y al publicar se crea tu cuenta automáticamente</p>
+        <div class="form-group">
+          <label for="reg-email" style="font-weight:600;font-size:0.85rem;color:#059669;">Tu email</label>
+          <input type="email" id="reg-email" class="input-custom" placeholder="ejemplo@email.com" style="border-color:#86EFAC;">
+        </div>
+        <div class="form-group">
+          <label for="reg-password" style="font-weight:600;font-size:0.85rem;color:#059669;">Tu contraseña</label>
+          <input type="password" id="reg-password" class="input-custom" placeholder="Mínimo 6 caracteres" style="border-color:#86EFAC;">
+        </div>
+        <button type="button" class="btn-primary-custom w-100 justify-content-center" id="btn-registrarse" onclick="handleRegistro()" style="margin-bottom:0.75rem;">
+          Registrarse
+        </button>
+        <p style="font-size:0.85rem;color:#6B7280;text-align:center;">¿Ya tenés cuenta? <a href="login.html" style="color:#059669;font-weight:600;">Ingresá</a></p>
+      </div>
+
+      <div id="publicar-error" class="d-none" style="color:#EF4444;text-align:center;margin-bottom:1rem;"></div>
+
+      <div id="paso2-label" class="d-none" style="align-items:center;gap:0.5rem;margin:1.5rem 0 0.75rem;">
+        <span style="background:#059669;color:white;font-size:0.75rem;font-weight:700;padding:0.15rem 0.5rem;border-radius:4px;">PASO 2</span>
+        <span style="font-weight:600;color:#374151;">Publicá tu anuncio</span>
+      </div>
+
+      <button type="submit" class="btn-accent w-100 justify-content-center" id="btn-publicar">
+        ✅ Publicar anuncio
+      </button>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/anuncios.js"></script>
+  <script>
+    let archivosSeleccionados = []
+
+    async function init() {
+      const sesion = await obtenerSesion()
+      const indicator = document.getElementById('user-indicator')
+
+      const categorias = await obtenerCategorias()
+      const container = document.getElementById('categoria-badges')
+      container.innerHTML = categorias.map(c => `
+        <span class="badge-categoria" data-id="${c.id}" onclick="seleccionarCategoria('${c.id}', this)">${c.icono} ${c.nombre}</span>
+      `).join('')
+
+      if (sesion.data.session) {
+        indicator.innerHTML = `<div class="avatar" title="${sesion.data.session.user.email}">${sesion.data.session.user.email.charAt(0).toUpperCase()}</div>`
+      } else {
+        document.getElementById('alerta-registro').classList.remove('d-none')
+        document.getElementById('registro-inline').classList.remove('d-none')
+        const paso2 = document.getElementById('paso2-label')
+        paso2.classList.remove('d-none')
+        paso2.style.display = 'flex'
+      }
+    }
+
+    function seleccionarCategoria(id, el) {
+      document.querySelectorAll('#categoria-badges .badge-categoria').forEach(b => b.classList.remove('active'))
+      el.classList.add('active')
+      document.getElementById('categoria').value = id
+    }
+
+    function manejarArchivos(e) {
+      const file = e.target.files[0]
+      if (!file) return
+
+      if (file.size > 5 * 1024 * 1024) {
+        alert('La imagen pesa más de 5MB. Elegí otra.')
+        return
+      }
+      const ext = file.name.split('.').pop().toLowerCase()
+      if (!['jpg', 'jpeg', 'png', 'webp'].includes(ext)) {
+        alert('Solo JPG, PNG o WEBP')
+        return
+      }
+
+      archivosSeleccionados = [file]
+      const container = document.getElementById('previews')
+      container.innerHTML = `
+        <div style="position:relative;width:120px;height:120px;">
+          <img src="${URL.createObjectURL(file)}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+          <button type="button" onclick="archivosSeleccionados=[];document.getElementById('previews').innerHTML='';document.getElementById('drop-icon').textContent='📷';document.getElementById('drop-text').textContent='Tocá para agregar una foto'" style="position:absolute;top:-6px;right:-6px;width:24px;height:24px;border-radius:50%;border:none;background:#EF4444;color:white;font-size:14px;cursor:pointer;">×</button>
+        </div>
+      `
+      document.getElementById('drop-icon').textContent = '✅'
+      document.getElementById('drop-text').textContent = '1 foto seleccionada'
+      e.target.value = ''
+    }
+
+    async function handleRegistro() {
+      const btn = document.getElementById('btn-registrarse')
+      const email = document.getElementById('reg-email').value.trim()
+      const password = document.getElementById('reg-password').value
+      const errorEl = document.getElementById('publicar-error')
+      errorEl.classList.add('d-none')
+
+      if (!email || !password) {
+        errorEl.textContent = 'Completá tu email y contraseña'
+        errorEl.classList.remove('d-none')
+        return
+      }
+      if (password.length < 6) {
+        errorEl.textContent = 'La contraseña debe tener al menos 6 caracteres'
+        errorEl.classList.remove('d-none')
+        return
+      }
+
+      btn.disabled = true
+      btn.innerHTML = '⏳ Registrando...'
+
+      try {
+        await registrar(email, password)
+        await iniciarSesion(email, password)
+
+        const sesion = await obtenerSesion()
+        document.getElementById('registro-inline').classList.add('d-none')
+        document.getElementById('paso2-label').classList.add('d-none')
+        document.getElementById('alerta-registro').classList.add('d-none')
+
+        errorEl.style.color = '#10B981'
+        errorEl.textContent = '✅ Registro exitoso. Ya podés publicar.'
+        errorEl.classList.remove('d-none')
+
+        document.getElementById('user-indicator').innerHTML =
+          `<div class="avatar" title="${sesion.data.session.user.email}">${sesion.data.session.user.email.charAt(0).toUpperCase()}</div>`
+      } catch (err) {
+        errorEl.style.color = '#EF4444'
+        errorEl.textContent = err.message
+        errorEl.classList.remove('d-none')
+        btn.disabled = false
+        btn.innerHTML = 'Registrarse'
+      }
+    }
+
+    async function handlePublicar(e) {
+      e.preventDefault()
+      const btn = document.getElementById('btn-publicar')
+      const errorEl = document.getElementById('publicar-error')
+      errorEl.classList.add('d-none')
+
+      const sesion = await obtenerSesion()
+      if (!sesion.data.session) {
+        errorEl.style.color = '#EF4444'
+        errorEl.textContent = '👇 Primero registrate con tu email y contraseña'
+        errorEl.classList.remove('d-none')
+        document.getElementById('registro-inline').scrollIntoView({ behavior: 'smooth', block: 'center' })
+        document.getElementById('registro-inline').style.borderColor = '#EF4444'
+        return
+      }
+
+      const titulo = document.getElementById('titulo').value.trim()
+      const categoriaId = document.getElementById('categoria').value
+      const precio = document.getElementById('precio').value
+      const telefono = document.getElementById('telefono').value.trim()
+      const descripcion = document.getElementById('descripcion').value.trim()
+
+      if (!titulo || !precio || !telefono) {
+        errorEl.style.color = '#EF4444'
+        errorEl.textContent = !telefono ? 'Completá tu teléfono de contacto' : 'Completá el título y el precio'
+        errorEl.classList.remove('d-none')
+        return
+      }
+
+      btn.disabled = true
+      btn.textContent = 'Publicando...'
+
+      try {
+        const anuncio = await publicarAnuncio({
+          titulo,
+          descripcion,
+          precio: parseFloat(precio),
+          telefono,
+          categoria_id: categoriaId || null
+        })
+
+        if (archivosSeleccionados.length > 0) {
+          const urls = await subirImagenes(archivosSeleccionados)
+          await guardarImagenesAnuncio(anuncio.id, urls)
+        }
+
+        window.location.href = 'index.html?publicado=1'
+      } catch (err) {
+        errorEl.style.color = '#EF4444'
+        errorEl.textContent = err.message
+        errorEl.classList.remove('d-none')
+        btn.disabled = false
+        btn.textContent = '✅ Publicar anuncio'
+      }
+    }
+
+    init()
+  </script>
+</body>
+</html>

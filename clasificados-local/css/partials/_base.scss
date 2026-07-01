@@ -1,0 +1,43 @@
+@use 'variables' as v;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: v.$font-family;
+  color: v.$text;
+  background: v.$bg;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: v.$primary;
+  text-decoration: none;
+  transition: color v.$transition;
+
+  &:hover {
+    color: v.$primary-dark;
+  }
+}
+
+::selection {
+  background: v.$primary-light;
+  color: v.$primary-dark;
+}
