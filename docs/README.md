@@ -69,9 +69,21 @@
 ## Flujo de publicación
 
 1. Usuario completa: título, precio, teléfono, foto (opcional), descripción (opcional)
-2. Si no está registrado → completa email + contraseña en la misma página
-3. Toca "Registrarse" (si es nuevo) o directamente "Publicar" (si ya está logueado)
-4. Se registra y publica en el mismo paso
+2. Si no está registrado → completa email + contraseña en PASO 1
+3. Toca "Registrarse" → se crea la cuenta y se envía email de confirmación
+4. Luego de confirmar email, puede ingresar desde `login.html` y publicar
+5. Si ya está logueado, publica directo
+
+## CSP (Content Security Policy)
+
+```
+default-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
+img-src 'self' https: data: blob:
+style-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com 'unsafe-inline'
+script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'
+font-src 'self' https://fonts.gstatic.com
+connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
+```
 
 ## Diseño
 
@@ -93,12 +105,15 @@
 - Storage RLS: solo autenticados pueden subir, validación de tipo MIME y tamaño
 - Longitud máxima en inputs del formulario de publicación
 - Validación de precio > 0 y título >= 3 caracteres
+- Registro inline: no intenta login inmediato, pide confirmar email
+- CSP: agregado fonts.googleapis.com a style-src, unsafe-inline a script-src, cdn.jsdelivr.net a connect-src
 
 ## Pendientes
 
-- [ ] Probar registro (confirmar usuario manual en Supabase o desactivar Confirm email)
-- [ ] Configurar SITE_URL y Redirect URLs en Supabase Auth para GitHub Pages
+- [ ] Probar registro completo (crear usuario, confirmar email, publicar)
+- [ ] SITE_URL y Redirect URLs en Supabase Auth ya configurados para GitHub Pages
 - [ ] (Opcional) Login con Google
+- [ ] (Opcional) Hostear en DonWeb
 
 ## Estructura de archivos
 
