@@ -1,10 +1,11 @@
 @use 'variables' as v;
 
 .header {
-  background: rgba(255,255,255,0.95);
+  background: rgba(248, 253, 250, 0.95);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid v.$border;
+  border-bottom: 2px solid rgba(5, 150, 105, 0.12);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   padding: 1rem 0;
   position: sticky;
   top: 0;
@@ -26,6 +27,7 @@
       height: 64px;
       width: auto;
       display: block;
+      mix-blend-mode: multiply;
     }
   }
 }
