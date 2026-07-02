@@ -107,10 +107,18 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - Validación de precio > 0 y título >= 3 caracteres
 - Registro inline: no intenta login inmediato, pide confirmar email
 - CSP: agregado fonts.googleapis.com a style-src, unsafe-inline a script-src, cdn.jsdelivr.net a connect-src
+- Menú de usuario con "Cerrar sesión" en index.html, anuncio.html y publicar.html
+- `.nojekyll` agregado para GitHub Pages
+
+## Issues conocidos
+
+- GitHub Pages falla con "Node.js 20 is deprecated" (error de GitHub, temporal)
+- Email de confirmación de Supabase no llega (SMTP compartido bloqueado por proveedores)
 
 ## Pendientes
 
 - [ ] Probar registro completo (crear usuario, confirmar email, publicar)
+- [ ] Configurar SMTP en Supabase con `contacto@gaboweb.com.ar` (DonWeb)
 - [ ] SITE_URL y Redirect URLs en Supabase Auth ya configurados para GitHub Pages
 - [ ] (Opcional) Login con Google
 - [ ] (Opcional) Hostear en DonWeb
@@ -119,6 +127,8 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ```
 barago/
+├── .nojekyll                 # Desactiva Jekyll en GitHub Pages
+├── README.md                 # Presentación pública del proyecto
 ├── index.html                # Home con listado de anuncios
 ├── login.html                # Login/Registro con email
 ├── publicar.html             # Publicar anuncio (registro inline)
