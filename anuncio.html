@@ -15,7 +15,16 @@
       <a href="index.html" class="logo"><img class="logo-icon" src="assets/img/barago.webp" alt="Barago"></a>
       <div class="d-flex align-items-center gap-2">
         <a href="publicar.html" class="btn btn-sm" style="background:#059669;border:none;border-radius:8px;font-weight:600;color:white;">+ Publicar</a>
-        <a href="login.html" class="btn btn-outline-dark btn-sm" style="border-radius:8px;font-weight:500;" id="detalle-auth-btn">Ingresar</a>
+        <div id="detalle-auth-buttons">
+          <a href="login.html" class="btn btn-outline-dark btn-sm" style="border-radius:8px;font-weight:500;">Ingresar</a>
+        </div>
+        <div id="detalle-user-menu" class="d-none" style="position:relative;">
+          <div class="avatar" id="detalle-user-avatar" title="Mi cuenta" onclick="toggleDetalleMenu()" style="cursor:pointer;">U</div>
+          <div id="detalle-user-dropdown" class="d-none" style="position:absolute;top:100%;right:0;margin-top:0.5rem;background:white;border:1px solid #E5E7EB;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.1);min-width:180px;z-index:200;padding:0.5rem;">
+            <div style="padding:0.5rem 0.75rem;font-size:0.85rem;color:#6B7280;border-bottom:1px solid #E5E7EB;" id="detalle-dropdown-email"></div>
+            <button onclick="cerrarSesion();toggleDetalleMenu()" style="width:100%;text-align:left;padding:0.5rem 0.75rem;border:none;background:none;font-size:0.9rem;color:#EF4444;cursor:pointer;border-radius:6px;">🚪 Cerrar sesión</button>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -127,6 +136,34 @@
         alert(err.message)
       }
     }
+
+    function toggleDetalleMenu() {
+      document.getElementById('detalle-user-dropdown').classList.toggle('d-none')
+    }
+
+    document.addEventListener('click', (e) => {
+      const dd = document.getElementById('detalle-user-dropdown')
+      if (!e.target.closest('#detalle-user-menu')) dd.classList.add('d-none')
+    })
+
+    escucharAuth((event, session) => {
+      const buttons = document.getElementById('detalle-auth-buttons')
+      const menu = document.getElementById('detalle-user-menu')
+      const avatar = document.getElementById('detalle-user-avatar')
+      const emailLabel = document.getElementById('detalle-dropdown-email')
+
+      if (session) {
+        buttons.classList.add('d-none')
+        menu.classList.remove('d-none')
+        const email = session.user.email
+        avatar.textContent = email.charAt(0).toUpperCase()
+        avatar.title = email
+        emailLabel.textContent = email
+      } else {
+        buttons.classList.remove('d-none')
+        menu.classList.add('d-none')
+      }
+    })
 
     cargarAnuncio()
   </script>

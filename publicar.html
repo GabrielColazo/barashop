@@ -12,7 +12,16 @@
   <header class="header">
     <div class="container header-inner">
       <a href="index.html" class="logo"><img class="logo-icon" src="assets/img/barago.webp" alt="Barago"></a>
-      <div id="user-indicator"></div>
+      <div class="d-flex align-items-center gap-2">
+        <div id="user-indicator"></div>
+        <div id="pub-user-menu" class="d-none" style="position:relative;">
+          <div class="avatar" id="pub-user-avatar" title="Mi cuenta" onclick="togglePubMenu()" style="cursor:pointer;">U</div>
+          <div id="pub-user-dropdown" class="d-none" style="position:absolute;top:100%;right:0;margin-top:0.5rem;background:white;border:1px solid #E5E7EB;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.1);min-width:180px;z-index:200;padding:0.5rem;">
+            <div style="padding:0.5rem 0.75rem;font-size:0.85rem;color:#6B7280;border-bottom:1px solid #E5E7EB;" id="pub-dropdown-email"></div>
+            <button onclick="cerrarSesion();togglePubMenu()" style="width:100%;text-align:left;padding:0.5rem 0.75rem;border:none;background:none;font-size:0.9rem;color:#EF4444;cursor:pointer;border-radius:6px;">🚪 Cerrar sesión</button>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -275,6 +284,31 @@
         btn.textContent = '✅ Publicar anuncio'
       }
     }
+
+    function togglePubMenu() {
+      document.getElementById('pub-user-dropdown').classList.toggle('d-none')
+    }
+
+    document.addEventListener('click', (e) => {
+      const dd = document.getElementById('pub-user-dropdown')
+      if (!e.target.closest('#pub-user-menu')) dd.classList.add('d-none')
+    })
+
+    escucharAuth((event, session) => {
+      const menu = document.getElementById('pub-user-menu')
+      const avatar = document.getElementById('pub-user-avatar')
+      const emailLabel = document.getElementById('pub-dropdown-email')
+
+      if (session) {
+        menu.classList.remove('d-none')
+        const email = session.user.email
+        avatar.textContent = email.charAt(0).toUpperCase()
+        avatar.title = email
+        emailLabel.textContent = email
+      } else {
+        menu.classList.add('d-none')
+      }
+    })
 
     init()
   </script>
