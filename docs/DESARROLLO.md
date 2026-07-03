@@ -10,8 +10,10 @@
 
 ## Supabase (gratis)
 
-- **URL:** https://mqyefceumiesjelorjbm.supabase.co
-- **Anon Key:** `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1xeWVmY2V1bWllc2plbG9yamJtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4NzA1NDYsImV4cCI6MjA5ODQ0NjU0Nn0._1pMQ9_zyoE7sD-EM8Uuu7CKpdAJX1QLlkLJQiCD2n0`
+> ⚠️ Las claves reales están en `js/supabase.js`. Acá van solo placeholders por seguridad.
+
+- **URL:** `YOUR_SUPABASE_URL`
+- **Anon Key:** `YOUR_SUPABASE_ANON_KEY`
 - **Storage bucket:** `imagenes` (público)
 
 ## Base de datos
