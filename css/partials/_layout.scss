@@ -76,12 +76,78 @@
   }
 }
 
+@keyframes borderGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .footer {
-  background: v.$surface;
-  border-top: 1px solid v.$border;
-  padding: 2rem 0;
+  background: #F0FDF4;
+  position: relative;
+  padding: 2.5rem 0 2rem;
   text-align: center;
-  color: v.$text-secondary;
+  color: #374151;
   font-size: v.$font-size-sm;
   margin-top: 4rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #059669, #34D399, #059669, #F59E0B, #059669);
+    background-size: 300% 100%;
+    animation: borderGlow 6s ease infinite;
+  }
+
+  > .container {
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .footer-brand {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #065F46;
+    margin-bottom: 0.25rem;
+  }
+
+  .footer-copy {
+    margin: 0.1rem 0;
+    font-size: 0.8rem;
+  }
+
+  a {
+    color: v.$primary;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.2s;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transition: transform 0.25s ease;
+    }
+
+    &:hover {
+      color: #047857;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+  }
 }
