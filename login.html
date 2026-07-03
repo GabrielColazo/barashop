@@ -72,7 +72,14 @@
       googleTokenClient = google.accounts.oauth2.initTokenClient({
         client_id: '973809022626-0k8o5hepl6v3o1pjunho87r1ki3107qd.apps.googleusercontent.com',
         scope: 'openid email profile',
-        callback: handleGoogleResponse
+        callback: (response) => {
+          if (response.error) {
+            document.getElementById('auth-error').textContent = 'Error al iniciar con Google'
+            document.getElementById('auth-error').classList.remove('d-none')
+            return
+          }
+          handleGoogleIdToken(response.id_token)
+        }
       })
     }
 
@@ -131,17 +138,11 @@
       }
     }
 
-    async function handleGoogleResponse(response) {
-      if (response.error) {
-        document.getElementById('auth-error').textContent = 'Error al iniciar con Google'
-        document.getElementById('auth-error').classList.remove('d-none')
-        return
-      }
-
+    async function handleGoogleIdToken(idToken) {
       try {
         const { data, error } = await sb.auth.signInWithIdToken({
           provider: 'google',
-          token: response.credential
+          token: idToken
         })
         if (error) throw error
         window.location.href = 'https://gabrielcolazo.github.io/barago/publicar.html'
