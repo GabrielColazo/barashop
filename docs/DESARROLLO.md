@@ -15,6 +15,10 @@
 - **URL:** `YOUR_SUPABASE_URL`
 - **Anon Key:** `YOUR_SUPABASE_ANON_KEY`
 - **Storage bucket:** `imagenes` (público)
+- **Auth providers:** Email/Contraseña, Google OAuth, Magic Link
+- **Google OAuth:** Client ID configurado en Google Cloud Console + Supabase Providers
+- **Magic Link:** `signInWithOtp` con `shouldCreateUser: true`, redirect a `publicar.html`
+- **Redirect URLs:** `https://gabrielcolazo.github.io/barago/**` (wildcard)
 
 ## Base de datos
 

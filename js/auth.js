@@ -1,3 +1,5 @@
+const AUTH_REDIRECT = 'https://gabrielcolazo.github.io/barago/publicar.html'
+
 async function registrar(email, password) {
   const { data, error } = await sb.auth.signUp({ email, password })
   if (error) throw error
@@ -6,6 +8,27 @@ async function registrar(email, password) {
 
 async function iniciarSesion(email, password) {
   const { data, error } = await sb.auth.signInWithPassword({ email, password })
+  if (error) throw error
+  return data
+}
+
+async function iniciarSesionGoogle() {
+  const { data, error } = await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: AUTH_REDIRECT }
+  })
+  if (error) throw error
+  return data
+}
+
+async function enviarMagicLink(email) {
+  const { data, error } = await sb.auth.signInWithOtp({
+    email,
+    options: {
+      shouldCreateUser: true,
+      redirectTo: AUTH_REDIRECT
+    }
+  })
   if (error) throw error
   return data
 }
