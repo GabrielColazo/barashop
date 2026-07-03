@@ -66,19 +66,16 @@
   <script src="https://accounts.google.com/gsi/client"></script>
   <script>
     let isLogin = true
-    let googleTokenClient = null
-
     function initGoogle() {
-      googleTokenClient = google.accounts.oauth2.initTokenClient({
+      google.accounts.id.initialize({
         client_id: '973809022626-0k8o5hepl6v3o1pjunho87r1ki3107qd.apps.googleusercontent.com',
-        scope: 'openid email profile',
         callback: (response) => {
           if (response.error) {
             document.getElementById('auth-error').textContent = 'Error al iniciar con Google'
             document.getElementById('auth-error').classList.remove('d-none')
             return
           }
-          handleGoogleIdToken(response.id_token)
+          handleGoogleIdToken(response.credential)
         }
       })
     }
@@ -133,9 +130,7 @@
     }
 
     function handleGoogle() {
-      if (googleTokenClient) {
-        googleTokenClient.requestAccessToken()
-      }
+      google.accounts.id.prompt()
     }
 
     async function handleGoogleIdToken(idToken) {
