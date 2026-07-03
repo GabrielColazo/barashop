@@ -116,6 +116,10 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - CSP: agregado fonts.googleapis.com a style-src, unsafe-inline a script-src, cdn.jsdelivr.net a connect-src
 - Menú de usuario con "Cerrar sesión" en index.html, anuncio.html y publicar.html
 - `.nojekyll` agregado para GitHub Pages
+- Google OAuth: Client ID y Secret configurados en Supabase (Google Cloud Console → credentials → Web App)
+- Magic Link: `signInWithOtp` con `shouldCreateUser: true`, redirect a `publicar.html`
+- Google OAuth callback URL: `https://{project}.supabase.co/auth/v1/callback`
+- Redirect URLs en Supabase: `https://gabrielcolazo.github.io/barago/**`
 
 ## Issues conocidos
 
