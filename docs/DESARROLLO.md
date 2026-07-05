@@ -128,24 +128,19 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 | Método | Función | Estado |
 |--------|---------|--------|
 | Email + contraseña | `iniciarSesion()` / `registrar()` | ✅ Funciona |
-| Google | Google One Tap (`google.accounts.id`) + `signInWithIdToken` | ✅ Funciona, muestra `gabrielcolazo.github.io` |
+| Google | OAuth redirect (`signInWithOAuth`) | ✅ Funciona, muestra `supabase.co` |
 | Magic Link | `enviarMagicLink()` → `signInWithOtp` | ⏳ Pendiente CNAME en DonWeb |
 
 ### Google — implementación
 
-- Se usa **Google Identity Services** (GIS) con One Tap (`google.accounts.id`)
-- Se genera un nonce URL-safe y se pasa tanto a Google como a Supabase
-- El popup/consent screen muestra `gabrielcolazo.github.io` (JavaScript origin)
-- No necesita redirect URI porque el flujo es todo client-side (popup + token exchange directo)
-- `auth-callback.html` no se usa (esqueleto para futuro si se necesita PKCE)
+- Se usa `sb.auth.signInWithOAuth({ provider: 'google' })` con redirect a `publicar.html`
+- Google muestra `supabase.co` en el consent screen (normal al usar OAuth externo)
+- Para mostrar dominio propio se necesita flujo PKCE manual (pendiente)
 
 ### Google Cloud Console — credenciales
 
-- **Client ID:** `YOUR_GOOGLE_CLIENT_ID`
-- **Client Secret:** `YOUR_GOOGLE_CLIENT_SECRET`
-- **Authorized JavaScript origins:** `https://gabrielcolazo.github.io`
-- **Authorized redirect URIs:** `https://mqyefceumiesjelorjbm.supabase.co/auth/v1/callback` (ya no se usa, pero Google la requiere)
-- CSP en `login.html` incluye `https://accounts.google.com` en default-src, script-src y connect-src
+- **Client ID / Secret:** en Google Cloud Console (no documentados por seguridad)
+- **Authorized redirect URIs:** `https://mqyefceumiesjelorjbm.supabase.co/auth/v1/callback`
 
 ## Diseño — cambios recientes
 
