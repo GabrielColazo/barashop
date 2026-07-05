@@ -1,3 +1,6 @@
+-- Este archivo refleja el estado actual de la base de datos en Supabase.
+-- Las migraciones históricas están en migraciones_aplicadas/ como referencia.
+
 -- Crear tabla de categorías
 CREATE TABLE categorias (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -77,3 +80,9 @@ INSERT INTO categorias (nombre, icono) VALUES
   ('Servicios', '🔧'),
   ('Empleos', '💼'),
   ('Otros', '📦');
+
+-- CHECK constraints de seguridad
+ALTER TABLE anuncios ADD CONSTRAINT anuncios_precio_check CHECK (precio >= 0);
+ALTER TABLE anuncios ADD CONSTRAINT anuncios_titulo_length CHECK (char_length(titulo) BETWEEN 3 AND 120);
+ALTER TABLE anuncios ADD CONSTRAINT anuncios_telefono_length CHECK (char_length(telefono) BETWEEN 6 AND 30);
+ALTER TABLE anuncios ADD CONSTRAINT anuncios_descripcion_length CHECK (char_length(descripcion) <= 2000);
