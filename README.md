@@ -1,8 +1,8 @@
-# Barago
+# BaraShop
 
 Clasificados locales para Baradero, Buenos Aires.
 
-**Sitio:** https://gabrielcolazo.github.io/barago/
+**Sitio:** https://gabrielcolazo.github.io/barashop/
 
 ### Stack
 

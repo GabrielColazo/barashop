@@ -1,4 +1,4 @@
-const AUTH_REDIRECT = 'https://gabrielcolazo.github.io/barago/auth-callback.html'
+const AUTH_REDIRECT = 'https://gabrielcolazo.github.io/barashop/auth-callback.html'
 
 async function registrar(email, password) {
   const { data, error } = await sb.auth.signUp({

@@ -1,12 +1,12 @@
-# Barago — Desarrollo técnico
+# BaraShop — Desarrollo técnico
 
 ## Stack
 
 - **Frontend:** HTML + CSS (Bootstrap 5 + Sass) + JavaScript vanilla
 - **Backend:** Supabase (Auth, PostgreSQL, Storage)
 - **Hosting:** GitHub Pages (estáticos) + Supabase cloud
-- **Repo:** https://github.com/GabrielColazo/barago
-- **URL:** https://gabrielcolazo.github.io/barago/
+- **Repo:** https://github.com/GabrielColazo/barashop
+- **URL:** https://gabrielcolazo.github.io/barashop/
 
 ## Supabase (gratis)
 
@@ -18,7 +18,7 @@
 - **Auth providers:** Email/Contraseña, Google OAuth, Magic Link
 - **Google OAuth:** Client ID configurado en Google Cloud Console + Supabase Providers
 - **Magic Link:** `signInWithOtp` con `shouldCreateUser: true`, redirect a `auth-callback.html`
-- **Redirect URLs:** `https://gabrielcolazo.github.io/barago/**` (wildcard)
+- **Redirect URLs:** `https://gabrielcolazo.github.io/barashop/**` (wildcard)
 
 ## Base de datos
 
@@ -99,8 +99,8 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Diseño
 
-- Logo: imagen `barago.webp` en header
-- Hero: gradiente verde clarito (#D1FAE5 → #FAFAFA), título "BaraGo" con "Go" en verde #059669
+- Logo: imagen `barashop.webp` en header
+- Hero: gradiente verde clarito (#D1FAE5 → #FAFAFA), título "BaraShop" con "Shop" en verde #059669
 - Header: fondo verde clarísimo (#F8FDFA), borde inferior verde tenue
 - Footer: fondo verde clarito (#F0FDF4), barra animada degradé en el borde superior (verde + ámbar), link a GaboWeb
 - Tipografía: Inter (Google Fonts)
@@ -125,10 +125,21 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - Google OAuth: Client ID y Secret configurados en Supabase (Google Cloud Console → credentials → Web App)
 - Magic Link: `signInWithOtp` con `shouldCreateUser: true`, redirect a `publicar.html`
 - Google OAuth callback URL: `https://{project}.supabase.co/auth/v1/callback`
-- Redirect URLs en Supabase: `https://gabrielcolazo.github.io/barago/**`
+- Redirect URLs en Supabase: `https://gabrielcolazo.github.io/barashop/**`
 - RLS: reemplazado `auth.role()` deprecado por `TO authenticated` + `WITH CHECK (usuario_id = auth.uid())` en políticas INSERT
 - Traducción de errores Supabase en `login.html`: "Invalid login credentials", "Email not confirmed", "User already registered" → mensajes claros en español
 - Skeleton loader: 6 cards animadas con pulse mientras cargan anuncios en index.html
+- **Rebranding Barago → BaraShop** (jul 2026): rename completo por conflicto con "BaraderoGo", un comercio local de Baradero cuyo nombre generaba riesgo de confusión con "Barago". Cambios realizados:
+  - Hero: `Bara<span class="hero-go">Go</span>` → `Bara<span class="hero-shop">Shop</span>` (misma lógica visual, "Shop" en verde #059669)
+  - Clase CSS `.hero-go` renombrada a `.hero-shop` en `main.css` y `_layout.scss`
+  - Logo: reemplazado `barago.webp` por `barashop.webp` en header de las 5 páginas HTML
+  - Titles de página y alt de logo actualizados en todos los HTML
+  - Footer: marca y copyright actualizados en todas las páginas
+  - `auth-callback.html`: título, "Bienvenido a BaraShop", fallback link `/barashop/publicar.html`
+  - `js/auth.js`: `AUTH_REDIRECT` actualizado a `https://gabrielcolazo.github.io/barashop/auth-callback.html`
+  - `README.md` y `docs/DESARROLLO.md`: todas las referencias, URLs y estructura de archivos actualizadas
+  - Repositorio GitHub renombrado de `barago` a `barashop`
+  - Redirect URLs en Supabase actualizadas a `https://gabrielcolazo.github.io/barashop/**`
 
 ## Auth
 
@@ -142,7 +153,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ### Auth redirect flow
 
-1. Todos los métodos de auth usan `AUTH_REDIRECT = 'https://gabrielcolazo.github.io/barago/auth-callback.html'`
+1. Todos los métodos de auth usan `AUTH_REDIRECT = 'https://gabrielcolazo.github.io/barashop/auth-callback.html'`
 2. `auth-callback.html` recibe el redirect de Supabase, parsea la URL buscando errores
 3. Si hay error (`error`, `error_description` en query string o hash) → lo muestra en pantalla sin redirigir
 4. Si no hay error → llama `getSession()`, si hay sesión redirige a `publicar.html`
@@ -181,7 +192,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 ## Estructura de archivos
 
 ```
-barago/
+barashop/
 ├── .nojekyll                 # Desactiva Jekyll en GitHub Pages
 ├── README.md                 # Presentación pública del proyecto
 ├── index.html                # Home con listado de anuncios
@@ -207,7 +218,7 @@ barago/
 │   └── anuncios.js           # CRUD anuncios + imágenes
 ├── assets/
 │   └── img/
-│       ├── barago.webp        # Logo
+│       ├── barashop.webp        # Logo
 │       └── no-image.svg
 ├── .gitignore
 └── docs/
