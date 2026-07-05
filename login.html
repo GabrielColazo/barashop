@@ -110,7 +110,15 @@
           successEl.classList.remove('d-none')
         }
       } catch (err) {
-        errorEl.textContent = err.message
+        let mensaje = err.message
+        if (isLogin && err.message === 'Invalid login credentials') {
+          mensaje = 'No encontramos una cuenta con ese email y contraseña. Si todavía no tenés cuenta, registrate abajo.'
+        } else if (err.message.includes('Email not confirmed')) {
+          mensaje = 'Todavía no confirmaste tu email. Revisá tu bandeja de entrada (y spam) y hacé click en el link de confirmación.'
+        } else if (err.message.includes('User already registered')) {
+          mensaje = 'Ya existe una cuenta con ese email. Probá ingresar en vez de registrarte.'
+        }
+        errorEl.textContent = mensaje
         errorEl.classList.remove('d-none')
       }
     }
