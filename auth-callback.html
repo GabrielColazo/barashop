@@ -52,20 +52,42 @@
   <script src="js/supabase.js"></script>
   <script>
     (async () => {
+      let redirigido = false
+
+      function redirect() {
+        if (redirigido) return
+        redirigido = true
+        clearTimeout(timeout)
+        window.location.href = 'publicar.html'
+      }
+
+      const params = new URLSearchParams(window.location.search)
+      const hashParams = new URLSearchParams(window.location.hash.replace('#', '?'))
+      const error = params.get('error') || hashParams.get('error')
+      const errorDesc = params.get('error_description') || hashParams.get('error_description')
+
+      if (error) {
+        document.querySelector('.spinner').style.display = 'none'
+        document.querySelector('h2').textContent = 'No pudimos iniciar sesión'
+        document.querySelector('p').textContent = errorDesc ? decodeURIComponent(errorDesc) : 'Ocurrió un error inesperado.'
+        document.querySelector('p').innerHTML += '<br><br><a href="login.html">Volver a intentar</a>'
+        return
+      }
+
+      const timeout = setTimeout(redirect, 8000)
+
       try {
         const { data: { session } } = await sb.auth.getSession()
         if (session) {
-          window.location.href = 'publicar.html'
-        } else {
-          sb.auth.onAuthStateChange((event) => {
-            if (event === 'SIGNED_IN') {
-              window.location.href = 'publicar.html'
-            }
-          })
+          redirect()
+          return
         }
-        setTimeout(() => { window.location.href = 'publicar.html' }, 3000)
+
+        sb.auth.onAuthStateChange((event) => {
+          if (event === 'SIGNED_IN') redirect()
+        })
       } catch {
-        window.location.href = 'publicar.html'
+        redirect()
       }
     })()
   </script>
