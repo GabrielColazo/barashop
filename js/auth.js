@@ -1,7 +1,11 @@
 const AUTH_REDIRECT = 'https://gabrielcolazo.github.io/barago/auth-callback.html'
 
 async function registrar(email, password) {
-  const { data, error } = await sb.auth.signUp({ email, password })
+  const { data, error } = await sb.auth.signUp({
+    email,
+    password,
+    options: { emailRedirectTo: AUTH_REDIRECT }
+  })
   if (error) throw error
   return data
 }
