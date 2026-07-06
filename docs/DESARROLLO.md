@@ -177,7 +177,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **login.html:** botón "Ingresar con Google" con ícono G estilizado, separador "o", link "Enviar link mágico"
 - **auth.js:** funciones `iniciarSesionGoogle()` (fallback OAuth), `enviarMagicLink()`, constante `AUTH_REDIRECT`
 - **Responsive design (mobile-first):** jul 2026
-  - Logo responsive: 64px mobile / 80px tablet / 120px desktop
+  - Logo responsive: 40px mobile / 48px tablet / 56px desktop
   - Hero: padding y títulos escalan con `min-width` (576px y 992px)
   - Grid de anuncios: `minmax(160px, 1fr)` mobile → `220px` tablet → `270px` desktop
   - Detalle anuncio: header en columna en mobile, fila en tablet+
@@ -185,6 +185,8 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
   - Gallery thumbs: 56px mobile / 64px tablet / 72px desktop
   - Auth card: padding 1.5rem mobile / 2.25rem desktop
   - Footer: padding y margin-top reducidos en mobile
+- **Logo:** reemplazado `barashop.webp` por nueva versión con fondo `#F8FDFA` (match con header)
+- **mix-blend-mode:** eliminado `multiply` del logo para evitar distorsión de color
 
 ## Issues conocidos
 
