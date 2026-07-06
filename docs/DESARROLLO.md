@@ -187,6 +187,13 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
   - Footer: padding y margin-top reducidos en mobile
 - **Logo:** reemplazado `barashop.webp` por nueva versión con fondo `#F8FDFA` (match con header)
 - **mix-blend-mode:** eliminado `multiply` del logo para evitar distorsión de color
+- **Sección "Mis Avisos":** jul 2026
+  - Nueva página `mis-avisos.html` que lista los anuncios del usuario autenticado
+  - Menú de usuario actualizado en todas las páginas con link a "Mis Avisos"
+  - Cada aviso tiene botones "Editar" y "Eliminar"
+  - `publicar.html` modificado para aceptar `?editar=id` y editar anuncios existentes
+  - Nuevas funciones en `anuncios.js`: `obtenerMisAnuncios()`, `actualizarAnuncio()`, `eliminarImagenesAnuncio()`
+  - Nuevos estilos: `.mis-aviso-card`, `.btn-sm-edit`, `.btn-sm-delete`
 
 ## Issues conocidos
 

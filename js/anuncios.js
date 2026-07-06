@@ -103,6 +103,36 @@ async function eliminarAnuncio(id) {
   if (error) throw error
 }
 
+async function obtenerMisAnuncios() {
+  const sesion = await obtenerSesion()
+  if (!sesion.data.session) throw new Error('Debes iniciar sesión')
+
+  let query = sb.from('anuncios')
+    .select('*, categorias(*)')
+    .eq('usuario_id', sesion.data.session.user.id)
+    .order('created_at', { ascending: false })
+
+  const { data, error } = await query
+  if (error) throw error
+
+  const anunciosConImagenes = await Promise.all(data.map(async (a) => {
+    const imagenes = await obtenerImagenesAnuncio(a.id)
+    return { ...a, imagenes }
+  }))
+
+  return anunciosConImagenes
+}
+
+async function actualizarAnuncio(id, data) {
+  const { error } = await sb.from('anuncios').update(data).eq('id', id)
+  if (error) throw error
+}
+
+async function eliminarImagenesAnuncio(anuncioId) {
+  const { error } = await sb.from('anuncio_imagenes').delete().eq('anuncio_id', anuncioId)
+  if (error) throw error
+}
+
 async function obtenerCategorias() {
   const { data, error } = await sb.from('categorias').select('*').order('nombre')
   if (error) throw error
