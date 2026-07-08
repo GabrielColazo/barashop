@@ -194,6 +194,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
   - `publicar.html` modificado para aceptar `?editar=id` y editar anuncios existentes
   - Nuevas funciones en `anuncios.js`: `obtenerMisAnuncios()`, `actualizarAnuncio()`, `eliminarImagenesAnuncio()`
   - Nuevos estilos: `.mis-aviso-card`, `.btn-sm-edit`, `.btn-sm-delete`
+- **Imagen detalle anuncio reducida:** 200px mobile / 260px tablet / 300px desktop
 
 ## Issues conocidos
 
