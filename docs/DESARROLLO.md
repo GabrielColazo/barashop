@@ -212,6 +212,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
   - Script Node.js `scripts/limpiar-vencidos/index.js` con service_role key
   - Workflow diario 11:00 UTC (08:00 ARG) + disparo manual
   - Borra anuncios con created_at < 7 días + sus imágenes del storage
+- **Grid desktop limitada a 240px por tarjeta:** `minmax(200px, 240px)` en desktop para que no se estiren las tarjetas
 
 ## Pendientes
 
