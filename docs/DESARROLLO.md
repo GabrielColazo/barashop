@@ -195,10 +195,23 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
   - Nuevas funciones en `anuncios.js`: `obtenerMisAnuncios()`, `actualizarAnuncio()`, `eliminarImagenesAnuncio()`
   - Nuevos estilos: `.mis-aviso-card`, `.btn-sm-edit`, `.btn-sm-delete`
 - **Imagen detalle anuncio reducida:** 200px mobile / 260px tablet / 300px desktop
-
-## Issues conocidos
-
-- Email de confirmación con SendGrid: requiere CNAME en DonWeb para evitar greylisting/spam
+- **Subir hasta 2 imágenes con compresión:** jul 2026
+  - Input file con `multiple`, máximo 2 fotos
+  - Compresión automática vía canvas (1600px máx, JPEG 0.8) si pesa >1MB
+  - Rechazo si tras compresión sigue >5MB
+  - Preview por imagen con botón × individual
+  - Modo edición respeta fotos existentes + nuevas ≤ 2
+- **Storage cleanup:** jul 2026
+  - Nueva función `eliminarArchivosStorage()` que borra archivos del bucket al eliminar anuncio o editar fotos
+  - Se integra en `eliminarAnuncio()` y `eliminarImagenesAnuncio()`
+- **Vigencia de anuncios (7 días):** jul 2026
+  - Badge "Vence en X días" en detalle del anuncio (anuncio.html)
+  - Indicador compacto "Xd" en cada tarjeta del listado (index.html)
+  - Color gris (>2 días), naranja (≤2 días) o gris apagado (vencido)
+- **Limpieza automática via GitHub Actions:** jul 2026
+  - Script Node.js `scripts/limpiar-vencidos/index.js` con service_role key
+  - Workflow diario 11:00 UTC (08:00 ARG) + disparo manual
+  - Borra anuncios con created_at < 7 días + sus imágenes del storage
 
 ## Pendientes
 
@@ -240,6 +253,14 @@ barashop/
 │       ├── barashop.webp        # Logo
 │       └── no-image.svg
 ├── .gitignore
+├── mis-avisos.html            # Listado de mis anuncios (editar/eliminar)
+├── .github/
+│   └── workflows/
+│       └── limpiar-vencidos.yml  # Daily cleanup de anuncios vencidos
+├── scripts/
+│   └── limpiar-vencidos/
+│       ├── index.js           # Script de limpieza (Node.js)
+│       └── package.json
 └── docs/
     └── README.md             # (este archivo)
 ```
