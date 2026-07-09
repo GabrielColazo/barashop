@@ -266,7 +266,8 @@
       }
 
       for (const file of files) {
-        if (archivosSeleccionados.length >= disponibles) {
+        const totalActual = existentes + archivosSeleccionados.length
+        if (totalActual >= MAX_IMAGENES) {
           alert(`Máximo ${MAX_IMAGENES} foto(s).`)
           break
         }
