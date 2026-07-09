@@ -106,6 +106,13 @@
             <span>📅 ${new Date(a.created_at).toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
             ${a.telefono ? `<span>📞 ${escapeHtml(a.telefono)}</span>` : ''}
           </div>
+          ${(() => {
+            const transcurridos = Math.floor((Date.now() - new Date(a.created_at)) / (1000*60*60*24))
+            const restantes = 7 - transcurridos
+            if (restantes > 2) return `<span style="display:inline-block;font-size:0.8rem;color:#6B7280;background:#F3F4F6;padding:0.2rem 0.6rem;border-radius:50px;font-weight:500;margin-top:0.5rem;">Vence en ${restantes} días</span>`
+            if (restantes > 0) return `<span style="display:inline-block;font-size:0.8rem;color:#EA580C;background:#FFF7ED;padding:0.2rem 0.6rem;border-radius:50px;font-weight:500;margin-top:0.5rem;">⚠️ Vence en ${restantes} día(s)</span>`
+            return `<span style="display:inline-block;font-size:0.8rem;color:#9CA3AF;background:#F3F4F6;padding:0.2rem 0.6rem;border-radius:50px;font-weight:500;margin-top:0.5rem;">Vencido</span>`
+          })()}
           ${a.descripcion ? `<div class="anuncio-descripcion">${escapeHtml(a.descripcion)}</div>` : ''}
           <div class="mt-4 d-flex gap-2 flex-wrap">
             <a href="index.html" class="btn-outline-custom">← Volver</a>
