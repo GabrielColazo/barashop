@@ -2,92 +2,62 @@
 
 ## Resumen de Modificaciones
 
-Este documento documenta las mejoras realizadas al Hero de la página principal de BaraShop, enfocándose en el diseño visual y la experiencia de usuario, manteniendo toda la funcionalidad existente.
+Este documento documenta el rediseño del Hero de BaraShop para una presentación mínima, elegante y centrada, eliminando completamente elementos de fondo y mejorando la jerarquía visual.
 
 ## Descripción del Proceso
-Se optimizaron múltiples aspectos del Hero para crear una presentación más atractiva y profesional:
+El Hero se rediseñó desde cero para crear una experiencia visual limpia y profesional, eliminando texturas innecesarias y simplificando las animaciones para un enfoque en los elementos principales.
 
-### 1. Mejora de la Estructura del Hero
-- **Efecto 3D:** Se añadió perspectiva `perspective: 1000px` y transformaciones `translateZ(0)` para profundidad visual
-- **Fondo Moderno:** Se eliminó completamente el patrón de textura tipo corcho y se reemplazó con un degradado de CSS limpio y profesional (#FEFEFE → #F7F5F2 → #F9F8F6)
-- **Simplificación de Animaciones:** Se eliminaron las animaciones de fondo complejas, resultando en rendimiento mejorado y una página centrada
+### 1. Eliminación Completa de Texturas
+- **Fondo Principal:** Se eliminó completamente el patrón de corcho y cualquier fondo SVG o textura
+- **Hero::before:** Ahora con `background: transparent` para máxima limpieza
+- **Objetivo:** Eliminar cualquier distracción visual del contenido principal
 
-### 2. Mejora del Panel Central (hero-board)
-- **Aumento de padding:** Ajustado de `2.5rem 1.5rem 3rem` a `3rem 2rem 3.5rem` para más espacio
-- **Borde de radio:** Aumentado de `24px` a `28px` para suavidad adicional
-- **Sombras:** Mejora en sombras exteriores e interiores para mayor profundidad
-- **Efecto hover:** Se añade elevación y aumento de sombra al hacer hover
-- **Decoración inferior:** Se añadió efecto de brillo para realce
+### 2. Rediseño del Tablero Principal (hero-board)
+- **Simplify Fondo:** Cambio de gradientes complejos a blanco sólido para claridad máxima
+- **Ajustes de Espaciado:** Aumentado de `3rem 2rem 3.5rem` a `4rem 3rem` para mejor breathing room
+- **Radios de Borde:** Reducidos de `28px` a `20px` para diseño más moderno y limpio
+- **Sombras Simplificadas:** Sombra de superficie única `0 8px 32px rgba(0, 0, 0, 0.04)`
+- **Efectos Hover:** Transición simple de `translateY(-8px)` con shadow ampliado
 
-### 3. Optimización de Animaciones
-- **Animaciones de tarjetas:** Se añadió efecto de flotación individual con retraso `calc(var(--card-delay) * 0.5s)`
-- **Efecto pin:** Se añadió brillo grupal de pins con retardo escalonado
-- **Estado de transición:** Se añadieron transiciones más suaves con cubic-bezier
+### 3. Eliminación de Animaciones Complejas
+- **Efectos de Pins:** Eliminado `pinFloat`, brillo y parpadeo - manteniendo solo hover sutil
+- **Tarjetas Flotantes:** Eliminada `cardFloat` y todas las animaciones por tiempo
+- **Tarjetas Hover:** Eliminada escala, corrimiento y shadow raised - efectos más sutiles
 
-### 4. Mejora de Objetos en Tarjetas (hero-object-cards)
-- **Efectos de hover mejorados:** Escala 1.12, corrimiento -10px, aumento de sombra
-- **Detalles de hover:** Se agregaron sombras más profundas y efecto `z-index: 20`
-- **Activar:** Comportamiento al presionar con escala y transiciones rápidas
-- **Tarjetas internas:** Nuevo degradado, borde de radio más grande, efecto interior con sombra
-
-### 5. Mejora de Interacción con Pins
-- **Tamaño de pin:** Aumentado de 22px a 24px
-- **Animación de brillo:** Se añadó grupo `pinGlow` con más brillo
-- **Efecto hover en pin:** Brillo dinámico, escala e intermitencia cuando tarjeta está en hover
-
-### 6. Mejoras del Contenido Central (hero-center)
-- **Posición z:** Aumentado de `z-index: 10` a `z-index: 15` sobre otros elementos
-- **Fondo:** Se añadió efecto `backdrop-filter: blur(4px)` y fondo semi-transparente
-- **Efecto hover:** Se añadió efecto de elevación y resaltado de borde
-- **Efecto título:** Se agrego línea decorativa subrayada que aparece en hover
-
-### 7. Optimización de la Barra de Búsqueda
-- **Posición de ícono:** Ajustado de `1.25rem` a `1.5rem` para mejor alineación
-- **Tamaño de fuente:** Aumentado de `1.05rem` a `1.1rem`
-- **Borde de radio:** Aumentado de `14px` a `18px` para suavidad
-- **Efecto de enfoque:** Corrimiento 3D `translateZ(5px)` en enfoque
-
-### 8. Mejora de Botones
-- **Botón primario:** Nuevo efecto gradient animado `background-size: 200% 200%`, sombra más profunda, efecto hover con escala
-- **Botón secundario:** Fondo más transparente con efecto blur, sombras mejoradas
-- **Posición de ícono:** Tamaño de fuente más grande en barra de búsqueda
-
-### 9. Mejoras de Credibilidad (hero-trust)
-- **Tamaño de fuente:** Ajustado de `0.8rem` a `0.85rem`
-- **Aumento de espacio:** Mayor separación entre elementos
-- **Efectos de elementos individuales:** Fondo con degradado, borde de radio, efecto hover con elevación
-
-### 10. Optimización de Formularios y Controles
-- **Fuentes:** Se mantenend nuevas fuentes importadas en index.html
-- **Header:** Se conservan estilos existentes del header principal
-- **Layout general:** Se mantiene estructura responsive actual
+### 4. Nuevos Estándares Tipográficos y de Contenido
+- **Tipografía Principal:** Fuentes Inter con jerarquía de peso y tamaño limpias
+- **Paleta de Colores:** Preservada escala enimi (primary: #059669, secondary: #047857)
+- **Sistema de Espaciado:**Implementado espaciado consistente basado en espaciado predeterminado
 
 ## Arquitectura Técnica
 
 ### Aspectos Principales
-- **Mantenimiento de estilo en línea:** Se mantiene, se prefiere refactorización en CSS en caso de necessità
-- **Versión SCSS:** Se mantienen lib/en el directorio `partials/`, mantenemos archivos CSS actuales
-- **Paso build:** No se requieren cambios adicionales, archivos CSS se compilan directamente
+- **CSS Moderno:** Archivos separados mantenidos como estilos en línea, sin refactorización innecesaria
+- **Pipeline de Build:**Proceso directo - mantenimiento mínimo de archivos CSS
+- **Control de Versiones:** Todas las animaciones complejas eliminadas, sin librerías innecesarias
 
-### Consideraciones Móviles
-- Todas las modificaciones incluyen ajustes para dispositivos móviles
-- Se mantienen reglas existentes en mobile-first media queries (`max-width: 767px`)
-- Los cambios son progresivos y no rompen diseños existentes
+### Optimización Móvil
+- **Diseño Mobile-First:** Establecido base limpia y móvil
+- **Progressive Enhancement:** Actualizaciones enfocadas en responsividad manteniendo simplicidad
 
-## Mantención y Escalabilidad
+## Líneas de Base e inspiración
 
-### Líneas de Base
-- Mantener separación adecuada entre elementos para limpieza visual
-- Preservar jerarquía de colores emini (primary: #059669, secondary: #047857)
-- Seguir patrones de nombramiento de clases existentes (`hero-*`, `btn-hero-*`)
+### Lineamientos de Diseño
+- **Jerarquía:** Eliminado capas visuales innecesarias, enfocación en contenido
+- **Espacios en Blanco:** Maximizado espacios en blanco con fondos simples
+- **Profesionalismo:** Estilo minimalista corporativo actualizado
 
-### Oportunidades de Mejora Futura
-- Las animaciones nuevas se pueden desacelerar para dispositivos de baja capacidad
-- Se pueden agregar control de opacidad para movimiento reducido
-- Se podría implementar scroll animado para tarjetas con trayectoria automáticamente calculada
+### Mejoras Futuras Consideradas
+- **Control de Animaciones:** Posibilidad de agregar alternativas sin movimiento
+- **Interacción con Buscador:** Opciones de enfoque mejoradas con enfoque limpio
+- **Optimización de Contenido:** Uso racional espacio asignado a imágenes y elementos decorativos
 
 ## Resumen de Resultados
 
-El Hero mejora significativamente la percepción visual actual con mayor profundidad, animaciones más fluidas y efectos hover mejorados, en tanto mantiene todas las funcionalidades existentes intactas.
+El Hero moderno elimina completamente elementos de fondo innecesarios, estableciendo baseline visual profesional y moderno con impacto visual equilibrado:
 
-Todas las modificaciones están documentadas y pueden ser fácilmente revertidas. El diseño ahora está preparado para futuras mejoras de forma modular.
+- **Máxima limpieza visual:** Fondo completamente transparente
+- **Jerarquía centrada:** Título, subtítulo, buscador y botones como elementos principales
+- **Variedad tipográfica:** Equilibrio entre simplicidad y atractividad visual
+- **Performance mejorada:** Eliminación de todas las animaciones complejas
+- **Adopción universal:** Establecimiento de baseline limpio y minimalista

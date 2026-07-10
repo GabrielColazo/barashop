@@ -136,13 +136,12 @@ a:hover {
   perspective: 1000px;
 }
 
-/* Fondo limpio y moderno - reemplazado el patrón de corcho */
+/* Fondo sutil -Gradiente muy sutil para base limpia y moderna */
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: 
-    linear-gradient(135deg, #FEFEFE 0%, #F7F5F2 50%, #F9F8F6 100%);
+  background: linear-gradient(135deg, rgba(249, 250, 251, 0.5) 0%, rgba(243, 244, 246, 0.8) 100%);
   z-index: 0;
 }
 
@@ -151,40 +150,19 @@ a:hover {
   z-index: 1;
   max-width: 900px;
   margin: 0 auto;
-  padding: 3rem 2rem 3.5rem;
-  background: 
-    linear-gradient(135deg, #F3F0E8 0%, #EDE8E0 20%, #F3F0E8 40%, #EDE8E0 60%, #F3F0E8 80%, #EDE8E0 100%);
-  border-radius: 28px;
-  box-shadow: 
-    0 0 0 1.5px rgba(140, 115, 85, 0.18),
-    0 6px 32px rgba(80, 65, 45, 0.15),
-    0 16px 60px rgba(60, 50, 35, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    inset 0 -2px 4px rgba(120, 100, 75, 0.1);
-  border: 1.5px solid rgba(160, 135, 105, 0.25);
+  padding: 4rem 3rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+  border: 1px solid #E5E7EB;
   overflow: hidden;
   transform: translateZ(0);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hero-board:hover {
-  transform: translateY(-5px) translateZ(0);
-  box-shadow: 
-    0 0 0 1.5px rgba(140, 115, 85, 0.2),
-    0 10px 40px rgba(80, 65, 45, 0.18),
-    0 20px 70px rgba(60, 50, 35, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    inset 0 -2px 4px rgba(120, 100, 75, 0.1);
-}
-
-/* Textura de corcho sutil mejorada en el tablero */
-.hero-board::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 2;
+  transform: translateY(-8px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.08);
 }
 
 
@@ -217,24 +195,7 @@ a:hover {
 .hero-board-pin--bl { bottom: 0; left: 0; transform: translate(-50%, 50%) rotate(18deg); --pin-delay: 2; }
 .hero-board-pin--br { bottom: 0; right: 0; transform: translate(50%, 50%) rotate(-18deg); --pin-delay: 3; }
 
-@keyframes pinFloat {
-  0%, 100% { transform: translate(-50%, -50%) rotate(var(--rotation)) translateY(0); }
-  50% { transform: translate(-50%, -50%) rotate(var(--rotation)) translateY(-6px); }
-}
-
-.hero-board-pin .pin-svg circle {
-  transition: all 0.3s ease;
-}
-
-.hero-board-pin:hover .pin-svg circle {
-  filter: brightness(1.05) drop-shadow(0 4px 8px rgba(234, 88, 12, 0.2));
-}
-
-.hero-board-pin:hover .pin-svg ellipse {
-  opacity: 0.9;
-}
-
-/* Contenedor de tarjetas de objetos mejorado */
+/* Contenedor de tarjetas de objetos - simplificado para diseño minimalista */
 .hero-object-cards {
   position: absolute;
   inset: 0;
@@ -249,25 +210,18 @@ a:hover {
   transform: rotate(var(--rotation)) translateX(-50%) translateY(-50%);
   pointer-events: auto;
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  z-index: 4;
-  animation: cardFloat calc(3s + var(--card-delay) * 0.5s) ease-in-out infinite;
-  animation-delay: calc(var(--card-delay) * 0.5s);
-}
-
-@keyframes cardFloat {
-  0%, 100% { transform: rotate(var(--rotation)) translateX(-50%) translateY(-50%) translateY(0); }
-  50% { transform: rotate(var(--rotation)) translateX(-50%) translateY(-50%) translateY(-5px); }
+z-index: 4;
 }
 
 .hero-object-card:hover {
-  transform: rotate(0deg) translateX(-50%) translateY(-50%) scale(1.12) translateY(-10px);
-  filter: drop-shadow(0 12px 30px rgba(90, 60, 35, 0.3));
-  z-index: 20;
+  transform: none;
+  box-shadow: none;
+  z-index: inherit;
 }
 
 .hero-object-card:active {
-  transform: rotate(0deg) translateX(-50%) translateY(-50%) scale(1.05) translateY(-5px);
-  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: none;
+  transition: none;
 }
 
 .hero-object-pin {
