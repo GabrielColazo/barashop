@@ -103,14 +103,36 @@
   background: v.$surface;
   border-radius: v.$radius-sm;
   overflow: hidden;
-  box-shadow: v.$shadow;
+  box-shadow: 3px 4px 8px rgba(0,0,0,0.12);
   transition: transform v.$transition, box-shadow v.$transition;
   cursor: pointer;
   position: relative;
+  transform-origin: top center;
+
+  /* Clavito (pin) */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #FDBA74, #EA580C);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.3);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  &:nth-child(4n+1) { transform: rotate(-1.5deg); }
+  &:nth-child(4n+2) { transform: rotate(1deg); }
+  &:nth-child(4n+3) { transform: rotate(-0.8deg); }
+  &:nth-child(4n) { transform: rotate(1.8deg); }
 
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    transform: translateY(-6px) rotate(0deg);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.15);
   }
 
   .card-img-wrap {
