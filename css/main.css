@@ -63,24 +63,39 @@ a:hover {
   justify-content: space-between;
   gap: 0.5rem;
 }
-.header .logo {
-  display: flex;
-  align-items: center;
+.header .logo-text {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
   text-decoration: none;
+  line-height: 1;
+  padding-bottom: 6px;
 }
-.header .logo img.logo-icon {
-  height: 36px;
-  width: auto;
-  display: block;
+.header .logo-text .logo-verde { color: #059669; }
+.header .logo-text .logo-oscuro { color: #047857; }
+.header .logo-text .logo-lupa {
+  width: 0.8em;
+  height: 0.8em;
+  margin: 0 1px;
+  transform: translateY(15%);
 }
-@media (min-width: 576px) {
-  .header .logo img.logo-icon {
-    height: 42px;
-  }
+.header .logo-text::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 6px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='175' height='16' viewBox='0 0 175 16'%3E%3Cpath d='M2 9 Q 15 2, 28 9 T 54 9 T 80 9 T 106 9 T 132 9 T 158 9' stroke='%2338BDF8' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
-@media (min-width: 992px) {
-  .header .logo img.logo-icon {
-    height: 48px;
+@media (max-width: 575px) {
+  .header .logo-text {
+    font-size: 1.2rem;
   }
 }
 .header .btn-publicar {
