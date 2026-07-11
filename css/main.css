@@ -130,10 +130,14 @@ a:hover {
 /* ===== HERO - TABLÓN DE ANUNCIOS === */
 .hero {
   position: relative;
-  padding: 0;
+  padding: 2.5rem 0 2rem;
   overflow: hidden;
   margin-top: 0;
-  perspective: 1000px;
+}
+@media (max-width: 575px) {
+  .hero {
+    padding: 1.75rem 0 1.5rem;
+  }
 }
 
 /* Fondo sutil -Gradiente muy sutil para base limpia y moderna */
