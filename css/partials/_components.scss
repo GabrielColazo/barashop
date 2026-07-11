@@ -135,6 +135,13 @@
     box-shadow: 0 10px 24px rgba(0,0,0,0.15);
   }
 
+  &:focus-visible {
+    outline: 2px solid v.$primary;
+    outline-offset: 2px;
+    transform: translateY(-6px) rotate(0deg);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+  }
+
 .card-img-wrap {
       position: relative;
       overflow: hidden;
@@ -194,10 +201,25 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
 
       .card-fecha {
         font-size: 0.65rem;
         color: v.$text-secondary;
+      }
+
+      .card-ubicacion {
+        font-size: 0.65rem;
+        color: v.$text-secondary;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+
+        &::before {
+          content: '📍';
+          font-size: 0.6rem;
+        }
       }
     }
   }
