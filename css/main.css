@@ -432,8 +432,34 @@ a:hover {
 .card-anuncio:hover .card-img {
   transform: scale(1.05);
 }
+.card-precio-tag {
+  position: absolute;
+  bottom: -12px;
+  left: -8px;
+  background: #EA580C;
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.7rem 0.3rem 1rem;
+  border-radius: 3px 10px 10px 3px;
+  transform: rotate(-4deg);
+  box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.3);
+  z-index: 3;
+  white-space: nowrap;
+}
+.card-precio-tag::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  background: #FFF7ED;
+  border-radius: 50%;
+}
 .card-anuncio .card-body {
-  padding: 0.5rem 0.65rem 0.65rem;
+  padding: 1rem 0.65rem 0.65rem;
 }
 .card-anuncio .card-body .card-titulo {
   font-weight: 600;
@@ -444,13 +470,6 @@ a:hover {
   -webkit-box-orient: vertical;
   overflow: hidden;
   line-height: 1.3;
-}
-.card-anuncio .card-body .card-precio {
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: #111827;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.1rem;
 }
 .card-anuncio .card-body .card-meta {
   display: flex;

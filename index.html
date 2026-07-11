@@ -148,9 +148,9 @@
             ${badge}
             ${catPill}
           </div>
+          <div class="card-precio-tag">$${Number(a.precio).toLocaleString('es-AR')}</div>
           <div class="card-body">
             <div class="card-titulo">${escapeHtml(a.titulo)}</div>
-            <div class="card-precio">$${Number(a.precio).toLocaleString('es-AR')}</div>
             <div class="card-meta">
               <span class="card-fecha">${new Date(a.created_at).toLocaleDateString('es-AR')} ${(() => {
                 const t = Math.floor((Date.now() - new Date(a.created_at)) / (1000*60*60*24))

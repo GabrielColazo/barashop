@@ -96,9 +96,9 @@
               <img class="card-img" src="${imgUrl}" alt="${escapeHtml(a.titulo)}" loading="lazy">
               <span class="badge-categoria">${icono} ${nombreCategoria}</span>
             </div>
+            <div class="card-precio-tag">$${Number(a.precio).toLocaleString('es-AR')}</div>
             <div class="card-body">
               <div class="card-titulo">${escapeHtml(a.titulo)}</div>
-              <div class="card-precio">$${Number(a.precio).toLocaleString('es-AR')}</div>
               <div class="card-meta">
                 <span class="card-fecha">${fecha}</span>
               </div>
