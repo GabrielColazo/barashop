@@ -93,39 +93,19 @@
 
 .hero {
   text-align: center;
-  padding: 1.5rem 1rem 1.75rem;
-  background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 50%, #FAFAFA 100%);
-  position: relative;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    background:
-      linear-gradient(135deg, rgba(5, 150, 105, 0.9), rgba(4, 120, 87, 0.9), rgba(6, 95, 70, 0.88)),
-      url('../../assets/img/fondo-hero.webp');
-    background-size: cover, cover;
-    background-position: center, center;
-
-    @media (max-width: 575px) {
-      background-position: center, center 30%;
-    }
-  }
-
-  > * {
-    position: relative;
-    z-index: 1;
-  }
+  padding: 4rem 0 1.5rem;
+  background: linear-gradient(135deg, rgba(209, 250, 229, 0.4) 0%, rgba(167, 243, 208, 0.6) 50%, rgba(250, 250, 250, 0.7) 100%);
 
   .hero-subtitle {
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 600;
     color: #065F46;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 
     @media (min-width: 576px) {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
     }
 
     .palabra-destacada {
@@ -136,44 +116,53 @@
 
   .hero-search {
     position: relative;
-    max-width: 520px;
-    margin: 0 auto;
+    max-width: 440px;
+    margin: 0 auto 1.5rem;
 
     .hero-search-icon {
       position: absolute;
-      left: 1rem;
+      left: 1.25rem;
       top: 50%;
       transform: translateY(-50%);
       color: #9CA3AF;
-      font-size: 1rem;
+      font-size: 1.1rem;
       pointer-events: none;
+      transition: all v.$transition;
     }
 
     input {
       width: 100%;
-      padding: 0.75rem 1rem 0.75rem 2.75rem;
-      font-size: 0.95rem;
-      border: none;
-      border-radius: 50px;
+      padding: 1.25rem 1.75rem 1.25rem 3.75rem;
+      font-size: 1.05rem;
+      font-weight: 500;
+      border: 2px solid transparent;
+      border-radius: 16px;
       background: white;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       color: v.$text;
       font-family: v.$font-family;
-      transition: box-shadow v.$transition;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: all v.$transition;
 
       &:focus {
         outline: none;
-        box-shadow: 0 4px 16px rgba(5, 150, 105, 0.2);
+        border-color: v.$primary;
+        box-shadow: 0 8px 25px rgba(5, 150, 105, 0.15);
+      }
+
+      &:focus + .hero-search-icon {
+        color: v.$primary;
+        transform: translateY(-50%) scale(1.1);
       }
 
       &::placeholder {
         color: #9CA3AF;
+        font-weight: 400;
       }
     }
   }
 
   @media (min-width: 576px) {
-    padding: 2rem 1rem;
+    padding: 5rem 0 2rem;
   }
 }
 
