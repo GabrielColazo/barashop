@@ -102,8 +102,8 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - Logo: imagen `barashop.webp` en header
 - Header: fondo blanco semitransparente (rgba 255,255,255,0.97), backdrop-filter blur, borde inferior gris suave, shadow sutil. Botón "Publicar" con clase `.btn-publicar` (verde, compacto, SVG plus). Dropdown de usuario animado (fadeDown).
 - Hero: compacto (padding 1.5rem), fondo gradiente verde (#D1FAE5 → #A7F3D0 → #FAFAFA), título chico 1.15rem, barra de búsqueda redonda con lupa SVG integrada (`.hero-search`). Foto de fondo `imagenbaradero.webp` vía pseudo-elemento `::before` con overlay gradiente semitransparente (opacidad 0.75–0.85), fallback al gradiente si no carga la imagen. Mobile: background-position center 30%.
-- Categorías: chips horizontales con scroll-snap (`.categorias-scroll`), outline white, active verde sólido. Sin scrollbar visible.
-- Cards (`.card-anuncio`): 1:1 aspect ratio, imagen cover, pill de categoría overlay semi-transparente, precio dominante 1.1rem en #111827, meta compacta. Hover: translateY(-3px) + shadow.
+- Categorías: chips con `flex-wrap` (`.categorias-scroll`), outline white, active verde sólido. Todas visibles de una, sin scroll horizontal.
+- Cards (`.card-anuncio`): 1:1 aspect ratio, imagen cover, pill de categoría overlay posicionado arriba-izquierda (`.card-img-wrap .badge-categoria`), precio como tag naranja (#EA580C) superpuesto abajo-izquierda (`.card-precio-tag`), meta compacta. Hover: translateY(-6px) + shadow. Clavito decorativo arriba-centro. Overflow visible para tag y clavito.
 - Grid (`.grid-anuncios`): minmax(150px, 1fr) mobile → 180px tablet → 180–210px desktop, gaps justos.
 - Skeleton (`.card-skeleton`): 1:1 ratio, pulse animation.
 - Mis avisos: misma card-anuncio/grid-anuncios que index, con barra de acciones extra abajo (`.card-acciones-mis-avisos`).
@@ -230,6 +230,18 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **Unificación mis-avisos.html (jul 2026):** reemplazado `mis-aviso-card` por el mismo componente `card-anuncio`/`grid-anuncios` que index.html. Barra de acciones extra (`.card-acciones-mis-avisos`) con botones Editar/Eliminar. Eliminadas reglas CSS viejas `.mis-aviso-card`.
 - **Fix (jul 2026):** badge "Todas" en categorías no tenía onclick asignado — corregido.
 - **Fix (jul 2026):** Inconsistencia entre `.badge-categoria` y `.card-categoria` — los estilos base (cursor: pointer, hover, active) faltaban en el SCSS source; solo existían en CSS compilado. Unificada toda la UI a `.badge-categoria` según especificación DESARROLLO.md:105 (outline white, active verde sólido). Eliminado código muerto `.card-categoria`. Renombrado `.card-categoria-pill` → `.badge-categoria-pill` en card-img-wrap para consistencia.
+- **CSS cleanup (jul 2026):** 682 líneas eliminadas de `main.css` — clases hero muertas (`hero-board`, `hero-object-*`, `hero-center`, `hero-title`, `hero-subtitle`, `hero-search`, `hero-actions`, `hero-trust`, `hero-pin`, `btn-hero-primary/secondary`), `.sello-artesanal` duplicado, `@keyframes` duplicados.
+- **Accessibility (jul 2026):** `role="button"`, `tabindex="0"`, `onkeydown` Enter/Space, `:focus-visible` en `.card-anuncio`. CLS fix con `width="400" height="400"` en `<img>`.
+- **Conditional location (jul 2026):** `.card-ubicacion` renderiza solo cuando `a.ubicacion` existe (sin placeholder).
+- **Hero subtitle & search restore (jul 2026):** Reglas `.hero-subtitle`, `.hero-search`, `.hero-search-icon`, `.hero-search input` restauradas en `main.css` tras limpieza accidental.
+- **Categories scroll padding (jul 2026):** `padding-right: 40px` agregado a `.categorias-scroll` para que la última categoría no quede tapada por el fade `::after`.
+- **Phone validation (jul 2026):** Input teléfono con `autocomplete="off"`, `inputmode="tel"`, `pattern="[0-9+\-\s()]{6,30}"`. Validación extra que detecta `@` en el campo y bloquea publicación con mensaje específico.
+- **Categories flex-wrap (jul 2026):** Reemplazado scroll horizontal por `flex-wrap` — todas las categorías visibles de una, sin flechas ni fade. Eliminados `.categorias-wrapper`, `.cat-arrow` y reglas de scroll-snap.
+- **Hero padding (jul 2026):** Restaurado `padding: 2.5rem 0 2rem` (mobile: `1.75rem 0 1.5rem`), eliminado `perspective: 1000px` no utilizado.
+- **Price tag overlay (jul 2026):** Precio movido de `.card-body` a `.card-precio-tag` — etiqueta naranja (#EA580C) position:absolute sobre la esquina inferior-izquierda de la imagen, con `::before` decorativo, rotación -4deg, sombra. Padding de `.card-body` ajustado para compensar.
+- **Card overflow fix (jul 2026):** Eliminado `overflow: hidden` de `.card-anuncio` para que el clavito `::before` y `.card-precio-tag` se vean completos. Border-radius movido a `.card-img-wrap` (arriba) y `.card-body` (abajo).
+- **Card-img-wrap overflow fix (jul 2026):** Eliminado `overflow: hidden` de `.card-img-wrap` para que `.card-precio-tag` no se corte. Border-radius aplicado directamente a `.card-img`.
+- **Category pill positioning (jul 2026):** Nueva regla `.card-img-wrap .badge-categoria` con `position: absolute; top: 8px; left: 8px` — pill de categoría posicionado sobre la imagen, sin afectar chips de filtro.
 
 ## Pendientes
 
@@ -241,7 +253,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Estado actual (jul 2026)
 
-- Último commit: `74ed289` — Fix inconsistencia badge-categoria: estilos base faltaban en SCSS source
+- Último commit: `84b4a01` — Posicionamiento absoluto del pill de categoría dentro de card-img-wrap
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://gabrielcolazo.github.io/barashop/`
 
