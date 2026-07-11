@@ -188,6 +188,50 @@ a:hover {
   to { opacity: 1; transform: translateY(0); }
 }
 
+.hero-subtitle {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #065F46;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-search {
+  position: relative;
+  z-index: 1;
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border-radius: 50px;
+  padding: 0.15rem 0.5rem 0.15rem 1.2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.hero-search-icon {
+  display: flex;
+  align-items: center;
+  color: #9CA3AF;
+  margin-right: 0.6rem;
+}
+
+.hero-search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0.85rem 0.5rem;
+  font-size: 1rem;
+  background: transparent;
+  color: #111827;
+}
+
+.hero-search input::placeholder {
+  color: #9CA3AF;
+}
+
 /* ===== FOOTER ===== */
 .footer {
   background: #065F46;
