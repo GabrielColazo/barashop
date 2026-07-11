@@ -140,7 +140,7 @@
         const imgUrl = a.imagenes?.[0]?.url || 'assets/img/no-image.svg'
         const badge = a.imagenes?.length > 1 ? `<span class="gallery-badge">+${a.imagenes.length - 1}</span>` : ''
         const catPill = `<span class="badge-categoria">${escapeHtml(a.categorias?.icono || '📦')} ${escapeHtml(a.categorias?.nombre || '')}</span>`
-        const ubicacion = a.ubicacion ? escapeHtml(a.ubicacion) : 'Ubicación no especificada'
+        const ubicacion = a.ubicacion ? `<span class="card-ubicacion">${escapeHtml(a.ubicacion)}</span>` : ''
         return `
         <div class="card-anuncio" role="button" tabindex="0" onclick="verAnuncio('${a.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();verAnuncio('${a.id}')}">
           <div class="card-img-wrap">
@@ -159,7 +159,7 @@
                 if (r > 0) return `⚠️ ${r}d`
                 return `Vencido`
               })()}</span>
-              <span class="card-ubicacion">${ubicacion}</span>
+              ${ubicacion}
             </div>
           </div>
         </div>`
