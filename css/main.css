@@ -374,7 +374,6 @@ a:hover {
 .card-anuncio {
   background: #FFFFFF;
   border-radius: 8px;
-  overflow: hidden;
   box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.12);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   cursor: pointer;
@@ -408,6 +407,7 @@ a:hover {
   overflow: hidden;
   aspect-ratio: 1/1;
   background: #E5E7EB;
+  border-radius: 8px 8px 0 0;
 }
 .card-anuncio .card-img-wrap .card-img {
   width: 100%;
@@ -460,6 +460,8 @@ a:hover {
 }
 .card-anuncio .card-body {
   padding: 1rem 0.65rem 0.65rem;
+  background: #FFFFFF;
+  border-radius: 0 0 8px 8px;
 }
 .card-anuncio .card-body .card-titulo {
   font-weight: 600;
