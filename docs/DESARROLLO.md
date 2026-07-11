@@ -242,6 +242,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **Card overflow fix (jul 2026):** Eliminado `overflow: hidden` de `.card-anuncio` para que el clavito `::before` y `.card-precio-tag` se vean completos. Border-radius movido a `.card-img-wrap` (arriba) y `.card-body` (abajo).
 - **Card-img-wrap overflow fix (jul 2026):** Eliminado `overflow: hidden` de `.card-img-wrap` para que `.card-precio-tag` no se corte. Border-radius aplicado directamente a `.card-img`.
 - **Category pill positioning (jul 2026):** Nueva regla `.card-img-wrap .badge-categoria` con `position: absolute; top: 8px; left: 8px` — pill de categoría posicionado sobre la imagen, sin afectar chips de filtro.
+- **Publicar.html redesign (jul 2026):** Formulario envuelto en `.hoja-publicar` con estilo de "hoja" tipo planilla: fondo blanco, border-radius 10px, box-shadow suave, clip metálico simulado vía `::before` (gradiente gris, centrado arriba). Subtítulo `.pub-subtitle` cálido debajo del heading ("Gratis, sin comisión, directo a tu vecino."). Fondo #FAFAFA del body resalta la hoja blanca.
 
 ## Pendientes
 
@@ -253,7 +254,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Estado actual (jul 2026)
 
-- Último commit: `84b4a01` — Posicionamiento absoluto del pill de categoría dentro de card-img-wrap
+- Último commit: `44c8d67` — Publicar.html redesign: hoja publicar con clip metálico y subtítulo cálido
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://gabrielcolazo.github.io/barashop/`
 
