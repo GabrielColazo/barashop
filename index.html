@@ -86,13 +86,13 @@
       const container = document.getElementById('categorias-container')
       const select = document.getElementById('categoria-select')
 
-      container.innerHTML = '<span class="badge-categoria active" data-id="">Todas</span>'
-      container.querySelector('.badge-categoria[data-id=""]').onclick = function() { filtrarPorCategoria(null, this) }
+      container.innerHTML = '<span class="card-categoria active" data-id=\"\">Todas</span>'
+      container.querySelector('.card-categoria[data-id=""]').onclick = function() { filtrarPorCategoria(null, this) }
       select.innerHTML = '<option value="">Todas las categorías</option>'
 
       categorias.forEach(cat => {
         const badge = document.createElement('span')
-        badge.className = 'badge-categoria'
+        badge.className = 'card-categoria'
         badge.dataset.id = cat.id
         badge.textContent = `${cat.icono} ${cat.nombre}`
         badge.onclick = () => filtrarPorCategoria(cat.id, badge)
@@ -107,9 +107,9 @@
 
     function filtrarPorCategoria(id, el) {
       categoriaActiva = id
-      document.querySelectorAll('.badge-categoria').forEach(b => b.classList.remove('active'))
+      document.querySelectorAll('.card-categoria').forEach(b => b.classList.remove('active'))
       if (el) el.classList.add('active')
-      else document.querySelector('.badge-categoria[data-id=""]')?.classList.add('active')
+      else document.querySelector('.card-categoria[data-id=""]')?.classList.add('active')
       cargarAnuncios()
     }
 
@@ -173,7 +173,7 @@
     }, 300))
 
     document.getElementById('categoria-select').addEventListener('change', (e) => {
-      const badge = document.querySelector(`.badge-categoria[data-id="${e.target.value}"]`)
+      const badge = document.querySelector(`.card-categoria[data-id="${e.target.value}"]`)
       filtrarPorCategoria(e.target.value || null, badge)
     })
 

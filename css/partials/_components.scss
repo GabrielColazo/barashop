@@ -247,16 +247,16 @@
   line-height: 1.5;
 }
 
-.badge-categoria {
+.card-categoria {
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-  padding: 0.3rem 0.65rem;
+  gap: 0.5rem;
+  padding: 0.5rem 1.5rem;
   background: v.$surface;
   color: v.$text;
   border: 1px solid v.$border;
   border-radius: 50px;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   font-weight: 500;
   transition: all v.$transition;
   cursor: pointer;
@@ -265,13 +265,15 @@
   &.active {
     background: v.$primary;
     color: white;
-    border-color: v.$primary;
-    box-shadow: 0 1px 4px rgba(v.$primary, 0.25);
+    border-color: v.$primary-dark;
+    box-shadow: v.$shadow-md;
   }
 
   &:hover {
+    transform: translateY(-2px) scale(1.02);
     background: v.$primary-light;
     border-color: v.$primary;
+    color: v.$primary-dark;
   }
 }
 
