@@ -1,3 +1,12 @@
+# Antes de modificar cualquier archivo:
+
+1. Lee BARASHOP_DESIGN_SYSTEM.md.
+2. Respeta todas sus reglas.
+3. Si una solicitud contradice el Design System, explica el conflicto antes de modificar el código.
+4. No inventes nuevos estilos.
+5. Mantén coherencia visual en todo el proyecto.
+
+
 ---
 name: frontend-design
 description: Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.
