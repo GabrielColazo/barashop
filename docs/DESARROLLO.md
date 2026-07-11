@@ -229,6 +229,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **Foto de Baradero de fondo en hero (jul 2026):** `imagenbaradero.webp` vía `.hero::before` con overlay gradiente semitransparente 0.75–0.85 opacidad. Fallback al gradiente si no carga. Mobile: background-position center 30%.
 - **Unificación mis-avisos.html (jul 2026):** reemplazado `mis-aviso-card` por el mismo componente `card-anuncio`/`grid-anuncios` que index.html. Barra de acciones extra (`.card-acciones-mis-avisos`) con botones Editar/Eliminar. Eliminadas reglas CSS viejas `.mis-aviso-card`.
 - **Fix (jul 2026):** badge "Todas" en categorías no tenía onclick asignado — corregido.
+- **Fix (jul 2026):** Inconsistencia entre `.badge-categoria` y `.card-categoria` — los estilos base (cursor: pointer, hover, active) faltaban en el SCSS source; solo existían en CSS compilado. Unificada toda la UI a `.badge-categoria` según especificación DESARROLLO.md:105 (outline white, active verde sólido). Eliminado código muerto `.card-categoria`. Renombrado `.card-categoria-pill` → `.badge-categoria-pill` en card-img-wrap para consistencia.
 
 ## Pendientes
 
@@ -240,8 +241,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Estado actual (jul 2026)
 
-- Último commit: `48b0bbc` — restaurar imagenbaradero.webp + fix categoría Todas
-- 3 commits ahead del último doc: rediseño clasificados, foto hero, fix categorías, unificación mis-avisos
+- Último commit: `74ed289` — Fix inconsistencia badge-categoria: estilos base faltaban en SCSS source
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://gabrielcolazo.github.io/barashop/`
 
