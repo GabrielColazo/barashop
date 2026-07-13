@@ -65,19 +65,19 @@ a:hover {
   line-height: 1;
 }
 .header .logo-text img {
-  height: 68px;
+  height: 80px;
   width: auto;
 }
 @media (max-width: 575px) {
   .header .logo-text img {
-    height: 48px;
+    height: 56px;
   }
 }
 .header .btn-publicar {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  background: #059669;
+  background: #84cc16;
   color: white;
   font-weight: 600;
   font-size: 0.85rem;
@@ -90,7 +90,7 @@ a:hover {
   white-space: nowrap;
 }
 .header .btn-publicar:hover {
-  background: #047857;
+  background: #65a30d;
   color: white;
 }
 .header #user-dropdown {

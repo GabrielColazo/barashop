@@ -25,12 +25,12 @@
     line-height: 1;
 
     img {
-      height: 68px;
+      height: 80px;
       width: auto;
     }
 
     @media (max-width: 575px) {
-      img { height: 48px; }
+      img { height: 56px; }
     }
   }
 
@@ -38,7 +38,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    background: v.$primary;
+    background: #84cc16;
     color: white;
     font-weight: 600;
     font-size: 0.85rem;
@@ -51,7 +51,7 @@
     white-space: nowrap;
 
     &:hover {
-      background: v.$primary-dark;
+      background: #65a30d;
       color: white;
     }
   }
