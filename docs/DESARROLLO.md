@@ -246,6 +246,9 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **SCSS sync (jul 2026):** Todos los cambios CSS acumulados (card-precio-tag, hero-subtitle/search, overflow fixes, hoja-publicar, categorías flex-wrap) sincronizados desde `main.css` a los parciales SCSS correspondientes (`_components.scss`, `_layout.scss`, `_anuncios.scss`). Compilado con `sass css/main.scss css/main.css`.
 - **Reglas modal overlay (jul 2026):** Panel "Antes de publicar" convertido de sidebar a modal centrado (`position: fixed; inset: 0`). Overlay con `backdrop-filter: blur(4px)`, animación de entrada `modalIn` (fade + scale), click-outside-to-close.
 - **Modal redesign (jul 2026):** Header con fondo `primary-light` y título `primary-dark`. Items de prohibición estilo chip con fondo `#FAFAFA`, `border-radius`, icono `🚫` separado del texto con `gap`. Footer con sello "Hecho en Baradero" italic. Close button con borde y hover definido. Estructura: `.reglas-header` → `.reglas-body` → `.reglas-footer`. Max-width responsive: 520px mobile, 560px desktop.
+- **GaboWeb link branding (jul 2026):** Link "Desarrollado por `<GaboWeb/>`" en footer de todas las páginas (index, publicar, login, mis-avisos, anuncio) con colores de marca: `<` naranja `#EA580C`, `GABO` blanco, `WEB/>` naranja. Hover: `drop-shadow` naranja + `scale(1.05)` + brackets achicados en amarillo `#F59E0B`. Clase `.gaboweb-link` con `.gw-orange` para los spans naranjas.
+- **Pub-subtitle simplificado (jul 2026):** Subtítulo de publicar cambiado de "Gratis, sin comisión, directo a tu vecino." a "Gratis, sin comisión."
+- **Categoría Mundial 2026 (jul 2026):** Nueva categoría "Figuritas Mundial 2026" con icono 🏆 agregada directamente en la DB de Supabase (tabla `categorias`).
 
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
@@ -269,7 +272,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Estado actual (jul 2026)
 
-- Último commit: `88ebd7a` — Modal redesign: header color, chip items, sello artesanal footer
+- Último commit: `40ecbcd` — Remove 'directo a tu vecino' from pub-subtitle
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://gabrielcolazo.github.io/barashop/`
 
