@@ -14,7 +14,7 @@ html {
 }
 
 body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #111827;
   background: #FAFAFA;
   line-height: 1.6;
@@ -527,7 +527,7 @@ a:hover {
   border: 2px solid #E5E7EB;
   border-radius: 10px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background: #FFFFFF;
   color: #111827;
 }
