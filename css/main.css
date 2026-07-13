@@ -65,12 +65,12 @@ a:hover {
   line-height: 1;
 }
 .header .logo-text img {
-  height: 44px;
+  height: 56px;
   width: auto;
 }
 @media (max-width: 575px) {
   .header .logo-text img {
-    height: 34px;
+    height: 40px;
   }
 }
 .header .btn-publicar {

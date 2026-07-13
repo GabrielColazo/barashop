@@ -25,12 +25,12 @@
     line-height: 1;
 
     img {
-      height: 44px;
+      height: 56px;
       width: auto;
     }
 
     @media (max-width: 575px) {
-      img { height: 34px; }
+      img { height: 40px; }
     }
   }
 
