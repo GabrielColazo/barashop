@@ -102,9 +102,8 @@
 .card-anuncio {
   background: v.$surface;
   border-radius: v.$radius-sm;
-  overflow: hidden;
   box-shadow: 3px 4px 8px rgba(0,0,0,0.12);
-  transition: transform v.$transition, box-shadow v.$transition;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   cursor: pointer;
   position: relative;
   transform-origin: top center;
@@ -142,34 +141,62 @@
     box-shadow: 0 10px 24px rgba(0,0,0,0.15);
   }
 
-.card-img-wrap {
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 1/1;
-      background: v.$border;
+  .card-img-wrap {
+    position: relative;
+    aspect-ratio: 1/1;
+    background: v.$border;
+    border-radius: 8px 8px 0 0;
 
-      .card-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform v.$transition-slow;
-      }
-
-      .badge-categoria {
-        position: absolute;
-        top: 6px;
-        left: 6px;
-        background: rgba(255,255,255,0.92);
-        color: v.$primary-dark;
-        font-size: 0.65rem;
-        font-weight: 600;
-        padding: 0.2rem 0.5rem;
-        border-radius: 50px;
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-        line-height: 1.3;
-      }
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+      border-radius: 8px 8px 0 0;
     }
+
+    .badge-categoria {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(2px);
+      font-size: 0.65rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 20px;
+      border: none;
+      z-index: 2;
+      white-space: nowrap;
+    }
+  }
+
+  .card-precio-tag {
+    position: absolute;
+    bottom: -12px;
+    left: -8px;
+    background: #EA580C;
+    color: #FFFFFF;
+    font-weight: 800;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.65rem 0.3rem 1.1rem;
+    border-radius: 3px 10px 10px 3px;
+    transform: rotate(-4deg);
+    box-shadow: 2px 3px 6px rgba(0,0,0,0.3);
+    z-index: 3;
+    white-space: nowrap;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 5px;
+      height: 5px;
+      background: #FFF7ED;
+      border-radius: 50%;
+    }
+  }
 
   &:hover .card-img {
     transform: scale(1.05);
@@ -177,6 +204,8 @@
 
   .card-body {
     padding: 0.5rem 0.65rem 0.65rem;
+    background: #FFFFFF;
+    border-radius: 0 0 8px 8px;
 
     .card-titulo {
       font-weight: 600;
@@ -187,14 +216,6 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
       line-height: 1.3;
-    }
-
-    .card-precio {
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: v.$text;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.1rem;
     }
 
     .card-meta {
@@ -292,35 +313,13 @@
 }
 
 .categorias-scroll {
-  position: relative;
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
   padding: 0.75rem 0 0.5rem;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    width: 40px;
-    background: linear-gradient(to right, transparent, v.$bg);
-    pointer-events: none;
-    z-index: 2;
-  }
 
   .badge-categoria {
-    scroll-snap-align: start;
     white-space: nowrap;
-    flex-shrink: 0;
   }
 }
 
