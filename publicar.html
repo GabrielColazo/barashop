@@ -149,7 +149,18 @@
     function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML }
 
     function cerrarReglas() {
-      document.getElementById('reglas-panel').classList.add('reglas-cerrado')
+      const panel = document.getElementById('reglas-panel')
+      if (window.innerWidth < 992) {
+        panel.classList.remove('reglas-abierto')
+      } else {
+        panel.classList.add('reglas-cerrado')
+      }
+    }
+
+    function mostrarReglasMobile() {
+      if (window.innerWidth < 992) {
+        document.getElementById('reglas-panel').classList.add('reglas-abierto')
+      }
     }
 
     async function init() {
@@ -486,6 +497,7 @@
     })
 
     init()
+    mostrarReglasMobile()
   </script>
 
   <footer class="footer">
