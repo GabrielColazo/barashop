@@ -250,6 +250,8 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **Pub-subtitle simplificado (jul 2026):** Subtítulo de publicar cambiado de "Gratis, sin comisión, directo a tu vecino." a "Gratis, sin comisión."
 - **Categoría Mundial 2026 (jul 2026):** Nueva categoría "Figuritas Mundial 2026" con icono 🏆 agregada directamente en la DB de Supabase (tabla `categorias`).
 - **Sesión 13 jul 2026:** Logo reemplazado de SVG inline a imagen `barashop.webp` con fondo blanco. Tamaño 92px desktop / 64px mobile. Fondo nav cambiado a #FFFFFF. Botón Publicar y "Baradero" en hero cambiados a verde lima #84cc16. Tipografía cambiada de Inter a Montserrat.
+- **Hero tagline (jul 2026):** Nueva línea debajo del título: "Un solo lugar para publicar, buscar y encontrar lo que necesitás." en cursiva, color gris secundario (#6B7280).
+- **Banner promo flotante (jul 2026):** Notificación discreta esquina inferior derecha (mobile: centrado abajo). Texto "Publicá tu anuncio gratis por tiempo limitado" con botón "Publicar" verde #059669. Una vez por sesión via `sessionStorage`. Delay 1.5s, transición 200ms sin rebote. Estilo: fondo blanco, border-radius 16px, sombra suave.
 
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
@@ -273,7 +275,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Estado actual (jul 2026)
 
-- Último commit: `40ecbcd` — Remove 'directo a tu vecino' from pub-subtitle
+- Último commit: `70443f1` — Hero tagline + banner promo flotante
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://gabrielcolazo.github.io/barashop/`
 
