@@ -42,6 +42,10 @@
           Ingresar
         </button>
 
+        <p class="aviso-privacidad-registro d-none" id="aviso-privacidad">
+          Al registrarte, aceptás nuestra <a href="privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a>.
+        </p>
+
         <div class="divider">o</div>
 
         <button class="btn-google" onclick="handleGoogle()" id="google-btn">
@@ -80,6 +84,7 @@
       document.getElementById('google-btn').innerHTML = `<span class="google-icon">G</span> ${isLogin ? 'Ingresar' : 'Registrarse'} con Google`
       document.getElementById('auth-error').classList.add('d-none')
       document.getElementById('auth-success').classList.add('d-none')
+      document.getElementById('aviso-privacidad').classList.toggle('d-none', isLogin)
     }
 
     async function handleAuth() {
@@ -163,7 +168,7 @@
     <div class="container">
       <p class="footer-brand">BaraShop</p>
       <div class="sello-artesanal">Hecho en Baradero</div>
-      <p class="footer-copy">&copy; 2026 BaraShop &mdash; Todos los derechos reservados.</p>
+      <p class="footer-copy">&copy; 2026 BaraShop &mdash; Todos los derechos reservados. &middot; <a href="privacidad.html" class="footer-link">Política de Privacidad</a></p>
       <p class="footer-copy">Desarrollado por <a href="https://www.gaboweb.com.ar" target="_blank" rel="noopener" class="gaboweb-link"><span class="gw-orange">&lt;</span>GABO<span class="gw-orange">WEB/&gt;</span></a></p>
     </div>
   </footer>

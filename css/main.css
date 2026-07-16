@@ -382,6 +382,71 @@ a:hover {
   color: #FFFFFF;
 }
 
+.pagina-legal {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 3rem 0;
+  line-height: 1.6;
+  color: #1F2937;
+}
+.pagina-legal h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #111827;
+}
+.pagina-legal h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: #111827;
+}
+.pagina-legal p {
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+.pagina-legal ul {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+.pagina-legal ul li {
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+}
+.pagina-legal a {
+  color: #059669;
+  text-decoration: underline;
+  text-decoration-color: rgba(5, 150, 105, 0.3);
+  text-underline-offset: 2px;
+  transition: text-decoration-color 200ms ease-out;
+}
+.pagina-legal a:hover {
+  text-decoration-color: #059669;
+}
+
+.footer-link {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.footer-link:link, .footer-link:visited, .footer-link:hover, .footer-link:focus, .footer-link:active {
+  color: #ffffff;
+}
+
+.aviso-privacidad-registro {
+  font-size: 0.8rem;
+  color: #6B7280;
+  text-align: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.aviso-privacidad-registro a {
+  color: #059669;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
 .btn-primary-custom {
   display: inline-flex;
   align-items: center;
