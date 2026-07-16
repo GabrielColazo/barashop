@@ -257,7 +257,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **Términos y Condiciones (jul 2026):** Nueva página `terminos.html` con 12 secciones de términos legales. Link "Volver al inicio" arriba y abajo (clase `.link-volver`). Link a Política de Privacidad al final. Footer actualizado en todas las páginas con ambos links legales en línea separada.
 - **Botones Volver (jul 2026):** `.link-volver` para páginas legales (gris → verde en hover) y `.pildora-volver` para publicar.html (fondo #D1FAE5, border-radius 999px).
 - **Validación precio $0 (jul 2026):** Fix para que el check de "precio mayor a $0" se alcance cuando el valor es `"0"` (cambio de `!precio` a `precio === ''`). Mensaje actualizado con link a categoría Donaciones que selecciona la categoría automáticamente.
-- **Badge GRATIS Donaciones (jul 2026):** Al seleccionar categoría "Donaciones": precio tachado (`line-through`), deshabilitado, badge `🎁 GRATIS` verde (#D1FAE5), aviso "Este anuncio va en la categoría Donaciones y no tiene costo". Al cambiar de categoría: precio vuelve a la normalidad. Excepción en validación $0 para Donaciones. Lectura de precio: `disabled ? '0' : value`.
+- **Favicon (jul 2026):** 6 archivos en `assets/img/favicon/` (favicon.ico, favicon-32x32.png, favicon-16x16.png, apple-touch-icon.png, android-chrome-192x192.png, android-chrome-512x512.png). Tags `<link rel="icon">` agregados en las 8 páginas HTML.
 
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
@@ -281,7 +281,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Estado actual (jul 2026)
 
-- Último commit: `98a7ada` — Merge prueba: términos, botones volver, badge GRATIS donaciones
+- Último commit: `53b6dee` — Subir archivos del favicon al repo
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://gabrielcolazo.github.io/barashop/`
 
