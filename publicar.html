@@ -72,10 +72,12 @@
 
       <div class="form-group">
         <label for="precio">Precio *</label>
-        <div style="display:flex;align-items:stretch;border:2px solid #E5E7EB;border-radius:8px;overflow:hidden;">
-          <span style="background:#F3F4F6;padding:0.75rem 1rem;font-weight:600;color:#6B7280;display:flex;align-items:center;">$</span>
+        <div style="display:flex;align-items:stretch;border:2px solid #E5E7EB;border-radius:8px;overflow:hidden;" id="precio-wrapper">
+          <span style="background:#F3F4F6;padding:0.75rem 1rem;font-weight:600;color:#6B7280;display:flex;align-items:center;" id="precio-simbolo">$</span>
           <input type="number" id="precio" class="input-custom" style="border:none;border-radius:0;" placeholder="0" min="0" step="0.01" required>
+          <span id="badge-gratis" class="badge-gratis d-none">🎁 GRATIS</span>
         </div>
+        <p id="aviso-donacion" class="aviso-donacion d-none">Este anuncio va en la categoría Donaciones y no tiene costo.</p>
       </div>
 
       <div class="form-group">
@@ -234,6 +236,30 @@
       document.querySelectorAll('#categoria-badges .badge-categoria').forEach(b => b.classList.remove('active'))
       el.classList.add('active')
       document.getElementById('categoria').value = id
+
+      const esDonaciones = el.textContent.trim().toLowerCase().includes('donaciones')
+      const precioInput = document.getElementById('precio')
+      const badgeGratis = document.getElementById('badge-gratis')
+      const avisoDonacion = document.getElementById('aviso-donacion')
+      const precioWrapper = document.getElementById('precio-wrapper')
+
+      if (esDonaciones) {
+        precioInput.value = '0'
+        precioInput.disabled = true
+        precioInput.style.textDecoration = 'line-through'
+        precioInput.style.color = '#9CA3AF'
+        precioWrapper.style.borderColor = '#D1FAE5'
+        badgeGratis.classList.remove('d-none')
+        avisoDonacion.classList.remove('d-none')
+      } else {
+        precioInput.disabled = false
+        precioInput.style.textDecoration = 'none'
+        precioInput.style.color = ''
+        precioWrapper.style.borderColor = '#E5E7EB'
+        badgeGratis.classList.add('d-none')
+        avisoDonacion.classList.add('d-none')
+        if (precioInput.value === '0') precioInput.value = ''
+      }
     }
 
     function comprimirImagen(file) {
@@ -410,7 +436,8 @@
 
       const titulo = document.getElementById('titulo').value.trim()
       const categoriaId = document.getElementById('categoria').value
-      const precio = document.getElementById('precio').value
+      const precioInput = document.getElementById('precio')
+      const precio = precioInput.disabled ? '0' : precioInput.value
       const telefono = document.getElementById('telefono').value.trim()
       const descripcion = document.getElementById('descripcion').value.trim()
 
@@ -428,7 +455,10 @@
         return
       }
 
-      if (Number(precio) <= 0) {
+      const categoriaSeleccionada = document.querySelector('#categoria-badges .badge-categoria.active')
+      const esDonaciones = categoriaSeleccionada && categoriaSeleccionada.textContent.trim().toLowerCase().includes('donaciones')
+
+      if (!esDonaciones && Number(precio) <= 0) {
         errorEl.style.color = '#EF4444'
         errorEl.innerHTML = 'El precio debe ser mayor a $0. Si querés donar o regalar algo, usá la categoría <a href="#" id="link-donaciones" style="color:#EF4444;text-decoration:underline;font-weight:600;">Donaciones</a>.'
         errorEl.classList.remove('d-none')

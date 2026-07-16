@@ -462,3 +462,21 @@
     flex-shrink: 0;
   }
 }
+
+.badge-gratis {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #D1FAE5;
+  color: #047857;
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 0 0.9rem;
+  white-space: nowrap;
+}
+
+.aviso-donacion {
+  font-size: 0.75rem;
+  color: #6B7280;
+  margin: 0.5rem 0 0;
+}
