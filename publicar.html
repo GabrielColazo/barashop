@@ -430,8 +430,28 @@
 
       if (Number(precio) <= 0) {
         errorEl.style.color = '#EF4444'
-        errorEl.textContent = 'El precio debe ser mayor a cero'
+        errorEl.innerHTML = 'El precio debe ser mayor a $0. Si querés donar o regalar algo, usá la categoría <a href="#" id="link-donaciones" style="color:#EF4444;text-decoration:underline;font-weight:600;">Donaciones</a>.'
         errorEl.classList.remove('d-none')
+
+        const linkDonaciones = document.getElementById('link-donaciones')
+        if (linkDonaciones) {
+          linkDonaciones.addEventListener('click', async (e) => {
+            e.preventDefault()
+            const categorias = await obtenerCategorias()
+            const donaciones = categorias.find(c => c.nombre.toLowerCase() === 'donaciones')
+            if (donaciones) {
+              const badge = document.querySelector(`.badge-categoria[data-id="${donaciones.id}"]`)
+              if (badge) {
+                seleccionarCategoria(donaciones.id, badge)
+                badge.scrollIntoView({ behavior: 'smooth', block: 'center' })
+              }
+              document.getElementById('precio').value = '0'
+              errorEl.classList.add('d-none')
+            } else {
+              errorEl.textContent = 'La categoría "Donaciones" todavía no está disponible.'
+            }
+          })
+        }
         return
       }
 
