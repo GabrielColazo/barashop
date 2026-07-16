@@ -396,11 +396,13 @@
   color: #ffffff;
   text-decoration: underline;
   text-underline-offset: 2px;
-  opacity: 0.85;
-  transition: opacity 0.2s ease;
 
-  &:hover {
-    opacity: 1;
+  &:link,
+  &:visited,
+  &:hover,
+  &:focus,
+  &:active {
+    color: #ffffff;
   }
 }
 

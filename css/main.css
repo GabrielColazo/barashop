@@ -429,11 +429,9 @@ a:hover {
   color: #ffffff;
   text-decoration: underline;
   text-underline-offset: 2px;
-  opacity: 0.85;
-  transition: opacity 0.2s ease;
 }
-.footer-link:hover {
-  opacity: 1;
+.footer-link:link, .footer-link:visited, .footer-link:hover, .footer-link:focus, .footer-link:active {
+  color: #ffffff;
 }
 
 .aviso-privacidad-registro {
