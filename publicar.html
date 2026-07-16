@@ -414,7 +414,7 @@
       const telefono = document.getElementById('telefono').value.trim()
       const descripcion = document.getElementById('descripcion').value.trim()
 
-      if (!titulo || !precio || !telefono) {
+      if (!titulo || precio === '' || !telefono) {
         errorEl.style.color = '#EF4444'
         errorEl.textContent = !telefono ? 'Completá tu teléfono de contacto' : 'Completá el título y el precio'
         errorEl.classList.remove('d-none')
