@@ -393,12 +393,13 @@
 }
 
 .footer-link {
-  color: #6B7280;
-  text-decoration: none;
-  transition: color 200ms ease-out;
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
 
   &:hover {
-    color: #1F2937;
-    text-decoration: underline;
+    opacity: 1;
   }
 }
