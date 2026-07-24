@@ -25,18 +25,6 @@ async function iniciarSesionGoogle() {
   return data
 }
 
-async function enviarMagicLink(email) {
-  const { data, error } = await sb.auth.signInWithOtp({
-    email,
-    options: {
-      shouldCreateUser: true,
-      redirectTo: AUTH_REDIRECT
-    }
-  })
-  if (error) throw error
-  return data
-}
-
 async function cerrarSesion() {
   const { error } = await sb.auth.signOut()
   if (error) throw error

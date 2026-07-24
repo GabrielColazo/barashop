@@ -57,13 +57,6 @@
           Ingresar con Google
         </button>
 
-        <div class="mt-2 text-center" id="magic-link-row">
-          <a onclick="handleMagicLink()" style="color:#6B7280;font-size:0.85rem;cursor:pointer;transition:color 0.2s;"
-             onmouseover="this.style.color='#059669'" onmouseout="this.style.color='#6B7280'">
-            Enviar link mágico
-          </a>
-        </div>
-
         <div class="auth-switch">
           ¿No tenés cuenta? <a id="auth-toggle" onclick="toggleAuth()">Registrate</a>
         </div>
@@ -137,30 +130,6 @@
 
     function handleGoogle() {
       iniciarSesionGoogle()
-    }
-
-    async function handleMagicLink() {
-      const email = document.getElementById('email').value.trim()
-      const errorEl = document.getElementById('auth-error')
-      const successEl = document.getElementById('auth-success')
-
-      errorEl.classList.add('d-none')
-      successEl.classList.add('d-none')
-
-      if (!email) {
-        errorEl.textContent = 'Ingresá tu email primero'
-        errorEl.classList.remove('d-none')
-        return
-      }
-
-      try {
-        await enviarMagicLink(email)
-        successEl.textContent = '📧 Revisá tu email. Llegó un link mágico para ingresar.'
-        successEl.classList.remove('d-none')
-      } catch (err) {
-        errorEl.textContent = err.message
-        errorEl.classList.remove('d-none')
-      }
     }
 
     document.getElementById('password').addEventListener('keydown', (e) => {

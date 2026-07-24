@@ -15,9 +15,8 @@
 - **URL:** `YOUR_SUPABASE_URL`
 - **Anon Key:** `YOUR_SUPABASE_ANON_KEY`
 - **Storage bucket:** `imagenes` (público)
-- **Auth providers:** Email/Contraseña, Google OAuth, Magic Link
+- **Auth providers:** Email/Contraseña, Google OAuth
 - **Google OAuth:** Client ID configurado en Google Cloud Console + Supabase Providers
-- **Magic Link:** `signInWithOtp` con `shouldCreateUser: true`, redirect a `auth-callback.html`
 - **Redirect URLs:** `https://gabrielcolazo.github.io/barashop/**` (wildcard)
 
 ## Base de datos
@@ -128,7 +127,6 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - Menú de usuario con "Cerrar sesión" en index.html, anuncio.html y publicar.html
 - `.nojekyll` agregado para GitHub Pages
 - Google OAuth: Client ID y Secret configurados en Supabase (Google Cloud Console → credentials → Web App)
-- Magic Link: `signInWithOtp` con `shouldCreateUser: true`, redirect a `publicar.html`
 - Google OAuth callback URL: `https://{project}.supabase.co/auth/v1/callback`
 - Redirect URLs en Supabase: `https://gabrielcolazo.github.io/barashop/**`
 - RLS: reemplazado `auth.role()` deprecado por `TO authenticated` + `WITH CHECK (usuario_id = auth.uid())` en políticas INSERT
@@ -154,7 +152,6 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 |--------|---------|----------|-------|
 | Email + contraseña | `iniciarSesion()` / `registrar()` | `auth-callback.html` (emailRedirectTo) | ✅ Funciona |
 | Google | OAuth redirect (`signInWithOAuth`) | `auth-callback.html` | ✅ Funciona, muestra `supabase.co` |
-| Magic Link | `enviarMagicLink()` → `signInWithOtp` | `auth-callback.html` | ⏳ Pendiente CNAME en DonWeb |
 
 ### Auth redirect flow
 
@@ -179,8 +176,8 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 ## Diseño — cambios recientes
 
 - **Footer:** fondo `#F0FDF4`, borde superior con gradiente animado (verde → ámbar), fade-in al cargar, subrayado animado en link GaboWeb
-- **login.html:** botón "Ingresar con Google" con ícono G estilizado, separador "o", link "Enviar link mágico"
-- **auth.js:** funciones `iniciarSesionGoogle()` (fallback OAuth), `enviarMagicLink()`, constante `AUTH_REDIRECT`
+- **login.html:** botón "Ingresar con Google" con ícono G estilizado, separador "o"
+- **auth.js:** funciones `iniciarSesionGoogle()` (fallback OAuth), constante `AUTH_REDIRECT`
 - **Responsive design (mobile-first):** jul 2026
   - Logo responsive: 64px mobile / 92px desktop
   - Hero: padding y títulos escalan con `min-width` (576px y 992px)
