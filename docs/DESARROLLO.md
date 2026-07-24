@@ -143,6 +143,10 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
   - `README.md` y `docs/DESARROLLO.md`: todas las referencias, URLs y estructura de archivos actualizadas
   - Repositorio GitHub renombrado de `barago` a `barashop`
   - Redirect URLs en Supabase actualizadas a `https://gabrielcolazo.github.io/barashop/**`
+- **Magic Link eliminado:** jul 2026
+  - Eliminado bloque `#magic-link-row` y función `handleMagicLink()` de `login.html`
+  - Eliminada función `enviarMagicLink()` de `js/auth.js`
+  - Auth providers: solo Email/Contraseña y Google OAuth
 
 ## Auth
 
@@ -197,10 +201,13 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
   - Nuevas funciones en `anuncios.js`: `obtenerMisAnuncios()`, `actualizarAnuncio()`, `eliminarImagenesAnuncio()`
   - Nuevos estilos: `.mis-aviso-card`, `.btn-sm-edit`, `.btn-sm-delete`
 - **Imagen detalle anuncio reducida:** 200px mobile / 260px tablet / 300px desktop
-- **Subir hasta 2 imágenes con compresión:** jul 2026
+- **Subir hasta 2 imágenes con compresión iterativa:** jul 2026
   - Input file con `multiple`, máximo 2 fotos
-  - Compresión automática vía canvas (1600px máx, JPEG 0.8) si pesa >1MB
-  - Rechazo si tras compresión sigue >5MB
+  - Texto de ayuda: "La foto se recorta a formato cuadrado en las tarjetas — centrá el producto para que se vea bien. Se comprime automáticamente, no te preocupes por el peso."
+  - Compresión iterativa vía canvas: ancho máx 900px, qualities 0.8→0.5, target 150KB
+  - Si no logra ≤150KB con 900px, reduce ancho progresivamente (800→700→600px mínimo)
+  - Sin re-compresión si el archivo original ya pesa ≤150KB
+  - Rechazo con `TOO_LARGE` si tras todos los intentos el blob sigue >5MB
   - Preview por imagen con botón × individual
   - Modo edición respeta fotos existentes + nuevas ≤ 2
 - **Storage cleanup:** jul 2026
