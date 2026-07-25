@@ -116,13 +116,14 @@
 }
 
 .hero-barco {
-  max-width: 220px;
-  margin: 0 auto 1rem;
+  max-width: 140px;
+  margin: -0.5rem auto 0.75rem;
 
   svg { width: 100%; height: auto; display: block; }
 
   @media (max-width: 575px) {
     max-width: 160px;
+    margin: 0 auto 1rem;
   }
 }
 
