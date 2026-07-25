@@ -61,3 +61,111 @@ El Hero moderno elimina completamente elementos de fondo innecesarios, estableci
 - **Variedad tipográfica:** Equilibrio entre simplicidad y atractividad visual
 - **Performance mejorada:** Eliminación de todas las animaciones complejas
 - **Adopción universal:** Establecimiento de baseline limpio y minimalista
+
+## Ilustración SVG del Hero (Barquito)
+
+### Cambios Recientes (2026)
+
+Se agregó una ilustración SVG decorativa de un barquito con vela entre el subtítulo (`hero-tagline`) y el buscador (`hero-search`).
+
+### Estructura HTML
+- Ubicación: `<div class="hero-barco">` entre `hero-tagline` y `hero-search`
+- Atributo: `aria-hidden="true"` (decorativo, no accesible)
+- SVG inline con viewBox `0 0 680 320`
+
+### Estilos CSS (`css/partials/_layout.scss`)
+```scss
+.hero-barco {
+  max-width: 380px;        // Desktop
+  margin: -0.5rem auto 0.75rem;
+
+  @media (max-width: 575px) {
+    max-width: 220px;      // Mobile
+    margin: 0 auto 1rem;
+  }
+}
+```
+
+### Tamaños Finales
+- **Desktop:** 380px de ancho máximo
+- **Mobile (≤575px):** 220px de ancho máximo
+
+### Archivos Modificados
+- `index.html` - Línea ~54: SVG del barquito
+- `css/partials/_layout.scss` - Línea ~118: Estilos `.hero-barco`
+- `css/main.css` - CSS compilado
+
+## Iconos Decorativos del Hero
+
+### Descripción
+16 iconos SVG inline distribuidos en los laterales del hero (8 izquierda + 8 derecha), con opacidad sutil y `pointer-events: none` para que no interfieran con la interacción.
+
+### Estructura HTML
+- **Contenedores:** `.hero-decor-left` y `.hero-decor-right` dentro de `<section class="hero">`
+- Cada icono es un `<svg class="decor-icon">` con estilos inline (posición, tamaño, rotación)
+- Todos usan `stroke="currentColor"`, `stroke-width="2"`, `stroke-linecap="round"`, `stroke-linejoin="round"`
+
+### Iconos Actuales (Julio 2026)
+
+**Lado Izquierdo (8):**
+1. Libro (top:2%, left:5%, 46px, rotate:-14deg)
+2. Laptop (top:13%, left:24%, 74px, rotate:9deg)
+3. Auto (top:24%, left:3%, 58px, rotate:-7deg)
+4. Bolsa de compras (top:35%, left:22%, 64px, rotate:15deg)
+5. Cartera (top:46%, left:5%, 42px, rotate:-19deg)
+6. Globe (top:56%, left:22%, 38px, rotate:12deg)
+7. Estrella (top:66%, left:3%, 48px, rotate:-5deg)
+8. Reloj alarma (top:75%, left:23%, 44px, rotate:17deg)
+
+**Lado Derecho (8):**
+1. Bolsa (top:5%, right:3%, 52px, rotate:13deg)
+2. Reloj (top:15%, right:25%, 40px, rotate:-11deg)
+3. Camión (top:25%, right:2%, 76px, rotate:8deg)
+4. Bicicleta (top:35%, right:23%, 58px, rotate:-16deg)
+5. Pulso/heartbeat (top:45%, right:4%, 42px, rotate:-8deg)
+6. Mesa (top:55%, right:2%, 66px, rotate:14deg)
+7. Martillo (top:65%, right:24%, 50px, rotate:-17deg)
+8. Barco (top:75%, right:3%, 44px, rotate:6deg)
+9. Libro/carpeta (top:2%, right:13%, 36px, rotate:19deg)
+
+### Estilos CSS (`css/partials/_layout.scss`)
+```scss
+.hero-decor {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 580px;
+  pointer-events: none;
+  z-index: 0;
+
+  @media (max-width: 991px) {
+    display: none; // Solo desktop
+  }
+}
+
+.hero-decor-left  { left: 0; }
+.hero-decor-right { right: 0; }
+
+.decor-icon {
+  position: absolute;
+  opacity: 0.16;
+  color: v.$color-primary; // #059669
+}
+```
+
+### Reglas de Diseño
+- **Rango vertical:** Todos entre 2%-75% para evitar cortes en bordes
+- **Opacidad:** 0.16 (sutil, no compite con contenido principal)
+- **Zona libre:** Centro ~35% reservado para `.hero-barco`
+- **Ocultos en móvil:** `display: none` bajo 991px
+
+### Iconos Eliminados
+- Llave inglesa
+- Grilla de ventanas
+- Gota de agua
+- Pico de minería
+
+### Archivos Modificados
+- `index.html` - Líneas 51-68: SVGs decorativos
+- `css/partials/_layout.scss` - `.hero-decor` y `.decor-icon`
+- `css/main.css` - CSS compilado
