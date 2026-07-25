@@ -139,7 +139,7 @@ a:hover {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 200px;
+  width: 320px;
   pointer-events: none;
   z-index: 0;
 }
