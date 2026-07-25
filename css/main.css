@@ -135,6 +135,45 @@ a:hover {
   }
 }
 
+.hero-decor {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-decor-left {
+  left: 0;
+}
+
+.hero-decor-right {
+  right: 0;
+}
+
+.decor-pin {
+  position: absolute;
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FDBA74, #EA580C);
+  opacity: 0.35;
+}
+
+.decor-icon {
+  position: absolute;
+  display: block;
+  color: #059669;
+  opacity: 0.16;
+}
+
+@media (max-width: 991px) {
+  .hero-decor {
+    display: none;
+  }
+}
 .hero-subtitle {
   text-align: center;
   font-size: 1.1rem;
