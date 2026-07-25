@@ -115,6 +115,17 @@
   z-index: 1;
 }
 
+.hero-barco {
+  max-width: 220px;
+  margin: 0 auto 1rem;
+
+  svg { width: 100%; height: auto; display: block; }
+
+  @media (max-width: 575px) {
+    max-width: 160px;
+  }
+}
+
 .hero-search {
   position: relative;
   z-index: 1;
