@@ -156,6 +156,22 @@ a:hover {
   z-index: 1;
 }
 
+.hero-barco {
+  max-width: 140px;
+  margin: -0.5rem auto 0.75rem;
+}
+.hero-barco svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+@media (max-width: 575px) {
+  .hero-barco {
+    max-width: 160px;
+    margin: 0 auto 1rem;
+  }
+}
+
 .hero-search {
   position: relative;
   z-index: 1;
