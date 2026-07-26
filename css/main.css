@@ -223,6 +223,86 @@ a:hover {
   background-size: 100% 100%;
 }
 
+.cartelito {
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  z-index: 2;
+  max-width: 200px;
+}
+.cartelito p {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #374151;
+  line-height: 1.35;
+}
+
+.cartelito-pin {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  box-shadow: 0 1px 3px rgba(234, 88, 12, 0.4);
+}
+
+.hero-decor {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 580px;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-decor .cartelito {
+  pointer-events: auto;
+}
+
+.hero-decor-left {
+  left: 0;
+}
+
+.hero-decor-right {
+  right: 0;
+}
+
+.hero-cartelitos-mobile {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .hero-decor {
+    display: none;
+  }
+  .hero-cartelitos-mobile {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  .hero-cartelitos-mobile .cartelito {
+    position: static;
+    transform: rotate(0deg);
+    max-width: 260px;
+    padding: 0.5rem 0.85rem;
+  }
+  .hero-cartelitos-mobile .cartelito p {
+    font-size: 0.72rem;
+  }
+  .hero-cartelitos-mobile .cartelito:first-child {
+    transform: rotate(-1deg);
+  }
+  .hero-cartelitos-mobile .cartelito:last-child {
+    transform: rotate(1deg);
+  }
+}
 .sello-artesanal {
   display: inline-block;
   border: 2px dashed #FFFFFF;
