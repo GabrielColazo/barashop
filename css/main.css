@@ -226,8 +226,19 @@ a:hover {
   margin-bottom: 0.5rem;
   position: relative;
   z-index: 1;
+  animation: heroFadeUp 0.8s ease-out both;
 }
 
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .hero-tagline {
   text-align: center;
   font-size: 0.95rem;
