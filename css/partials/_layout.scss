@@ -203,7 +203,16 @@
     transform: translateY(-8px) rotate(0deg) scale(1.03);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(16, 185, 129, 0.2);
     border-color: #10b981;
+    animation: cartelito-vibrate 0.3s ease;
   }
+}
+
+@keyframes cartelito-vibrate {
+  0%   { transform: translateY(-8px) rotate(0deg) scale(1.03); }
+  25%  { transform: translateY(-8px) rotate(1deg) scale(1.03); }
+  50%  { transform: translateY(-8px) rotate(-1deg) scale(1.03); }
+  75%  { transform: translateY(-8px) rotate(0.5deg) scale(1.03); }
+  100% { transform: translateY(-8px) rotate(0deg) scale(1.03); }
 }
 
 .cartelito-pin {
