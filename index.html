@@ -117,6 +117,15 @@
 
   <main class="container">
     <div class="categorias-scroll" id="categorias-container"></div>
+
+    <div class="categorias-mobile" id="categorias-mobile">
+      <button type="button" class="categorias-mobile-trigger" id="categorias-mobile-trigger">
+        <span id="categorias-mobile-trigger-label">Todas</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="categorias-mobile-panel" id="categorias-mobile-panel"></div>
+    </div>
+
     <select class="d-none" id="categoria-select"><option value="">Todas</option></select>
 
     <div class="orden-toggle" id="orden-toggle">
@@ -156,10 +165,20 @@
       const categorias = await obtenerCategorias()
       const container = document.getElementById('categorias-container')
       const select = document.getElementById('categoria-select')
+      const panel = document.getElementById('categorias-mobile-panel')
 
       container.innerHTML = '<span class="badge-categoria active" data-id=\"\">Todas</span>'
       container.querySelector('.badge-categoria[data-id=""]').onclick = function() { filtrarPorCategoria(null, this) }
       select.innerHTML = '<option value="">Todas las categorías</option>'
+
+      panel.innerHTML = ''
+      const todasItem = document.createElement('button')
+      todasItem.type = 'button'
+      todasItem.className = 'badge-categoria categoria-grid-item active'
+      todasItem.dataset.id = ''
+      todasItem.innerHTML = '<span class="cat-icon">🗂️</span><span class="cat-label">Todas</span>'
+      todasItem.onclick = () => filtrarPorCategoria(null, todasItem)
+      panel.appendChild(todasItem)
 
       categorias.forEach(cat => {
         const badge = document.createElement('span')
@@ -173,14 +192,26 @@
         option.value = cat.id
         option.textContent = cat.nombre
         select.appendChild(option)
+
+        const gridItem = document.createElement('button')
+        gridItem.type = 'button'
+        gridItem.className = 'badge-categoria categoria-grid-item'
+        gridItem.dataset.id = cat.id
+        gridItem.innerHTML = `<span class="cat-icon">${cat.icono}</span><span class="cat-label">${cat.nombre}</span>`
+        gridItem.onclick = () => filtrarPorCategoria(cat.id, gridItem)
+        panel.appendChild(gridItem)
       })
     }
 
     function filtrarPorCategoria(id, el) {
       categoriaActiva = id
       document.querySelectorAll('.badge-categoria').forEach(b => b.classList.remove('active'))
-      if (el) el.classList.add('active')
-      else document.querySelector('.badge-categoria[data-id=""]')?.classList.add('active')
+      document.querySelectorAll(`.badge-categoria[data-id="${id ?? ''}"]`).forEach(b => b.classList.add('active'))
+
+      const label = el ? el.querySelector('.cat-label')?.textContent || el.textContent : 'Todas'
+      document.getElementById('categorias-mobile-trigger-label').textContent = label.trim()
+      document.getElementById('categorias-mobile-panel').classList.remove('open')
+
       cargarAnuncios()
     }
 
@@ -261,6 +292,18 @@
         })
         cargarAnuncios()
       })
+    })
+
+    document.getElementById('categorias-mobile-trigger').addEventListener('click', (e) => {
+      e.stopPropagation()
+      document.getElementById('categorias-mobile-panel').classList.toggle('open')
+    })
+
+    document.addEventListener('click', (e) => {
+      const wrapper = document.getElementById('categorias-mobile')
+      if (wrapper && !wrapper.contains(e.target)) {
+        document.getElementById('categorias-mobile-panel').classList.remove('open')
+      }
     })
 
     document.getElementById('categoria-select').addEventListener('change', (e) => {

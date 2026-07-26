@@ -1005,6 +1005,94 @@ a:hover {
   white-space: nowrap;
 }
 
+.categorias-mobile {
+  display: none;
+  position: relative;
+  margin-top: 2rem;
+}
+
+@media (max-width: 575px) {
+  .categorias-scroll {
+    display: none;
+  }
+  .categorias-mobile {
+    display: block;
+  }
+}
+.categorias-mobile-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 0.65rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #111827;
+  cursor: pointer;
+}
+
+.categorias-mobile-panel {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%) scale(0.96);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+  width: 92vw;
+  max-width: 360px;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+  padding: 0.75rem;
+  z-index: 150;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+.categorias-mobile-panel.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1);
+}
+
+.categoria-grid-item {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  text-align: center;
+  padding: 0.6rem 0.3rem;
+  border-radius: 10px;
+  background: rgba(5, 150, 105, 0.05);
+  border: 1px solid transparent;
+  font-size: 0.7rem;
+  line-height: 1.2;
+}
+.categoria-grid-item .cat-icon {
+  font-size: 1.3rem;
+}
+.categoria-grid-item .cat-label {
+  font-size: 0.68rem;
+  font-weight: 500;
+}
+.categoria-grid-item.active {
+  background: rgba(5, 150, 105, 0.14);
+  border-color: rgba(5, 150, 105, 0.35);
+  color: #059669;
+}
+
 .btn-google {
   display: inline-flex;
   align-items: center;
