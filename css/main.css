@@ -1011,6 +1011,14 @@ a:hover {
   margin-top: 2rem;
 }
 
+.categorias-mobile-caption {
+  display: block;
+  font-size: 0.75rem;
+  color: #6B7280;
+  margin-bottom: 0.35rem;
+  font-weight: 500;
+}
+
 @media (max-width: 575px) {
   .categorias-scroll {
     display: none;
