@@ -6,11 +6,10 @@ async function obtenerAnuncios(filtro = {}) {
     .select('*, categorias(*)')
     .order('created_at', { ascending: false })
 
-  if (filtro.categoria_id) {
-    query = query.eq('categoria_id', filtro.categoria_id)
-  }
   if (filtro.busqueda) {
     query = query.ilike('titulo', `%${filtro.busqueda}%`)
+  } else if (filtro.categoria_id) {
+    query = query.eq('categoria_id', filtro.categoria_id)
   }
 
   const { data, error } = await query
