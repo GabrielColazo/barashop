@@ -242,7 +242,7 @@ a:hover {
 }
 .cartelito:hover {
   transform: translateY(-6px) rotate(0deg);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(16, 185, 129, 0.15);
 }
 
 .cartelito-pin {
@@ -253,8 +253,8 @@ a:hover {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #f97316, #ea580c);
-  box-shadow: 0 1px 3px rgba(234, 88, 12, 0.4);
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: 0 1px 4px rgba(5, 150, 105, 0.45);
 }
 
 .hero-decor {
