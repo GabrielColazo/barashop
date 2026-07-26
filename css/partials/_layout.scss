@@ -238,6 +238,13 @@
   border-radius: 50px;
   padding: 0.15rem 0.5rem 0.15rem 1.2rem;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover,
+  &:focus-within {
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.14);
+    transform: translateY(-1px);
+  }
 }
 
 .hero-search-icon {
