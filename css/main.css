@@ -361,24 +361,19 @@ a:hover {
 }
 
 .orden-toggle-btn {
-  border: 1px solid rgba(37, 99, 235, 0.2);
-  background: rgba(37, 99, 235, 0.06);
-  color: #6B7280;
+  background: rgba(5, 150, 105, 0.12);
+  color: #059669;
+  border: none;
   padding: 0.4rem 0.9rem;
   border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
 }
-.orden-toggle-btn.active {
-  background: rgba(37, 99, 235, 0.14);
-  color: #2563EB;
-  border-color: rgba(37, 99, 235, 0.35);
-}
-.orden-toggle-btn:hover:not(.active) {
-  background: rgba(37, 99, 235, 0.1);
-  border-color: rgba(37, 99, 235, 0.3);
+.orden-toggle-btn:hover, .orden-toggle-btn.active {
+  background: #059669;
+  color: #FFFFFF;
 }
 
 @media (max-width: 575px) {
