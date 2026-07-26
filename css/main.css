@@ -231,6 +231,7 @@ a:hover {
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
   z-index: 2;
   max-width: 200px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .cartelito p {
   margin: 0;
@@ -238,6 +239,10 @@ a:hover {
   font-weight: 600;
   color: #374151;
   line-height: 1.35;
+}
+.cartelito:hover {
+  transform: translateY(-6px) rotate(0deg);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .cartelito-pin {
@@ -272,35 +277,9 @@ a:hover {
   right: 0;
 }
 
-.hero-cartelitos-mobile {
-  display: none;
-}
-
-@media (max-width: 991px) {
+@media (max-width: 1200px) {
   .hero-decor {
     display: none;
-  }
-  .hero-cartelitos-mobile {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-top: 1rem;
-  }
-  .hero-cartelitos-mobile .cartelito {
-    position: static;
-    transform: rotate(0deg);
-    max-width: 260px;
-    padding: 0.5rem 0.85rem;
-  }
-  .hero-cartelitos-mobile .cartelito p {
-    font-size: 0.72rem;
-  }
-  .hero-cartelitos-mobile .cartelito:first-child {
-    transform: rotate(-1deg);
-  }
-  .hero-cartelitos-mobile .cartelito:last-child {
-    transform: rotate(1deg);
   }
 }
 .sello-artesanal {
