@@ -1,8 +1,8 @@
-# Cambios en el Hero de BaraShop
+# Cambios en BaraShop - Documentación
 
 ## Resumen
 
-Rediseño completo del hero de BaraShop con animaciones, cartelitos de confianza, buscador funcional con botón, y control de orden de avisos.
+Rediseño completo del hero, nav, categorías, buscador y formulario de publicación de BaraShop.
 
 ---
 
@@ -239,7 +239,261 @@ En `js/anuncios.js`:
 
 ---
 
-## 6. .gitignore
+## 6. Nav (Header)
+
+### Estilo
+
+```scss
+.header {
+  background: linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(236,253,245,0.88) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0.4rem 0;
+  // ...
+}
+
+.logo-text img {
+  height: 90px;  // desktop
+  @media (max-width: 575px) { height: 72px; }  // mobile
+}
+```
+
+### Logo Transparente
+
+- Reemplazado `barashop.webp` por versión con fondo transparente (RGBA → webp con alpha)
+- Elimina el recuadro blanco que se notaba sobre el degradado del header
+
+---
+
+## 7. Categorías - Desktop (Home)
+
+### Estilo Tarjetita
+
+```scss
+.categorias-scroll,
+#categoria-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+
+  .badge-categoria {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    min-width: 78px;
+    padding: 0.7rem 0.6rem;
+    border-radius: 12px;
+    background: rgba(5, 150, 105, 0.05);
+    border: 1px solid #E5E7EB;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    .cat-icon { font-size: 1.3rem; }
+    .cat-label { font-size: 0.72rem; font-weight: 500; }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(5, 150, 105, 0.15);
+    }
+
+    &.active {
+      background: rgba(5, 150, 105, 0.14);
+      border-color: #059669;
+    }
+  }
+}
+
+.categorias-scroll { margin-top: 2rem; }
+#categoria-badges { margin-top: 0.75rem; }
+```
+
+### Estructura HTML (badge)
+
+```html
+<span class="badge-categoria" data-id="1">
+  <span class="cat-icon">🏠</span>
+  <span class="cat-label">Inmuebles</span>
+</span>
+```
+
+---
+
+## 8. Categorías - Mobile (Home + Publicar)
+
+### Popover con Grilla
+
+```scss
+.categorias-mobile {
+  display: none;
+  position: relative;
+  margin-top: 2rem;
+}
+
+@media (max-width: 575px) {
+  .categorias-scroll { display: none; }
+  .categorias-mobile { display: block; }
+  #categoria-badges { display: none !important; }
+}
+
+.categorias-mobile-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(6px);
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 0.65rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.categorias-mobile-panel {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%) scale(0.96);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+  width: 92vw;
+  max-width: 360px;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(14px);
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+  padding: 0.75rem;
+  z-index: 150;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+.categoria-grid-item {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.6rem 0.3rem;
+  border-radius: 10px;
+  background: rgba(5, 150, 105, 0.05);
+  border: 1px solid transparent;
+
+  .cat-icon { font-size: 1.3rem; }
+  .cat-label { font-size: 0.68rem; font-weight: 500; }
+
+  &.active {
+    background: rgba(5, 150, 105, 0.14);
+    border-color: rgba(5, 150, 105, 0.35);
+    color: #059669;
+  }
+}
+```
+
+### Label Caption
+
+```scss
+.categorias-mobile-caption {
+  display: block;
+  font-size: 0.75rem;
+  color: #6B7280;
+  margin-bottom: 0.35rem;
+  font-weight: 500;
+}
+```
+
+### Lógica
+
+```javascript
+// Trigger abre/cierra panel
+document.getElementById('categorias-mobile-trigger').addEventListener('click', (e) => {
+  e.stopPropagation()
+  document.getElementById('categorias-mobile-panel').classList.toggle('open')
+})
+
+// Click afuera cierra panel
+document.addEventListener('click', (e) => {
+  const wrapper = document.getElementById('categorias-mobile')
+  if (wrapper && !wrapper.contains(e.target)) {
+    document.getElementById('categorias-mobile-panel').classList.remove('open')
+  }
+})
+```
+
+---
+
+## 9. Formulario Publicar - Categoría
+
+### Confirmación de Categoría (Desktop)
+
+```html
+<div class="categoria-confirmada" id="categoria-confirmada" style="display:none;">
+  ✓ Categoría: <span id="categoria-confirmada-nombre"></span>
+</div>
+```
+
+```scss
+.categoria-confirmada {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #059669;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 575px) {
+  .categoria-confirmada { display: none !important; }
+}
+```
+
+### Validación antes de publicar
+
+```javascript
+if (!categoriaId) {
+  errorEl.style.color = '#EF4444'
+  errorEl.textContent = 'Elegí una categoría antes de publicar'
+  errorEl.classList.remove('d-none')
+
+  const seccionCategoria = document.getElementById('categoria-badges')
+  seccionCategoria.scrollIntoView({ behavior: 'smooth', block: 'center' })
+
+  const trigger = document.getElementById('categorias-mobile-trigger-publicar')
+  if (trigger) {
+    trigger.style.borderColor = '#EF4444'
+    setTimeout(() => { trigger.style.borderColor = '' }, 2500)
+  }
+  return
+}
+```
+
+### Sincronización Desktop ↔ Mobile
+
+```javascript
+function seleccionarCategoriaMobile(id, el) {
+  const badgeDesktop = document.querySelector(`#categoria-badges .badge-categoria[data-id="${id}"]`)
+  seleccionarCategoria(id, badgeDesktop || el)
+  // actualiza panel mobile y cierra
+}
+
+function seleccionarCategoria(id, el) {
+  // ... lógica existente ...
+  // sincroniza con panel mobile
+  const itemMobile = document.querySelector(`#categorias-mobile-panel-publicar .categoria-grid-item[data-id="${id}"]`)
+  if (itemMobile) itemMobile.classList.add('active')
+}
+```
+
+---
+
+## 10. .gitignore
 
 ```
 css/main.css.map
@@ -255,11 +509,15 @@ css/main.css.map
 
 | Archivo | Cambios |
 |---------|---------|
-| `index.html` | Hero estructura, cartelitos, buscador form, toggle orden, scripts |
-| `css/partials/_layout.scss` | Estilos hero, cartelito, pin, decor, search, toggle, responsive |
+| `index.html` | Hero, cartelitos, buscador form, toggle orden, categorías mobile |
+| `publicar.html` | Popover categorías mobile, confirmación, validación |
+| `css/partials/_layout.scss` | Estilos hero, search, toggle, nav, responsive |
+| `css/partials/_components.scss` | Categorías tarjetita, popover mobile, confirmación |
 | `css/main.css` | Compilado |
 | `js/anuncios.js` | Lógica búsqueda/categoría, orden |
+| `assets/img/barashop.webp` | Logo con transparencia |
 | `.gitignore` | Archivos .env |
+| `.github/workflows/pages.yml` | Eliminado (deploy automático de GitHub Pages) |
 
 ---
 
