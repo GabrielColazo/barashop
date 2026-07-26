@@ -168,7 +168,7 @@
       const select = document.getElementById('categoria-select')
       const panel = document.getElementById('categorias-mobile-panel')
 
-      container.innerHTML = '<span class="badge-categoria active" data-id=\"\">Todas</span>'
+      container.innerHTML = '<span class="badge-categoria active" data-id=""><span class="cat-icon">🗂️</span><span class="cat-label">Todas</span></span>'
       container.querySelector('.badge-categoria[data-id=""]').onclick = function() { filtrarPorCategoria(null, this) }
       select.innerHTML = '<option value="">Todas las categorías</option>'
 
@@ -185,7 +185,7 @@
         const badge = document.createElement('span')
         badge.className = 'badge-categoria'
         badge.dataset.id = cat.id
-        badge.textContent = `${cat.icono} ${cat.nombre}`
+        badge.innerHTML = `<span class="cat-icon">${cat.icono}</span><span class="cat-label">${cat.nombre}</span>`
         badge.onclick = () => filtrarPorCategoria(cat.id, badge)
         container.appendChild(badge)
 
