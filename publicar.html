@@ -71,6 +71,9 @@
 
       <div class="form-group">
         <label for="categoria">Categoría</label>
+        <div class="categoria-confirmada" id="categoria-confirmada" style="display:none;">
+          ✓ Categoría: <span id="categoria-confirmada-nombre"></span>
+        </div>
         <div class="d-flex gap-2 flex-wrap" id="categoria-badges"></div>
 
         <div class="categorias-mobile" id="categorias-mobile-publicar">
@@ -280,6 +283,11 @@
       document.querySelectorAll('#categoria-badges .badge-categoria').forEach(b => b.classList.remove('active'))
       el.classList.add('active')
       document.getElementById('categoria').value = id
+
+      const nombreCategoria = el.querySelector('.cat-label')?.textContent?.trim() || el.textContent.trim()
+      const confirmacion = document.getElementById('categoria-confirmada')
+      document.getElementById('categoria-confirmada-nombre').textContent = nombreCategoria
+      confirmacion.style.display = 'block'
 
       document.querySelectorAll('#categorias-mobile-panel-publicar .categoria-grid-item').forEach(b => b.classList.remove('active'))
       const itemMobile = document.querySelector(`#categorias-mobile-panel-publicar .categoria-grid-item[data-id="${id}"]`)
@@ -531,6 +539,22 @@
       const precio = precioInput.disabled ? '0' : precioInput.value
       const telefono = document.getElementById('telefono').value.trim()
       const descripcion = document.getElementById('descripcion').value.trim()
+
+      if (!categoriaId) {
+        errorEl.style.color = '#EF4444'
+        errorEl.textContent = 'Elegí una categoría antes de publicar'
+        errorEl.classList.remove('d-none')
+
+        const seccionCategoria = document.getElementById('categoria-badges')
+        seccionCategoria.scrollIntoView({ behavior: 'smooth', block: 'center' })
+
+        const trigger = document.getElementById('categorias-mobile-trigger-publicar')
+        if (trigger) {
+          trigger.style.borderColor = '#EF4444'
+          setTimeout(() => { trigger.style.borderColor = '' }, 2500)
+        }
+        return
+      }
 
       if (!titulo || precio === '' || !telefono) {
         errorEl.style.color = '#EF4444'
