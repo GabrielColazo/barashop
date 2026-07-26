@@ -377,7 +377,7 @@
 @media (max-width: 575px) {
   .categorias-scroll { display: none; }
   .categorias-mobile { display: block; }
-  #categoria-badges { display: none; }
+  #categoria-badges { display: none !important; }
 }
 
 .categorias-mobile-trigger {

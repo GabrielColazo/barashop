@@ -1059,7 +1059,7 @@ a:hover {
     display: block;
   }
   #categoria-badges {
-    display: none;
+    display: none !important;
   }
 }
 .categorias-mobile-trigger {
