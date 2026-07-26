@@ -72,6 +72,16 @@
       <div class="form-group">
         <label for="categoria">Categoría</label>
         <div class="d-flex gap-2 flex-wrap" id="categoria-badges"></div>
+
+        <div class="categorias-mobile" id="categorias-mobile-publicar">
+          <span class="categorias-mobile-caption">🗂️ Categoría</span>
+          <button type="button" class="categorias-mobile-trigger" id="categorias-mobile-trigger-publicar">
+            <span id="categorias-mobile-trigger-label-publicar">Elegí una categoría</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="categorias-mobile-panel" id="categorias-mobile-panel-publicar"></div>
+        </div>
+
         <input type="hidden" id="categoria" value="">
       </div>
 
@@ -189,8 +199,25 @@
       const categorias = await obtenerCategorias()
       const container = document.getElementById('categoria-badges')
       container.innerHTML = categorias.map(c => `
-        <span class="badge-categoria" data-id="${c.id}" onclick="seleccionarCategoria('${c.id}', this)">${escHtml(c.icono)} ${escHtml(c.nombre)}</span>
+        <span class="badge-categoria" data-id="${c.id}" onclick="seleccionarCategoria('${c.id}', this)"><span class="cat-icon">${escHtml(c.icono)}</span><span class="cat-label">${escHtml(c.nombre)}</span></span>
       `).join('')
+
+      const panelPublicar = document.getElementById('categorias-mobile-panel-publicar')
+      panelPublicar.innerHTML = categorias.map(c => `
+        <button type="button" class="badge-categoria categoria-grid-item" data-id="${c.id}" onclick="seleccionarCategoriaMobile('${c.id}', this)"><span class="cat-icon">${escHtml(c.icono)}</span><span class="cat-label">${escHtml(c.nombre)}</span></button>
+      `).join('')
+
+      document.getElementById('categorias-mobile-trigger-publicar').addEventListener('click', (e) => {
+        e.stopPropagation()
+        panelPublicar.classList.toggle('open')
+      })
+
+      document.addEventListener('click', (e) => {
+        const wrapper = document.getElementById('categorias-mobile-publicar')
+        if (wrapper && !wrapper.contains(e.target)) {
+          panelPublicar.classList.remove('open')
+        }
+      })
 
       if (sesion.data.session) {
         indicator.innerHTML = `<div class="avatar" title="${escHtml(sesion.data.session.user.email)}">${escHtml(sesion.data.session.user.email.charAt(0).toUpperCase())}</div>`
@@ -237,10 +264,28 @@
       }
     }
 
+    function seleccionarCategoriaMobile(id, el) {
+      const badgeDesktop = document.querySelector(`#categoria-badges .badge-categoria[data-id="${id}"]`)
+      seleccionarCategoria(id, badgeDesktop || el)
+
+      document.querySelectorAll('#categorias-mobile-panel-publicar .categoria-grid-item').forEach(b => b.classList.remove('active'))
+      el.classList.add('active')
+
+      const label = el.querySelector('.cat-label')?.textContent || el.textContent
+      document.getElementById('categorias-mobile-trigger-label-publicar').textContent = label.trim()
+      document.getElementById('categorias-mobile-panel-publicar').classList.remove('open')
+    }
+
     function seleccionarCategoria(id, el) {
       document.querySelectorAll('#categoria-badges .badge-categoria').forEach(b => b.classList.remove('active'))
       el.classList.add('active')
       document.getElementById('categoria').value = id
+
+      document.querySelectorAll('#categorias-mobile-panel-publicar .categoria-grid-item').forEach(b => b.classList.remove('active'))
+      const itemMobile = document.querySelector(`#categorias-mobile-panel-publicar .categoria-grid-item[data-id="${id}"]`)
+      if (itemMobile) itemMobile.classList.add('active')
+      const labelMobile = el.querySelector('.cat-label')?.textContent || el.textContent
+      document.getElementById('categorias-mobile-trigger-label-publicar').textContent = labelMobile.trim()
 
       const esDonaciones = el.textContent.trim().toLowerCase().includes('donaciones')
       const precioInput = document.getElementById('precio')

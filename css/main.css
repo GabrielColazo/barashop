@@ -1058,6 +1058,9 @@ a:hover {
   .categorias-mobile {
     display: block;
   }
+  #categoria-badges {
+    display: none;
+  }
 }
 .categorias-mobile-trigger {
   display: flex;
