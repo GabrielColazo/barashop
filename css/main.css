@@ -42,12 +42,12 @@ a:hover {
 }
 
 .header {
-  background: #FFFFFF;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(236, 253, 245, 0.88) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid #E5E7EB;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-  padding: 0.5rem 0;
+  padding: 0.4rem 0;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -65,7 +65,7 @@ a:hover {
   line-height: 1;
 }
 .header .logo-text img {
-  height: 92px;
+  height: 56px;
   width: auto;
 }
 @media (max-width: 575px) {
