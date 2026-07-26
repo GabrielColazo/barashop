@@ -135,20 +135,21 @@ a:hover {
   }
 }
 
-.hero-ilustracion {
-  max-width: 480px;
-  margin: 0 auto 0.75rem;
+.hero-barco {
+  max-width: 380px;
+  margin: -0.5rem auto 0.75rem;
   position: relative;
   z-index: 1;
 }
-.hero-ilustracion svg {
+.hero-barco svg {
   width: 100%;
   height: auto;
   display: block;
 }
 @media (max-width: 575px) {
-  .hero-ilustracion {
-    max-width: 340px;
+  .hero-barco {
+    max-width: 220px;
+    margin: 0 auto 1rem;
   }
 }
 
