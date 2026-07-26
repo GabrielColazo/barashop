@@ -312,12 +312,12 @@
   }
 }
 
-.categorias-scroll {
+.categorias-scroll,
+#categoria-badges {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
   padding: 0.75rem 0 0.5rem;
-  margin-top: 2rem;
 
   .badge-categoria {
     display: flex;
@@ -359,6 +359,9 @@
     }
   }
 }
+
+.categorias-scroll { margin-top: 2rem; }
+#categoria-badges { margin-top: 0.75rem; }
 
 .categorias-mobile {
   display: none;
