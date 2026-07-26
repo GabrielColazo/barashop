@@ -126,6 +126,12 @@
     <div class="categorias-scroll" id="categorias-container"></div>
     <select class="d-none" id="categoria-select"><option value="">Todas</option></select>
 
+    <div class="orden-toggle" id="orden-toggle">
+      <span class="orden-toggle-label">Ordenar por:</span>
+      <button type="button" class="orden-toggle-btn active" data-orden="desc">Recientes</button>
+      <button type="button" class="orden-toggle-btn" data-orden="asc">Antiguos</button>
+    </div>
+
     <div class="grid-anuncios" id="anuncios-container"></div>
   </main>
 
@@ -151,6 +157,7 @@
     }
 
     let categoriaActiva = null
+    let ordenActual = 'desc'
 
     async function cargarCategorias() {
       const categorias = await obtenerCategorias()
@@ -186,8 +193,7 @@
 
     async function cargarAnuncios() {
       const busqueda = document.getElementById('search-input').value
-      const orden = document.getElementById('orden-select').value
-      const filtro = { orden }
+      const filtro = { orden: ordenActual }
       if (busqueda) {
         filtro.busqueda = busqueda
       } else if (categoriaActiva) {
@@ -254,8 +260,23 @@
       cargarAnuncios()
     })
 
-    document.getElementById('orden-select').addEventListener('change', () => {
+    document.getElementById('orden-select').addEventListener('change', (e) => {
+      ordenActual = e.target.value
+      document.querySelectorAll('.orden-toggle-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.orden === ordenActual)
+      })
       cargarAnuncios()
+    })
+
+    document.querySelectorAll('.orden-toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        ordenActual = btn.dataset.orden
+        document.querySelectorAll('.orden-toggle-btn').forEach(b => {
+          b.classList.toggle('active', b === btn)
+        })
+        document.getElementById('orden-select').value = ordenActual
+        cargarAnuncios()
+      })
     })
 
     document.getElementById('categoria-select').addEventListener('change', (e) => {
