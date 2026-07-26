@@ -140,6 +140,7 @@ a:hover {
   margin: -0.5rem auto 0.75rem;
   position: relative;
   z-index: 1;
+  animation: barcoFlota 3.5s ease-in-out infinite;
 }
 .hero-barco svg {
   width: 100%;
@@ -153,6 +154,14 @@ a:hover {
   }
 }
 
+@keyframes barcoFlota {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
 .cartelito {
   --rotate: 0deg;
   position: relative;
@@ -203,8 +212,20 @@ a:hover {
 .hero-decor .cartelito {
   position: absolute;
   pointer-events: auto;
+  opacity: 0;
+  animation: cartelitoIn 0.5s ease-out forwards;
 }
 
+@keyframes cartelitoIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) rotate(var(--rotate));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(var(--rotate));
+  }
+}
 .hero-decor-left {
   left: 0;
 }
