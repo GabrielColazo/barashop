@@ -290,6 +290,26 @@
   }
 }
 
+.orden-avisos {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin: 1rem 0 0.5rem;
+  font-size: 0.85rem;
+  color: #6B7280;
+
+  select {
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+    color: #111827;
+    background: #FFFFFF;
+    cursor: pointer;
+  }
+}
+
 .palabra-destacada {
   position: relative;
   display: inline-block;

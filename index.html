@@ -116,6 +116,13 @@
   </section>
 
   <main class="container">
+    <div class="orden-avisos">
+      <label for="orden-select">Ordenar por:</label>
+      <select id="orden-select">
+        <option value="desc">Más recientes primero</option>
+        <option value="asc">Más antiguos primero</option>
+      </select>
+    </div>
     <div class="categorias-scroll" id="categorias-container"></div>
     <select class="d-none" id="categoria-select"><option value="">Todas</option></select>
 
@@ -179,7 +186,8 @@
 
     async function cargarAnuncios() {
       const busqueda = document.getElementById('search-input').value
-      const filtro = {}
+      const orden = document.getElementById('orden-select').value
+      const filtro = { orden }
       if (busqueda) {
         filtro.busqueda = busqueda
       } else if (categoriaActiva) {
@@ -243,6 +251,10 @@
 
     document.getElementById('hero-search-form').addEventListener('submit', (e) => {
       e.preventDefault()
+      cargarAnuncios()
+    })
+
+    document.getElementById('orden-select').addEventListener('change', () => {
       cargarAnuncios()
     })
 

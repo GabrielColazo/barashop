@@ -4,7 +4,7 @@ const MAX_PESO_MB = 5
 async function obtenerAnuncios(filtro = {}) {
   let query = sb.from('anuncios')
     .select('*, categorias(*)')
-    .order('created_at', { ascending: false })
+    .order('created_at', { ascending: filtro.orden === 'asc' })
 
   if (filtro.busqueda) {
     query = query.ilike('titulo', `%${filtro.busqueda}%`)
