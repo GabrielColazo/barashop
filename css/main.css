@@ -269,6 +269,7 @@ a:hover {
   z-index: 0;
 }
 .hero-decor .cartelito {
+  position: absolute;
   pointer-events: auto;
 }
 
