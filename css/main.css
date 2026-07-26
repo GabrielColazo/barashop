@@ -325,20 +325,20 @@ a:hover {
 }
 
 .hero-search-btn {
-  background: #059669;
-  color: #fff;
+  background: rgba(5, 150, 105, 0.12);
+  color: #059669;
   border: none;
+  padding: 0.6rem 1.1rem;
   border-radius: 50px;
-  padding: 0.7rem 1.4rem;
-  font-size: 0.9rem;
   font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease;
+  transition: background 0.2s ease, color 0.2s ease;
   white-space: nowrap;
 }
 .hero-search-btn:hover {
-  background: #047857;
-  transform: scale(1.03);
+  background: #059669;
+  color: #FFFFFF;
 }
 .hero-search-btn:active {
   transform: scale(0.97);
