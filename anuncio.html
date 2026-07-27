@@ -20,14 +20,13 @@
   <header class="header">
     <div class="container header-inner">
       <a href="index.html" class="logo-text" aria-label="BaraShop"><img src="assets/img/barashop.webp" alt="BaraShop"></a>
-      <div class="d-flex align-items-center gap-2">
-        <a href="contacto.html" class="btn btn-outline-dark btn-sm" style="border-radius:8px;font-weight:500;">Contacto</a>
+      <div class="d-flex align-items-center gap-2" id="header-actions">
         <a href="publicar.html" class="btn-publicar">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           Publicar
         </a>
         <div id="detalle-auth-buttons">
-          <a href="login.html" class="btn btn-outline-dark btn-sm" style="border-radius:8px;font-weight:500;">Ingresar</a>
+          <a href="login.html" class="btn-secundario">Ingresar</a>
         </div>
         <div id="detalle-user-menu" class="d-none" style="position:relative;">
           <div class="avatar" id="detalle-user-avatar" title="Mi cuenta" onclick="toggleDetalleMenu()" style="cursor:pointer;">U</div>
@@ -37,6 +36,7 @@
             <button onclick="cerrarSesion();toggleDetalleMenu()" style="width:100%;text-align:left;padding:0.5rem 0.75rem;border:none;background:none;font-size:0.9rem;color:#EF4444;cursor:pointer;border-radius:6px;">🚪 Cerrar sesión</button>
           </div>
         </div>
+        <a href="contacto.html" class="btn-secundario">Contacto</a>
       </div>
     </div>
   </header>
