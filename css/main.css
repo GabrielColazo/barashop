@@ -93,8 +93,30 @@ a:hover {
   background: #65a30d;
   color: white;
 }
+.header .header-link-contacto {
+  color: #111827;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.header .header-link-contacto:hover {
+  background: #ECFDF5;
+  color: #047857;
+}
+.header .header-link-contacto.activo {
+  color: #059669;
+}
 .header #user-dropdown {
   animation: fadeDown 0.15s ease both;
+}
+@media (max-width: 575px) {
+  .header .header-link-contacto {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.5rem;
+  }
 }
 @media (min-width: 576px) {
   .header {
