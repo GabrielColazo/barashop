@@ -44,7 +44,7 @@
     font-size: 0.85rem;
     padding: 0.4rem 0.85rem;
     border: none;
-    border-radius: 8px;
+    border-radius: v.$radius-sm;
     cursor: pointer;
     transition: all v.$transition;
     text-decoration: none;
@@ -60,42 +60,42 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    background: #fff;
-    color: #111827;
+    background: v.$surface;
+    color: v.$text;
     font-weight: 600;
     font-size: 0.85rem;
     padding: 0.4rem 0.85rem;
     border: 1.5px solid #D1D5DB;
-    border-radius: 8px;
+    border-radius: v.$radius-sm;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all v.$transition;
     text-decoration: none;
     white-space: nowrap;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    box-shadow: v.$shadow-header;
 
     &:hover {
-      background: #059669;
-      border-color: #059669;
-      color: #fff;
+      background: v.$primary;
+      border-color: v.$primary;
+      color: v.$surface;
     }
   }
 
   .header-link-contacto {
-    color: #111827;
+    color: v.$text;
     font-weight: 600;
     font-size: 0.85rem;
     padding: 0.4rem 0.6rem;
-    border-radius: 8px;
+    border-radius: v.$radius-sm;
     text-decoration: none;
-    transition: background 0.2s ease, color 0.2s ease;
+    transition: background v.$transition, color v.$transition;
 
     &:hover {
-      background: #ECFDF5;
-      color: #047857;
+      background: v.$primary-light;
+      color: v.$primary-dark;
     }
 
     &.activo {
-      color: #059669;
+      color: v.$primary;
     }
   }
 
