@@ -159,8 +159,7 @@ a:hover {
     width: 100%;
     justify-content: center;
   }
-  .header #header-actions #auth-buttons,
-  .header #header-actions #user-menu {
+  .header #header-actions > div {
     width: 100%;
   }
   .header .btn-publicar {
