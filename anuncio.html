@@ -106,7 +106,7 @@
             </div>
           `
         } else {
-          galeriaHtml = `<img class="anuncio-imagen" src="assets/img/no-image.svg" alt="${a.titulo}">`
+          galeriaHtml = `<img class="anuncio-imagen" src="assets/img/no-image.svg" alt="${escapeHtml(a.titulo)}">`
         }
 
         document.getElementById('anuncio-detalle').innerHTML = `

@@ -72,3 +72,42 @@ CREATE POLICY "Propietario puede editar su anuncio" ON anuncios
 |------|-----------|
 | Editar título/precio de aviso propio | OK — el cambio se aplica sin error |
 | Cambiar `usuario_id` a otro ID (desde consola) | Bloqueado — `new row violates row-level security policy` |
+
+---
+
+## 2026-07-28 — XSS en `anuncio.html`
+
+| Campo | Detalle |
+|-------|---------|
+| **Archivo** | `anuncio.html` |
+| **Línea** | ~109 |
+| **Tipo** | Cross-Site Scripting (XSS) reflejado |
+
+### Problema
+
+Cuando un anuncio no tiene imagen, el fallback renderizaba el título directamente en el atributo `alt` sin pasar por `escapeHtml()`:
+
+```js
+galeriaHtml = `<img ... alt="${a.titulo}">`
+```
+
+Un atacante podía publicar un anuncio sin foto con un título como `"><img src=x onerror=alert(1)>`, que rompía el atributo `alt` e inyectaba código JavaScript. Se ejecutaba en el navegador de cualquier usuario que abriera ese anuncio.
+
+### Fix
+
+```js
+galeriaHtml = `<img ... alt="${escapeHtml(a.titulo)}">`
+```
+
+Se agregó `escapeHtml()` al título en el fallback, igual que ya se hacía en el resto del archivo (líneas 98, 116, 117, 123, 132).
+
+### Pruebas realizadas
+
+| Caso | Resultado |
+|------|-----------|
+| Abrir anuncio sin imagen y título normal | OK — el título se muestra correctamente en `alt` |
+| Abrir anuncio sin imagen con título `"><img src=x onerror=alert(1)>` | OK — se muestra el texto literal como string, no se ejecuta ningún script |
+
+### Barrido adicional
+
+Se revisaron `index.html` y `mis-avisos.html` — no se encontraron otros casos de texto de usuario insertado sin `escapeHtml()`.
