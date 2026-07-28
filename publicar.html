@@ -113,7 +113,8 @@
 
       <div class="form-group">
         <label for="descripcion">Descripción (opcional)</label>
-        <textarea id="descripcion" class="textarea-custom" rows="3" placeholder="Contale un poco sobre tu producto..." maxlength="2000"></textarea>
+        <textarea id="descripcion" class="textarea-custom" rows="3" placeholder="Contale un poco sobre tu producto..." maxlength="300"></textarea>
+        <span id="descripcion-counter" style="display:block;text-align:right;font-size:0.75rem;color:#6B7280;margin-top:0.25rem;">0/300</span>
       </div>
 
       <div id="registro-inline" class="d-none" style="background:#F0FDF4;border:2px solid #86EFAC;border-radius:12px;padding:1.25rem;margin-top:1.5rem;transition:all 0.3s;">
@@ -195,6 +196,10 @@
     let editandoImagenesExistentes = []
     function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML }
 
+    const desc = document.getElementById('descripcion')
+    const descCounter = document.getElementById('descripcion-counter')
+    desc.addEventListener('input', () => { descCounter.textContent = desc.value.length + '/300' })
+
     function cerrarReglas() {
       document.getElementById('reglas-panel').classList.remove('reglas-abierto')
     }
@@ -261,6 +266,7 @@
         document.getElementById('precio').value = a.precio
         document.getElementById('telefono').value = a.telefono
         document.getElementById('descripcion').value = a.descripcion || ''
+        descCounter.textContent = (a.descripcion || '').length + '/300'
 
         if (a.categoria_id) {
           const badge = document.querySelector(`.badge-categoria[data-id="${a.categoria_id}"]`)
