@@ -269,6 +269,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **Menú hamburguesa mobile (jul 2026):** Nuevo archivo `js/mobile-menu.js` con `toggleMobileMenu()` + click-outside-to-close. Botón hamburguesa (SVG 3 líneas) en `.header-inner` de las 8 páginas, visible solo en `max-width: 575px`. Panel desplegable con `#header-actions` en columna, fondo blanco, sombra, z-index 150. Botones apilados y centrados. Fix `!important` para override de `d-flex` de Bootstrap. Selector `> div` genérico para auth blocks (cubre todos los IDs: `#auth-buttons`, `#user-menu`, `#detalle-auth-buttons`, `#mis-auth-buttons`, etc.).
 - **Contacto: avisos fix (jul 2026):** Eliminado `display: block` de `.aviso-envio.exito` y `.aviso-envio.error` en `<style>` de `contacto.html`. La clase base `.aviso-envio` tiene `display: none` — el JS existente controla la visibilidad al hacer submit.
 - **Publicar: maxlength 300 + contador (jul 2026):** Textarea `#descripcion` cambiado de `maxlength="2000"` a `maxlength="300"`. Nuevo `<span id="descripcion-counter">0/300` debajo del textarea, actualizado en vivo con evento `input`. Counter también se actualiza al cargar aviso existente para edición. Avisos viejos con +300 chars no se cortan (`.value` via JS ignora maxlength).
+- **RLS fix: INSERT anuncio_imagenes (jul 2026):** Política de INSERT cambiada de `WITH CHECK (true)` a `EXISTS (SELECT 1 FROM anuncios WHERE anuncios.id = anuncio_imagenes.anuncio_id AND anuncios.usuario_id = auth.uid())`. Ahora solo el dueño del anuncio puede insertar imágenes. Migración en `migraciones_aplicadas/migracion_rls_imagenes.sql` (ejecutar manual en SQL Editor de Supabase).
 
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
@@ -287,12 +288,13 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - [ ] Probar registro completo (crear usuario, confirmar email, publicar)
 - [ ] Configurar SMTP en Supabase con `contacto@gaboweb.com.ar` (DonWeb)
 - [ ] SITE_URL y Redirect URLs en Supabase Auth ya configurados para GitHub Pages
+- [ ] Ejecutar migración RLS (`migracion_rls_imagenes.sql`) en SQL Editor de Supabase
 - [ ] (Opcional) Login con Google
 - [ ] (Opcional) Hostear en DonWeb
 
 ## Estado actual (jul 2026)
 
-- Último commit: `9885921` — Menu mobile: > div en vez de IDs especificos para auth blocks
+- Último commit: `54a0dd5` — Migracion RLS: fix INSERT anuncio_imagenes con chequeo de propiedad
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://gabrielcolazo.github.io/barashop/`
 
