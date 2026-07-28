@@ -137,7 +137,7 @@ a:hover {
     justify-content: center;
   }
   .header #header-actions {
-    display: none;
+    display: none !important;
     position: absolute;
     top: 100%;
     left: 0;
@@ -152,7 +152,7 @@ a:hover {
     z-index: 150;
   }
   .header #header-actions.mobile-open {
-    display: flex;
+    display: flex !important;
   }
   .header #header-actions .btn-publicar,
   .header #header-actions .btn-secundario {

@@ -104,7 +104,7 @@
       justify-content: center;
     }
     #header-actions {
-      display: none;
+      display: none !important;
       position: absolute;
       top: 100%;
       left: 0;
@@ -118,7 +118,7 @@
       padding: 1rem;
       z-index: 150;
       &.mobile-open {
-        display: flex;
+        display: flex !important;
       }
       .btn-publicar,
       .btn-secundario {
