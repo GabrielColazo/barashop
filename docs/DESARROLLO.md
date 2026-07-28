@@ -262,6 +262,13 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **Botones Volver (jul 2026):** `.link-volver` para páginas legales (gris → verde en hover) y `.pildora-volver` para publicar.html (fondo #D1FAE5, border-radius 999px).
 - **Validación precio $0 (jul 2026):** Fix para que el check de "precio mayor a $0" se alcance cuando el valor es `"0"` (cambio de `!precio` a `precio === ''`). Mensaje actualizado con link a categoría Donaciones que selecciona la categoría automáticamente.
 - **Favicon (jul 2026):** 6 archivos en `assets/img/favicon/` (favicon.ico, favicon-32x32.png, favicon-16x16.png, apple-touch-icon.png, android-chrome-192x192.png, android-chrome-512x512.png). Tags `<link rel="icon">` agregados en las 8 páginas HTML.
+- **Header: btn-secundario (jul 2026):** Nueva clase `.header .btn-secundario` para botones "Ingresar" y "Contacto" en el nav. Estilo sólido blanco, borde gris, hover verde (#059669) con texto blanco. Reemplaza `btn btn-outline-dark btn-sm` + inline styles en las 8 páginas. Media query mobile: font-size 0.8rem, padding reducido.
+- **Header: link-secundario (jul 2026):** Nueva clase `.header .link-secundario` para Contacto como link de texto (sin borde). Revertido — Contacto sigue como `btn-secundario`.
+- **Header: refactoring a variables SCSS (jul 2026):** Reemplazados valores hardcoded por variables (`$primary`, `$text`, `$surface`, `$border`, `$radius-sm`, `$transition`, `$shadow-header`, `$primary-light`, `$primary-dark`) en `.btn-secundario`, `.header-link-contacto`. Box-shadow y hover background con valores propios (no variables) quedan intencionalmente así.
+- **Header: limpieza CSS muerto (jul 2026):** Eliminada clase `.header-link-contacto` y sus variantes (`:hover`, `.activo`) de `_layout.scss` — ya no se usan en ningún HTML.
+- **Menú hamburguesa mobile (jul 2026):** Nuevo archivo `js/mobile-menu.js` con `toggleMobileMenu()` + click-outside-to-close. Botón hamburguesa (SVG 3 líneas) en `.header-inner` de las 8 páginas, visible solo en `max-width: 575px`. Panel desplegable con `#header-actions` en columna, fondo blanco, sombra, z-index 150. Botones apilados y centrados. Fix `!important` para override de `d-flex` de Bootstrap. Selector `> div` genérico para auth blocks (cubre todos los IDs: `#auth-buttons`, `#user-menu`, `#detalle-auth-buttons`, `#mis-auth-buttons`, etc.).
+- **Contacto: avisos fix (jul 2026):** Eliminado `display: block` de `.aviso-envio.exito` y `.aviso-envio.error` en `<style>` de `contacto.html`. La clase base `.aviso-envio` tiene `display: none` — el JS existente controla la visibilidad al hacer submit.
+- **Publicar: maxlength 300 + contador (jul 2026):** Textarea `#descripcion` cambiado de `maxlength="2000"` a `maxlength="300"`. Nuevo `<span id="descripcion-counter">0/300` debajo del textarea, actualizado en vivo con evento `input`. Counter también se actualiza al cargar aviso existente para edición. Avisos viejos con +300 chars no se cortan (`.value` via JS ignora maxlength).
 
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
@@ -285,7 +292,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Estado actual (jul 2026)
 
-- Último commit: `53b6dee` — Subir archivos del favicon al repo
+- Último commit: `9885921` — Menu mobile: > div en vez de IDs especificos para auth blocks
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://gabrielcolazo.github.io/barashop/`
 
@@ -302,6 +309,7 @@ barashop/
 ├── auth-callback.html         # Callback OAuth (reserva para PKCE)
 ├── privacidad.html            # Política de Privacidad
 ├── terminos.html              # Términos y Condiciones
+├── contacto.html              # Formulario de contacto (Web3Forms)
 ├── schema.sql                # SQL completo de la DB (fuente única)
 ├── migraciones_aplicadas/    # Migraciones históricas (referencia)
 ├── css/
@@ -317,7 +325,8 @@ barashop/
 ├── js/
 │   ├── supabase.js           # Config conexión
 │   ├── auth.js               # Auth functions
-│   └── anuncios.js           # CRUD anuncios + imágenes
+│   ├── anuncios.js           # CRUD anuncios + imágenes
+│   └── mobile-menu.js        # Toggle menú hamburguesa mobile
 ├── assets/
 │   └── img/
 │       ├── barashop.webp             # Logo
