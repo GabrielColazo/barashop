@@ -80,31 +80,56 @@
     }
   }
 
-  .header-link-contacto {
-    color: v.$text;
-    font-weight: 600;
-    font-size: 0.85rem;
-    padding: 0.4rem 0.6rem;
-    border-radius: v.$radius-sm;
-    text-decoration: none;
-    transition: background v.$transition, color v.$transition;
-
-    &:hover {
-      background: v.$primary-light;
-      color: v.$primary-dark;
-    }
-
-    &.activo {
-      color: v.$primary;
-    }
-  }
-
   #user-dropdown {
     animation: fadeDown 0.15s ease both;
   }
 
+  .mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.4rem;
+    color: v.$text;
+  }
+
   @media (max-width: 575px) {
-    .header-inner { gap: 0.35rem; }
+    .header-inner {
+      gap: 0.35rem;
+      position: relative;
+    }
+    .mobile-menu-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #header-actions {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.5rem;
+      background: v.$surface;
+      border-bottom: 1px solid v.$border;
+      box-shadow: v.$shadow-md;
+      padding: 1rem;
+      z-index: 150;
+      &.mobile-open {
+        display: flex;
+      }
+      .btn-publicar,
+      .btn-secundario {
+        width: 100%;
+        justify-content: center;
+      }
+      #auth-buttons,
+      #user-menu {
+        width: 100%;
+      }
+    }
     .btn-publicar { font-size: 0.8rem; padding: 0.35rem 0.7rem; }
     .btn-secundario { font-size: 0.8rem; padding: 0.35rem 0.65rem; }
   }

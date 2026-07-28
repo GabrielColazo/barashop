@@ -115,28 +115,53 @@ a:hover {
   border-color: #059669;
   color: #FFFFFF;
 }
-.header .header-link-contacto {
-  color: #111827;
-  font-weight: 600;
-  font-size: 0.85rem;
-  padding: 0.4rem 0.6rem;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-.header .header-link-contacto:hover {
-  background: #D1FAE5;
-  color: #047857;
-}
-.header .header-link-contacto.activo {
-  color: #059669;
-}
 .header #user-dropdown {
   animation: fadeDown 0.15s ease both;
+}
+.header .mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+  color: #111827;
 }
 @media (max-width: 575px) {
   .header .header-inner {
     gap: 0.35rem;
+    position: relative;
+  }
+  .header .mobile-menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .header #header-actions {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E5E7EB;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 1rem;
+    z-index: 150;
+  }
+  .header #header-actions.mobile-open {
+    display: flex;
+  }
+  .header #header-actions .btn-publicar,
+  .header #header-actions .btn-secundario {
+    width: 100%;
+    justify-content: center;
+  }
+  .header #header-actions #auth-buttons,
+  .header #header-actions #user-menu {
+    width: 100%;
   }
   .header .btn-publicar {
     font-size: 0.8rem;
