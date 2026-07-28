@@ -274,6 +274,8 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **XSS fix: anuncio.html (jul 2026):** Fallback de imagen sin foto usaba `a.titulo` sin `escapeHtml()` en el atributo `alt`. Título malicioso podía inyectar JS. Fix: agregado `escapeHtml()`. Barrido de index.html y mis-avisos.html — sin otros casos. Documentado en `docs/seguridad-rls.md`.
 - **SEO: meta tags Open Graph y Twitter Card (jul 2026):** Agregados a las 6 páginas públicas (index, publicar, terminos, privacidad, contacto, anuncio): description, canonical, og:type/site_name/locale/title/description/image/url, twitter:card/title/description/image. Login y mis-avisos: solo description + robots noindex/nofollow (sin OG tags).
 - **SEO: robots.txt y sitemap.xml (jul 2026):** `robots.txt` permite todo excepto login, mis-avisos y auth-callback; apunta al sitemap. `sitemap.xml` con 5 páginas públicas (index, publicar, contacto, terminos, privacidad). anuncio.html excluido (URLs dinámicas con `?id=`).
+- **Offcanvas Bootstrap mobile (piloto index.html, jul 2026):** Migración del menú hamburguesa custom (`js/mobile-menu.js`) al componente Offcanvas de Bootstrap 5 en index.html. Botón hamburguesa con 3 `<span class="linea-menu">` que se animan a X con clase `.abierto` vía eventos `shown.bs.offcanvas` / `hidden.bs.offcanvas`. Panel deslizante desde derecha con logo + btn-close + Publicar + Contacto. Script `bootstrap.bundle.min.js` agregado (CSP ya permitía cdn.jsdelivr.net). `js/mobile-menu.js` eliminado de index.html pero sigue en el repo para las otras 7 páginas. **Pendiente:** migrar las otras 7 páginas al offcanvas.
+- **Botones globales (jul 2026):** `.btn-publicar` y `.btn-secundario` movidos fuera del bloque `.header` en `_layout.scss` para que apliquen globalmente (necesario para el offcanvas que vive fuera del `<header>`). Reglas mobile de font-size dentro de `.header` se mantienen para el header.
 
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
@@ -293,12 +295,13 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - [ ] Configurar SMTP en Supabase con `contacto@gaboweb.com.ar` (DonWeb)
 - [ ] SITE_URL y Redirect URLs en Supabase Auth ya configurados para GitHub Pages
 - [ ] Ejecutar migración RLS (`migracion_rls_imagenes.sql`) en SQL Editor de Supabase
+- [ ] Migrar offcanvas Bootstrap a las 7 páginas restantes (publicar, login, mis-avisos, terminos, privacidad, contacto, anuncio)
 - [ ] (Opcional) Login con Google
 - [ ] (Opcional) Hostear en DonWeb
 
 ## Estado actual (jul 2026)
 
-- Último commit: `3dded60` — SEO: agregar robots.txt y sitemap.xml
+- Último commit: `b398fbd` — Offcanvas Bootstrap en index.html + btn-publicar/btn-secundario globales
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://gabrielcolazo.github.io/barashop/`
 
