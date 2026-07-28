@@ -270,6 +270,10 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **Contacto: avisos fix (jul 2026):** Eliminado `display: block` de `.aviso-envio.exito` y `.aviso-envio.error` en `<style>` de `contacto.html`. La clase base `.aviso-envio` tiene `display: none` — el JS existente controla la visibilidad al hacer submit.
 - **Publicar: maxlength 300 + contador (jul 2026):** Textarea `#descripcion` cambiado de `maxlength="2000"` a `maxlength="300"`. Nuevo `<span id="descripcion-counter">0/300` debajo del textarea, actualizado en vivo con evento `input`. Counter también se actualiza al cargar aviso existente para edición. Avisos viejos con +300 chars no se cortan (`.value` via JS ignora maxlength).
 - **RLS fix: INSERT anuncio_imagenes (jul 2026):** Política de INSERT cambiada de `WITH CHECK (true)` a `EXISTS (SELECT 1 FROM anuncios WHERE anuncios.id = anuncio_imagenes.anuncio_id AND anuncios.usuario_id = auth.uid())`. Ahora solo el dueño del anuncio puede insertar imágenes. Migración en `migraciones_aplicadas/migracion_rls_imagenes.sql` (ejecutar manual en SQL Editor de Supabase).
+- **RLS fix: UPDATE anuncios (jul 2026):** Agregada cláusula `WITH CHECK (auth.uid() = usuario_id)` a la política de UPDATE. Sin esto, un usuario que edita su propio aviso podía cambiar el `usuario_id` y transferir la propiedad. Migración en `migraciones_aplicadas/migracion_rls_update_anuncios.sql`. Documentación completa en `docs/seguridad-rls.md`.
+- **XSS fix: anuncio.html (jul 2026):** Fallback de imagen sin foto usaba `a.titulo` sin `escapeHtml()` en el atributo `alt`. Título malicioso podía inyectar JS. Fix: agregado `escapeHtml()`. Barrido de index.html y mis-avisos.html — sin otros casos. Documentado en `docs/seguridad-rls.md`.
+- **SEO: meta tags Open Graph y Twitter Card (jul 2026):** Agregados a las 6 páginas públicas (index, publicar, terminos, privacidad, contacto, anuncio): description, canonical, og:type/site_name/locale/title/description/image/url, twitter:card/title/description/image. Login y mis-avisos: solo description + robots noindex/nofollow (sin OG tags).
+- **SEO: robots.txt y sitemap.xml (jul 2026):** `robots.txt` permite todo excepto login, mis-avisos y auth-callback; apunta al sitemap. `sitemap.xml` con 5 páginas públicas (index, publicar, contacto, terminos, privacidad). anuncio.html excluido (URLs dinámicas con `?id=`).
 
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
@@ -294,7 +298,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Estado actual (jul 2026)
 
-- Último commit: `54a0dd5` — Migracion RLS: fix INSERT anuncio_imagenes con chequeo de propiedad
+- Último commit: `3dded60` — SEO: agregar robots.txt y sitemap.xml
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://gabrielcolazo.github.io/barashop/`
 
@@ -304,6 +308,8 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 barashop/
 ├── .nojekyll                 # Desactiva Jekyll en GitHub Pages
 ├── README.md                 # Presentación pública del proyecto
+├── robots.txt                # Reglas para crawlers + sitemap location
+├── sitemap.xml               # Sitemap con páginas públicas
 ├── index.html                # Home con listado de anuncios
 ├── login.html                # Login/Registro con email
 ├── publicar.html             # Publicar anuncio (registro inline)
@@ -344,5 +350,6 @@ barashop/
 │       ├── index.js           # Script de limpieza (Node.js)
 │       └── package.json
 └── docs/
-    └── DESARROLLO.md         # (este archivo)
+    ├── DESARROLLO.md         # (este archivo)
+    └── seguridad-rls.md      # Registro de fixes de seguridad (RLS + XSS)
 ```
