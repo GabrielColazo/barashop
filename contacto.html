@@ -127,8 +127,10 @@
       <a href="index.html" class="logo-text" aria-label="BaraShop">
         <img src="assets/img/barashop.webp" alt="BaraShop">
       </a>
-      <button class="mobile-menu-toggle" id="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Abrir menú">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <button class="mobile-menu-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuMobile" aria-controls="menuMobile" aria-label="Abrir menú">
+        <span class="linea-menu"></span>
+        <span class="linea-menu"></span>
+        <span class="linea-menu"></span>
       </button>
       <div class="d-flex align-items-center gap-2" id="header-actions">
         <a href="publicar.html" class="btn-publicar">
@@ -257,6 +259,89 @@
       }
     });
   </script>
-  <script src="js/mobile-menu.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    function toggleUserMenu() {
+      document.getElementById('user-dropdown').classList.toggle('d-none')
+    }
+
+    document.addEventListener('click', (e) => {
+      const dd = document.getElementById('user-dropdown')
+      if (!e.target.closest('#user-menu')) dd.classList.add('d-none')
+    })
+
+    document.addEventListener('DOMContentLoaded', function () {
+      function actualizarHeaderSegunSesion(session) {
+        const authButtons = document.getElementById('auth-buttons')
+        const userMenu = document.getElementById('user-menu')
+        const avatar = document.getElementById('user-avatar')
+        const emailLabel = document.getElementById('user-dropdown-email')
+        const offcanvasIngresar = document.getElementById('offcanvas-ingresar')
+        const offcanvasUserInfo = document.getElementById('offcanvas-user-info')
+        const offcanvasAvatar = document.getElementById('offcanvas-avatar')
+        const offcanvasEmail = document.getElementById('offcanvas-user-email')
+
+        if (session) {
+          authButtons.classList.add('d-none')
+          userMenu.classList.remove('d-none')
+          offcanvasIngresar.classList.add('d-none')
+          offcanvasUserInfo.classList.remove('d-none')
+          const email = session.user.email
+          avatar.textContent = email.charAt(0).toUpperCase()
+          avatar.title = email
+          emailLabel.textContent = email
+          offcanvasAvatar.textContent = email.charAt(0).toUpperCase()
+          offcanvasEmail.textContent = email
+        } else {
+          authButtons.classList.remove('d-none')
+          userMenu.classList.add('d-none')
+          offcanvasIngresar.classList.remove('d-none')
+          offcanvasUserInfo.classList.add('d-none')
+        }
+      }
+
+      obtenerSesion().then(({ data: { session } }) => {
+        actualizarHeaderSegunSesion(session)
+      })
+
+      escucharAuth((event, session) => {
+        actualizarHeaderSegunSesion(session)
+      })
+    })
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const btn = document.querySelector('.mobile-menu-toggle')
+      const panel = document.getElementById('menuMobile')
+      if (!btn || !panel) return
+      panel.addEventListener('shown.bs.offcanvas', () => btn.classList.add('abierto'))
+      panel.addEventListener('hidden.bs.offcanvas', () => btn.classList.remove('abierto'))
+    })
+  </script>
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="menuMobile" aria-labelledby="menuMobileLabel">
+    <div class="offcanvas-header">
+      <img src="assets/img/barashop.webp" alt="BaraShop" style="height:32px;">
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column gap-2">
+      <a href="publicar.html" class="btn-publicar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Publicar
+      </a>
+      <a href="login.html" class="btn-secundario" id="offcanvas-ingresar">Ingresar</a>
+      <div id="offcanvas-user-info" class="d-none">
+        <div class="d-flex align-items-center gap-2 py-2 px-1">
+          <div class="avatar" id="offcanvas-avatar">U</div>
+          <span id="offcanvas-user-email" style="font-size:0.85rem;color:#6B7280;"></span>
+        </div>
+        <a href="mis-avisos.html" class="btn-secundario w-100 mb-2">📋 Mis Avisos</a>
+        <button onclick="cerrarSesion()" class="btn-secundario w-100" style="color:#EF4444;border-color:#EF4444;">🚪 Cerrar sesión</button>
+      </div>
+      <a href="contacto.html" class="btn-secundario">Contacto</a>
+    </div>
+  </div>
 </body>
 </html>

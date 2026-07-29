@@ -276,6 +276,8 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **SEO: robots.txt y sitemap.xml (jul 2026):** `robots.txt` permite todo excepto login, mis-avisos y auth-callback; apunta al sitemap. `sitemap.xml` con 5 páginas públicas (index, publicar, contacto, terminos, privacidad). anuncio.html excluido (URLs dinámicas con `?id=`).
 - **Offcanvas Bootstrap mobile (piloto index.html, jul 2026):** Migración del menú hamburguesa custom (`js/mobile-menu.js`) al componente Offcanvas de Bootstrap 5 en index.html. Botón hamburguesa con 3 `<span class="linea-menu">` que se animan a X con clase `.abierto` vía eventos `shown.bs.offcanvas` / `hidden.bs.offcanvas`. Panel deslizante desde derecha con logo + btn-close + Publicar + Contacto. Script `bootstrap.bundle.min.js` agregado (CSP ya permitía cdn.jsdelivr.net). `js/mobile-menu.js` eliminado de index.html pero sigue en el repo para las otras 7 páginas. **Pendiente:** migrar las otras 7 páginas al offcanvas.
 - **Botones globales (jul 2026):** `.btn-publicar` y `.btn-secundario` movidos fuera del bloque `.header` en `_layout.scss` para que apliquen globalmente (necesario para el offcanvas que vive fuera del `<header>`). Reglas mobile de font-size dentro de `.header` se mantienen para el header.
+- **Offcanvas: sesión en menú mobile (jul 2026):** Bloque de sesión visible dentro del offcanvas de index.html — avatar, email, "Mis Avisos" y "Cerrar sesión" como filas directas (sin dropdown). Actualización en tiempo real sincronizada con el header de escritorio vía una sola función `actualizarHeaderSegunSesion()`.
+- **Fix: avatar "U" persistente en index.html (jul 2026):** `obtenerSesion()` + `escucharAuth()` + `actualizarHeaderSegunSesion()` envueltos en `DOMContentLoaded` para que los elementos del offcanvas (al final del HTML) existan al momento de buscarlos por ID. Sin esto, `getElementById` devolvía `null` y la función explotaba sin setear el avatar.
 
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
@@ -296,12 +298,13 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - [ ] SITE_URL y Redirect URLs en Supabase Auth ya configurados para GitHub Pages
 - [ ] Ejecutar migración RLS (`migracion_rls_imagenes.sql`) en SQL Editor de Supabase
 - [ ] Migrar offcanvas Bootstrap a las 7 páginas restantes (publicar, login, mis-avisos, terminos, privacidad, contacto, anuncio)
+- [ ] Fix: envolver auth en DOMContentLoaded en las 4 páginas que usan escucharAuth (publicar, mis-avisos, anuncio, y verificar las demás)
 - [ ] (Opcional) Login con Google
 - [ ] (Opcional) Hostear en DonWeb
 
 ## Estado actual (jul 2026)
 
-- Último commit: `b398fbd` — Offcanvas Bootstrap en index.html + btn-publicar/btn-secundario globales
+- Último commit: `db21584` — Fix: envolver auth en DOMContentLoaded para offcanvas + sesión sincronizada
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://gabrielcolazo.github.io/barashop/`
 
