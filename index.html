@@ -354,17 +354,27 @@
       const userMenu = document.getElementById('user-menu')
       const avatar = document.getElementById('user-avatar')
       const emailLabel = document.getElementById('user-dropdown-email')
+      const offcanvasIngresar = document.getElementById('offcanvas-ingresar')
+      const offcanvasUserInfo = document.getElementById('offcanvas-user-info')
+      const offcanvasAvatar = document.getElementById('offcanvas-avatar')
+      const offcanvasEmail = document.getElementById('offcanvas-user-email')
 
       if (session) {
         authButtons.classList.add('d-none')
         userMenu.classList.remove('d-none')
+        offcanvasIngresar.classList.add('d-none')
+        offcanvasUserInfo.classList.remove('d-none')
         const email = session.user.email
         avatar.textContent = email.charAt(0).toUpperCase()
         avatar.title = email
         emailLabel.textContent = email
+        offcanvasAvatar.textContent = email.charAt(0).toUpperCase()
+        offcanvasEmail.textContent = email
       } else {
         authButtons.classList.remove('d-none')
         userMenu.classList.add('d-none')
+        offcanvasIngresar.classList.remove('d-none')
+        offcanvasUserInfo.classList.add('d-none')
       }
     })
 
@@ -425,6 +435,15 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         Publicar
       </a>
+      <a href="login.html" class="btn-secundario" id="offcanvas-ingresar">Ingresar</a>
+      <div id="offcanvas-user-info" class="d-none">
+        <div class="d-flex align-items-center gap-2 py-2 px-1">
+          <div class="avatar" id="offcanvas-avatar">U</div>
+          <span id="offcanvas-user-email" style="font-size:0.85rem;color:#6B7280;"></span>
+        </div>
+        <a href="mis-avisos.html" class="btn-secundario w-100 mb-2">📋 Mis Avisos</a>
+        <button onclick="cerrarSesion()" class="btn-secundario w-100" style="color:#EF4444;border-color:#EF4444;">🚪 Cerrar sesión</button>
+      </div>
       <a href="contacto.html" class="btn-secundario">Contacto</a>
     </div>
   </div>
