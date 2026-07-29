@@ -349,33 +349,43 @@
       if (!e.target.closest('#user-menu')) dd.classList.add('d-none')
     })
 
-    escucharAuth((event, session) => {
-      const authButtons = document.getElementById('auth-buttons')
-      const userMenu = document.getElementById('user-menu')
-      const avatar = document.getElementById('user-avatar')
-      const emailLabel = document.getElementById('user-dropdown-email')
-      const offcanvasIngresar = document.getElementById('offcanvas-ingresar')
-      const offcanvasUserInfo = document.getElementById('offcanvas-user-info')
-      const offcanvasAvatar = document.getElementById('offcanvas-avatar')
-      const offcanvasEmail = document.getElementById('offcanvas-user-email')
+    document.addEventListener('DOMContentLoaded', function () {
+      function actualizarHeaderSegunSesion(session) {
+        const authButtons = document.getElementById('auth-buttons')
+        const userMenu = document.getElementById('user-menu')
+        const avatar = document.getElementById('user-avatar')
+        const emailLabel = document.getElementById('user-dropdown-email')
+        const offcanvasIngresar = document.getElementById('offcanvas-ingresar')
+        const offcanvasUserInfo = document.getElementById('offcanvas-user-info')
+        const offcanvasAvatar = document.getElementById('offcanvas-avatar')
+        const offcanvasEmail = document.getElementById('offcanvas-user-email')
 
-      if (session) {
-        authButtons.classList.add('d-none')
-        userMenu.classList.remove('d-none')
-        offcanvasIngresar.classList.add('d-none')
-        offcanvasUserInfo.classList.remove('d-none')
-        const email = session.user.email
-        avatar.textContent = email.charAt(0).toUpperCase()
-        avatar.title = email
-        emailLabel.textContent = email
-        offcanvasAvatar.textContent = email.charAt(0).toUpperCase()
-        offcanvasEmail.textContent = email
-      } else {
-        authButtons.classList.remove('d-none')
-        userMenu.classList.add('d-none')
-        offcanvasIngresar.classList.remove('d-none')
-        offcanvasUserInfo.classList.add('d-none')
+        if (session) {
+          authButtons.classList.add('d-none')
+          userMenu.classList.remove('d-none')
+          offcanvasIngresar.classList.add('d-none')
+          offcanvasUserInfo.classList.remove('d-none')
+          const email = session.user.email
+          avatar.textContent = email.charAt(0).toUpperCase()
+          avatar.title = email
+          emailLabel.textContent = email
+          offcanvasAvatar.textContent = email.charAt(0).toUpperCase()
+          offcanvasEmail.textContent = email
+        } else {
+          authButtons.classList.remove('d-none')
+          userMenu.classList.add('d-none')
+          offcanvasIngresar.classList.remove('d-none')
+          offcanvasUserInfo.classList.add('d-none')
+        }
       }
+
+      obtenerSesion().then(({ data: { session } }) => {
+        actualizarHeaderSegunSesion(session)
+      })
+
+      escucharAuth((event, session) => {
+        actualizarHeaderSegunSesion(session)
+      })
     })
 
     const params = new URLSearchParams(window.location.search)
