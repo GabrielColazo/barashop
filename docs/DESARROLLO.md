@@ -274,10 +274,11 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **XSS fix: anuncio.html (jul 2026):** Fallback de imagen sin foto usaba `a.titulo` sin `escapeHtml()` en el atributo `alt`. Título malicioso podía inyectar JS. Fix: agregado `escapeHtml()`. Barrido de index.html y mis-avisos.html — sin otros casos. Documentado en `docs/seguridad-rls.md`.
 - **SEO: meta tags Open Graph y Twitter Card (jul 2026):** Agregados a las 6 páginas públicas (index, publicar, terminos, privacidad, contacto, anuncio): description, canonical, og:type/site_name/locale/title/description/image/url, twitter:card/title/description/image. Login y mis-avisos: solo description + robots noindex/nofollow (sin OG tags).
 - **SEO: robots.txt y sitemap.xml (jul 2026):** `robots.txt` permite todo excepto login, mis-avisos y auth-callback; apunta al sitemap. `sitemap.xml` con 5 páginas públicas (index, publicar, contacto, terminos, privacidad). anuncio.html excluido (URLs dinámicas con `?id=`).
-- **Offcanvas Bootstrap mobile (piloto index.html, jul 2026):** Migración del menú hamburguesa custom (`js/mobile-menu.js`) al componente Offcanvas de Bootstrap 5 en index.html. Botón hamburguesa con 3 `<span class="linea-menu">` que se animan a X con clase `.abierto` vía eventos `shown.bs.offcanvas` / `hidden.bs.offcanvas`. Panel deslizante desde derecha con logo + btn-close + Publicar + Contacto. Script `bootstrap.bundle.min.js` agregado (CSP ya permitía cdn.jsdelivr.net). `js/mobile-menu.js` eliminado de index.html pero sigue en el repo para las otras 7 páginas. **Pendiente:** migrar las otras 7 páginas al offcanvas.
+- **Offcanvas Bootstrap mobile — migración completa (jul 2026):** Migración del menú hamburguesa custom (`js/mobile-menu.js`) al componente Offcanvas de Bootstrap 5 en las 8 páginas del sitio (index, terminos, privacidad, contacto, login, publicar, mis-avisos, anuncio). Botón hamburguesa con 3 `<span class="linea-menu">` que se animan a X con clase `.abierto` vía eventos `shown.bs.offcanvas` / `hidden.bs.offcanvas`. Panel deslizante desde derecha con logo + btn-close + Publicar + sesión + Contacto. Script `bootstrap.bundle.min.js` agregado a todas las páginas (CSP ya permitía cdn.jsdelivr.net). `js/mobile-menu.js` eliminado de todas las páginas — **código muerto** (ya no se usa en ninguna, pendiente de borrar del repo).
+- **Sesión sincronizada en offcanvas (jul 2026):** En las 7 páginas con header de sesión (index, terminos, privacidad, contacto, mis-avisos, anuncio, publicar), el offcanvas refleja el mismo estado que el header de escritorio en tiempo real. Cada página tiene una función `actualizarSesionHeader()` / `actualizarHeaderSegunSesion()` que actualiza ambos places (desktop + offcanvas) con un solo chequeo de sesión. Se usa `obtenerSesion()` para el chequeo inicial + `escucharAuth()` para cambios futuros, ambos envueltos en `DOMContentLoaded`.
+- **Fix: DOMContentLoaded para offcanvas + avatar (jul 2026):** El offcanvas `<div>` vive al final del HTML, después de los `<script>` que lo referencian. Sin `DOMContentLoaded`, `getElementById` devolvía `null` y la función de sesión explotaba sin setear el avatar (quedaba en "U"). Fix: envolver `obtenerSesion()` + `escucharAuth()` + `actualizarSesionHeader()` en `DOMContentLoaded` para que los elementos existan al momento de buscarlos por ID.
+- **Fix: terminos/privacidad/contacto no cargaban supabase.js ni auth.js (jul 2026):** Estas 3 páginas no incluían `supabase.js` ni `auth.js`, así que el header siempre mostraba "Ingresar" aunque el usuario estuviera logueado. La migración al offcanvas también corrigió esto, agregando los scripts necesarios.
 - **Botones globales (jul 2026):** `.btn-publicar` y `.btn-secundario` movidos fuera del bloque `.header` en `_layout.scss` para que apliquen globalmente (necesario para el offcanvas que vive fuera del `<header>`). Reglas mobile de font-size dentro de `.header` se mantienen para el header.
-- **Offcanvas: sesión en menú mobile (jul 2026):** Bloque de sesión visible dentro del offcanvas de index.html — avatar, email, "Mis Avisos" y "Cerrar sesión" como filas directas (sin dropdown). Actualización en tiempo real sincronizada con el header de escritorio vía una sola función `actualizarHeaderSegunSesion()`.
-- **Fix: avatar "U" persistente en index.html (jul 2026):** `obtenerSesion()` + `escucharAuth()` + `actualizarHeaderSegunSesion()` envueltos en `DOMContentLoaded` para que los elementos del offcanvas (al final del HTML) existan al momento de buscarlos por ID. Sin esto, `getElementById` devolvía `null` y la función explotaba sin setear el avatar.
 
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
@@ -297,14 +298,13 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - [ ] Configurar SMTP en Supabase con `contacto@gaboweb.com.ar` (DonWeb)
 - [ ] SITE_URL y Redirect URLs en Supabase Auth ya configurados para GitHub Pages
 - [ ] Ejecutar migración RLS (`migracion_rls_imagenes.sql`) en SQL Editor de Supabase
-- [ ] Migrar offcanvas Bootstrap a las 7 páginas restantes (publicar, login, mis-avisos, terminos, privacidad, contacto, anuncio)
-- [ ] Fix: envolver auth en DOMContentLoaded en las 4 páginas que usan escucharAuth (publicar, mis-avisos, anuncio, y verificar las demás)
+- [ ] Borrar `js/mobile-menu.js` del repo (código muerto, ya no se usa en ninguna página)
 - [ ] (Opcional) Login con Google
 - [ ] (Opcional) Hostear en DonWeb
 
 ## Estado actual (jul 2026)
 
-- Último commit: `db21584` — Fix: envolver auth en DOMContentLoaded para offcanvas + sesión sincronizada
+- Último commit: `1c807e6` — Offcanvas Bootstrap: migrar login, publicar, mis-avisos y anuncio (las 8 páginas completas)
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://gabrielcolazo.github.io/barashop/`
 
