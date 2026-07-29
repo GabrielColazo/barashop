@@ -42,7 +42,6 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           Publicar
         </a>
-        <div id="user-indicator"></div>
         <div id="pub-user-menu" class="d-none" style="position:relative;">
           <div class="avatar" id="pub-user-avatar" title="Mi cuenta" onclick="togglePubMenu()" style="cursor:pointer;">U</div>
           <div id="pub-user-dropdown" class="d-none" style="position:absolute;top:100%;right:0;margin-top:0.5rem;background:white;border:1px solid #E5E7EB;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.1);min-width:180px;z-index:200;padding:0.5rem;">
@@ -225,7 +224,6 @@
 
     async function init() {
       const sesion = await obtenerSesion()
-      const indicator = document.getElementById('user-indicator')
 
       const categorias = await obtenerCategorias()
       const container = document.getElementById('categoria-badges')
@@ -250,9 +248,7 @@
         }
       })
 
-      if (sesion.data.session) {
-        indicator.innerHTML = `<div class="avatar" title="${escHtml(sesion.data.session.user.email)}">${escHtml(sesion.data.session.user.email.charAt(0).toUpperCase())}</div>`
-      } else {
+      if (!sesion.data.session) {
         document.getElementById('alerta-registro').classList.remove('d-none')
         document.getElementById('registro-inline').classList.remove('d-none')
         const paso2 = document.getElementById('paso2-label')
