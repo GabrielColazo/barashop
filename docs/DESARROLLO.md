@@ -279,6 +279,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **Fix: DOMContentLoaded para offcanvas + avatar (jul 2026):** El offcanvas `<div>` vive al final del HTML, después de los `<script>` que lo referencian. Sin `DOMContentLoaded`, `getElementById` devolvía `null` y la función de sesión explotaba sin setear el avatar (quedaba en "U"). Fix: envolver `obtenerSesion()` + `escucharAuth()` + `actualizarSesionHeader()` en `DOMContentLoaded` para que los elementos existan al momento de buscarlos por ID.
 - **Fix: terminos/privacidad/contacto no cargaban supabase.js ni auth.js (jul 2026):** Estas 3 páginas no incluían `supabase.js` ni `auth.js`, así que el header siempre mostraba "Ingresar" aunque el usuario estuviera logueado. La migración al offcanvas también corrigió esto, agregando los scripts necesarios.
 - **Botones globales (jul 2026):** `.btn-publicar` y `.btn-secundario` movidos fuera del bloque `.header` en `_layout.scss` para que apliquen globalmente (necesario para el offcanvas que vive fuera del `<header>`). Reglas mobile de font-size dentro de `.header` se mantienen para el header.
+- **Fix: avatar duplicado en publicar.html (jul 2026):** Eliminado `<div id="user-indicator"></div>` del header y su lógica en `init()` — era un avatar decorativo sin dropdown que se duplicaba con el avatar funcional `#pub-user-menu`. El header ahora muestra un solo avatar con dropdown.
 
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
@@ -298,13 +299,12 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - [ ] Configurar SMTP en Supabase con `contacto@gaboweb.com.ar` (DonWeb)
 - [ ] SITE_URL y Redirect URLs en Supabase Auth ya configurados para GitHub Pages
 - [ ] Ejecutar migración RLS (`migracion_rls_imagenes.sql`) en SQL Editor de Supabase
-- [ ] Borrar `js/mobile-menu.js` del repo (código muerto, ya no se usa en ninguna página)
 - [ ] (Opcional) Login con Google
 - [ ] (Opcional) Hostear en DonWeb
 
 ## Estado actual (jul 2026)
 
-- Último commit: `1c807e6` — Offcanvas Bootstrap: migrar login, publicar, mis-avisos y anuncio (las 8 páginas completas)
+- Último commit: `4d50ee1` — Fix: eliminar #user-indicator duplicado en publicar.html
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://gabrielcolazo.github.io/barashop/`
 
