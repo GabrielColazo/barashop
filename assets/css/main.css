@@ -36,6 +36,11 @@ a:hover {
   color: #047857;
 }
 
+::-moz-selection {
+  background: #D1FAE5;
+  color: #047857;
+}
+
 ::selection {
   background: #D1FAE5;
   color: #047857;
@@ -65,12 +70,12 @@ a:hover {
   line-height: 1;
 }
 .header .logo-text img {
-  height: 44px;
+  height: 90px;
   width: auto;
 }
 @media (max-width: 575px) {
   .header .logo-text img {
-    height: 36px;
+    height: 72px;
   }
 }
 .header #user-dropdown {
@@ -196,32 +201,6 @@ a:hover {
   background: #059669;
   border-color: #059669;
   color: #FFFFFF;
-}
-
-.header-link {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  color: #6B7280;
-  font-size: 0.875rem;
-  text-decoration: none;
-  transition: color 0.15s;
-}
-.header-link:hover {
-  color: #047857;
-}
-.header-link svg {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-}
-
-.avatar-barco {
-  background: #E1F5EE;
-}
-.avatar-barco svg {
-  width: 60%;
-  height: 60%;
 }
 
 @keyframes fadeDown {
@@ -446,6 +425,9 @@ a:hover {
   font-size: 1rem;
   background: transparent;
   color: #111827;
+}
+.hero-search input::-moz-placeholder {
+  color: #9CA3AF;
 }
 .hero-search input::placeholder {
   color: #9CA3AF;
@@ -972,7 +954,8 @@ a:hover {
 .card-anuncio .card-img-wrap .card-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   transition: transform 0.3s ease;
   border-radius: 8px 8px 0 0;
 }
@@ -1072,12 +1055,17 @@ a:hover {
   border-color: #059669;
   box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
 }
+.input-custom::-moz-placeholder, .textarea-custom::-moz-placeholder, .select-custom::-moz-placeholder {
+  color: #9CA3AF;
+}
 .input-custom::placeholder, .textarea-custom::placeholder, .select-custom::placeholder {
   color: #9CA3AF;
 }
 
 .select-custom {
-  appearance: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.9rem center;
@@ -1103,7 +1091,9 @@ a:hover {
   font-weight: 500;
   transition: all 0.2s ease;
   cursor: pointer;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 .badge-categoria.active {
   background: #059669;
@@ -1434,7 +1424,8 @@ a:hover {
 .anuncio-detalle .anuncio-imagen {
   width: 100%;
   max-height: 200px;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
   border-radius: 8px;
   background: #E5E7EB;
   margin-bottom: 0.75rem;
@@ -1511,7 +1502,8 @@ a:hover {
 .gallery-thumb {
   width: 56px;
   height: 56px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 10px;
   cursor: pointer;
   opacity: 0.5;
@@ -1928,6 +1920,4 @@ a:hover {
     opacity: 1;
     transform: scale(1) translateY(0);
   }
-}
-
-/*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main.css.map */

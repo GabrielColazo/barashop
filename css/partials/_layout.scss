@@ -25,12 +25,12 @@
     line-height: 1;
 
     img {
-      height: 90px;
+      height: 44px;
       width: auto;
     }
 
     @media (max-width: 575px) {
-      img { height: 72px; }
+      img { height: 36px; }
     }
   }
 
@@ -156,6 +156,32 @@
     background: v.$primary;
     border-color: v.$primary;
     color: v.$surface;
+  }
+}
+
+.header-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #6B7280;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: color 0.15s;
+  &:hover {
+    color: #047857;
+  }
+  svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+}
+
+.avatar-barco {
+  background: #E1F5EE;
+  svg {
+    width: 60%;
+    height: 60%;
   }
 }
 

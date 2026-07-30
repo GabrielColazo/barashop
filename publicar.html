@@ -43,14 +43,17 @@
           Publicar
         </a>
         <div id="pub-user-menu" class="d-none" style="position:relative;">
-          <div class="avatar" id="pub-user-avatar" title="Mi cuenta" onclick="togglePubMenu()" style="cursor:pointer;">U</div>
+          <div class="avatar avatar-barco" id="pub-user-avatar" title="Mi cuenta" onclick="togglePubMenu()" style="cursor:pointer;"><svg viewBox="0 0 60 44" xmlns="http://www.w3.org/2000/svg"><path d="M8 30 Q30 38 52 30 L47 40 Q30 44 13 40 Z" fill="#C99461"/><path stroke="#7A5230" stroke-width="3" stroke-linecap="round" d="M30 26 L30 4"/><path d="M30 6 Q46 14 49 26 Q39 30 30 30 Z" fill="#3E8E4F"/><path d="M30 6 Q14 14 11 26 Q21 30 30 30 Z" fill="#2F6E3C"/></svg></div>
           <div id="pub-user-dropdown" class="d-none" style="position:absolute;top:100%;right:0;margin-top:0.5rem;background:white;border:1px solid #E5E7EB;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.1);min-width:180px;z-index:200;padding:0.5rem;">
             <div style="padding:0.5rem 0.75rem;font-size:0.85rem;color:#6B7280;border-bottom:1px solid #E5E7EB;" id="pub-dropdown-email"></div>
             <a href="mis-avisos.html" style="display:block;padding:0.5rem 0.75rem;font-size:0.9rem;color:#111827;text-decoration:none;border-radius:6px;">📋 Mis Avisos</a>
             <button onclick="cerrarSesion();togglePubMenu()" style="width:100%;text-align:left;padding:0.5rem 0.75rem;border:none;background:none;font-size:0.9rem;color:#EF4444;cursor:pointer;border-radius:6px;">🚪 Cerrar sesión</button>
           </div>
         </div>
-        <a href="contacto.html" class="btn-secundario">Contacto</a>
+        <a href="contacto.html" class="header-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+          Contacto
+        </a>
       </div>
     </div>
   </header>
@@ -695,10 +698,8 @@
           menu.classList.remove('d-none')
           offcanvasUserInfo.classList.remove('d-none')
           const email = session.user.email
-          avatar.textContent = email.charAt(0).toUpperCase()
           avatar.title = email
           emailLabel.textContent = email
-          offcanvasAvatar.textContent = email.charAt(0).toUpperCase()
           offcanvasEmail.textContent = email
         } else {
           menu.classList.add('d-none')
@@ -754,13 +755,16 @@
       </a>
       <div id="offcanvas-pub-user-info" class="d-none">
         <div class="d-flex align-items-center gap-2 py-2 px-1">
-          <div class="avatar" id="offcanvas-pub-avatar">U</div>
+          <div class="avatar avatar-barco" id="offcanvas-pub-avatar"><svg viewBox="0 0 60 44" xmlns="http://www.w3.org/2000/svg"><path d="M8 30 Q30 38 52 30 L47 40 Q30 44 13 40 Z" fill="#C99461"/><path stroke="#7A5230" stroke-width="3" stroke-linecap="round" d="M30 26 L30 4"/><path d="M30 6 Q46 14 49 26 Q39 30 30 30 Z" fill="#3E8E4F"/><path d="M30 6 Q14 14 11 26 Q21 30 30 30 Z" fill="#2F6E3C"/></svg></div>
           <span id="offcanvas-pub-email" style="font-size:0.85rem;color:#6B7280;"></span>
         </div>
         <a href="mis-avisos.html" class="btn-secundario w-100 mb-2">📋 Mis Avisos</a>
         <button onclick="cerrarSesion()" class="btn-secundario w-100" style="color:#EF4444;border-color:#EF4444;">🚪 Cerrar sesión</button>
       </div>
-      <a href="contacto.html" class="btn-secundario">Contacto</a>
+      <a href="contacto.html" class="header-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+        Contacto
+      </a>
     </div>
   </div>
 </body>
