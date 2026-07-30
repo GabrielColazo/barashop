@@ -121,6 +121,10 @@
           <span id="badge-gratis" class="badge-gratis d-none">🎁 GRATIS</span>
         </div>
         <p id="aviso-donacion" class="aviso-donacion d-none">Este anuncio va en la categoría Donaciones y no tiene costo.</p>
+        <label style="display:none;align-items:center;gap:6px;font-size:0.85rem;color:#6B7280;margin-top:6px;" id="precio-a-convenir-label">
+          <input type="checkbox" id="precio-a-convenir">
+          Precio a convenir
+        </label>
       </div>
 
       <div class="form-group">
@@ -345,6 +349,18 @@
         badgeGratis.classList.add('d-none')
         avisoDonacion.classList.add('d-none')
         if (precioInput.value === '0') precioInput.value = ''
+      }
+
+      const esServicios = el.textContent.trim().toLowerCase().includes('servicios')
+      const labelAConvenir = document.getElementById('precio-a-convenir-label')
+      const checkAConvenir = document.getElementById('precio-a-convenir')
+
+      if (esServicios) {
+        labelAConvenir.style.display = 'flex'
+      } else {
+        labelAConvenir.style.display = 'none'
+        checkAConvenir.checked = false
+        checkAConvenir.dispatchEvent(new Event('change'))
       }
     }
 
