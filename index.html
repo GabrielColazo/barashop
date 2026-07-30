@@ -258,7 +258,7 @@
       const container = document.getElementById('anuncios-container')
 
       if (anuncios.length === 0) {
-        const hayFiltro = !!busqueda || !!categoriaActiva
+        const hayFiltro = !!busqueda
         const ilustracion = `
           <div class="empty-ilustracion">
             <svg width="100" height="80" viewBox="0 0 60 44" style="position:absolute;top:8px;left:0">
@@ -285,11 +285,15 @@
             </div>
           `
         } else {
+          const nombreCategoria = categoriaActiva ? (document.querySelector('#categoria-badges .badge-categoria.active .cat-label')?.textContent || '') : ''
+          const textoVacio = nombreCategoria
+            ? `Sé el primero en publicar en ${nombreCategoria}`
+            : 'Sé el primero en publicar algo en Baradero'
           container.innerHTML = `
             <div class="empty-state" style="grid-column:1/-1">
               ${ilustracion}
               <h3>Todavía no hay avisos</h3>
-              <p>Sé el primero en publicar algo en Baradero</p>
+              <p>${textoVacio}</p>
               <a href="publicar.html" class="btn-primary-custom">Publicar anuncio</a>
             </div>
           `
