@@ -65,12 +65,12 @@ a:hover {
   line-height: 1;
 }
 .header .logo-text img {
-  height: 44px;
+  height: 60px;
   width: auto;
 }
 @media (max-width: 575px) {
   .header .logo-text img {
-    height: 36px;
+    height: 48px;
   }
 }
 .header #user-dropdown {
