@@ -388,17 +388,6 @@
         label.classList.remove('activo')
       }
     })
-      const labelAConvenir = document.getElementById('precio-a-convenir-label')
-      const checkAConvenir = document.getElementById('precio-a-convenir')
-
-      if (esServicios) {
-        labelAConvenir.style.display = 'flex'
-      } else {
-        labelAConvenir.style.display = 'none'
-        checkAConvenir.checked = false
-        checkAConvenir.dispatchEvent(new Event('change'))
-      }
-    }
 
     function comprimirImagen(file) {
       const TARGET = 150 * 1024
