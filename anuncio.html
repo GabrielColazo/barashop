@@ -134,7 +134,7 @@
               <h1>${escapeHtml(a.titulo)}</h1>
               <span class="badge-categoria mt-1">${escapeHtml(a.categorias?.icono || '📦')} ${escapeHtml(a.categorias?.nombre || 'Sin categoría')}</span>
             </div>
-            <div class="anuncio-precio">$${Number(a.precio).toLocaleString('es-AR')}</div>
+            <div class="anuncio-precio">${a.precio === null || a.precio === undefined ? 'A convenir' : '$' + Number(a.precio).toLocaleString('es-AR')}</div>
           </div>
           <div class="anuncio-meta">
             <span>📅 ${new Date(a.created_at).toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' })}</span>

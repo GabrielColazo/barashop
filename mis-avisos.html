@@ -114,7 +114,7 @@
             <div class="card-img-wrap">
               <img class="card-img" src="${imgUrl}" alt="${escapeHtml(a.titulo)}" loading="lazy">
               <span class="badge-categoria">${icono} ${nombreCategoria}</span>
-              <div class="card-precio-tag">$${Number(a.precio).toLocaleString('es-AR')}</div>
+              <div class="card-precio-tag">${a.precio === null || a.precio === undefined ? 'A convenir' : '$' + Number(a.precio).toLocaleString('es-AR')}</div>
             </div>
             <div class="card-body">
               <div class="card-titulo">${escapeHtml(a.titulo)}</div>
