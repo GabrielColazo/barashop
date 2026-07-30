@@ -6,7 +6,7 @@
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid v.$border;
   box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-  padding: 0.4rem 0;
+  padding: 0.15rem 0;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -25,12 +25,12 @@
     line-height: 1;
 
     img {
-      height: 60px;
+      height: 72px;
       width: auto;
     }
 
     @media (max-width: 575px) {
-      img { height: 48px; }
+      img { height: 56px; }
     }
   }
 
@@ -109,7 +109,7 @@
   }
 
   @media (min-width: 576px) {
-    padding: 0.65rem 0;
+    padding: 0.35rem 0;
   }
 }
 

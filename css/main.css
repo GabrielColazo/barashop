@@ -47,7 +47,7 @@ a:hover {
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid #E5E7EB;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-  padding: 0.4rem 0;
+  padding: 0.15rem 0;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -65,12 +65,12 @@ a:hover {
   line-height: 1;
 }
 .header .logo-text img {
-  height: 60px;
+  height: 72px;
   width: auto;
 }
 @media (max-width: 575px) {
   .header .logo-text img {
-    height: 48px;
+    height: 56px;
   }
 }
 .header #user-dropdown {
@@ -150,7 +150,7 @@ a:hover {
 }
 @media (min-width: 576px) {
   .header {
-    padding: 0.65rem 0;
+    padding: 0.35rem 0;
   }
 }
 
