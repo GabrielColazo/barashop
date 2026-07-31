@@ -288,7 +288,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  padding: 0.3rem 0.65rem;
+  padding: 0.55rem 0.75rem;
+  min-height: 40px;
   background: v.$surface;
   color: v.$text;
   border: 1px solid v.$border;
