@@ -115,6 +115,8 @@
           const icono = renderIcono(a.categorias?.icono)
           const nombreCategoria = escapeHtml(a.categorias?.nombre || '')
           const fecha = new Date(a.created_at).toLocaleDateString('es-AR')
+          const fechaBase = a.renovado_at || a.created_at
+          const diasRestantes = 7 - Math.floor((Date.now() - new Date(fechaBase)) / (1000*60*60*24))
           return `
           <div class="card-anuncio">
             <div class="card-img-wrap">
@@ -125,11 +127,12 @@
             <div class="card-body">
               <div class="card-titulo">${escapeHtml(a.titulo)}</div>
               <div class="card-meta">
-                <span class="card-fecha">${fecha}</span>
+                <span class="card-fecha">${fecha} ${diasRestantes > 2 ? `· ${diasRestantes}d` : diasRestantes > 0 ? `⚠️ ${diasRestantes}d` : 'Vencido'}</span>
               </div>
             </div>
             <div class="card-acciones-mis-avisos">
               <a href="publicar.html?editar=${a.id}" class="btn-sm-edit" onclick="event.stopPropagation()">✏️ Editar</a>
+              ${diasRestantes <= 2 ? `<button onclick="event.stopPropagation(); renovarAviso('${a.id}')" class="btn-sm-edit" style="color:#1D4ED8;border-color:#BFDBFE;">🔄 Renovar</button>` : ''}
               <button onclick="event.stopPropagation(); eliminarAviso('${a.id}')" class="btn-sm-delete">🗑 Eliminar</button>
             </div>
           </div>`
@@ -144,6 +147,16 @@
       if (!confirm('¿Estás seguro de eliminar este anuncio?')) return
       try {
         await eliminarAnuncio(id)
+        cargarMisAvisos()
+      } catch (err) {
+        alert(err.message)
+      }
+    }
+
+    async function renovarAviso(id) {
+      try {
+        await actualizarAnuncio(id, { renovado_at: new Date().toISOString() })
+        alert('Aviso renovado por 7 días más')
         cargarMisAvisos()
       } catch (err) {
         alert(err.message)

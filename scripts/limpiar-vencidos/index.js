@@ -15,25 +15,29 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 
   const { data: anuncios, error } = await supabase
     .from('anuncios')
-    .select('id, created_at')
-    .lt('created_at', fechaLimite)
+    .select('id, created_at, renovado_at')
 
   if (error) {
-    console.error('Error al consultar anuncios vencidos:', error.message)
+    console.error('Error al consultar anuncios:', error.message)
     process.exit(1)
   }
 
-  if (!anuncios || anuncios.length === 0) {
+  const anunciosVencidos = (anuncios || []).filter(a => {
+    const fechaBase = a.renovado_at || a.created_at
+    return fechaBase < fechaLimite
+  })
+
+  if (anunciosVencidos.length === 0) {
     console.log('No hay anuncios vencidos hoy')
     process.exit(0)
   }
 
-  console.log(`Se encontraron ${anuncios.length} anuncio(s) vencido(s)`)
+  console.log(`Se encontraron ${anunciosVencidos.length} anuncio(s) vencido(s)`)
 
   let totalImagenesBorradas = 0
   let totalAnunciosBorrados = 0
 
-  for (const anuncio of anuncios) {
+  for (const anuncio of anunciosVencidos) {
     try {
       const { data: imagenes, error: errImgs } = await supabase
         .from('anuncio_imagenes')
