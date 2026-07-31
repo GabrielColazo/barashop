@@ -48,7 +48,9 @@ CREATE POLICY "Usuarios autenticados pueden publicar" ON anuncios
   WITH CHECK (usuario_id = auth.uid());
 
 CREATE POLICY "Propietario puede editar su anuncio" ON anuncios
-  FOR UPDATE USING (auth.uid() = usuario_id);
+  FOR UPDATE
+  USING (auth.uid() = usuario_id)
+  WITH CHECK (auth.uid() = usuario_id);
 
 CREATE POLICY "Propietario puede eliminar su anuncio" ON anuncios
   FOR DELETE USING (auth.uid() = usuario_id);
@@ -60,7 +62,13 @@ CREATE POLICY "Imágenes visibles para todos" ON anuncio_imagenes
 -- Imágenes: usuarios autenticados pueden insertar
 CREATE POLICY "Usuarios autenticados pueden subir imágenes" ON anuncio_imagenes
   FOR INSERT TO authenticated
-  WITH CHECK (true);
+  WITH CHECK (
+    EXISTS (
+      SELECT 1 FROM anuncios
+      WHERE anuncios.id = anuncio_imagenes.anuncio_id
+        AND anuncios.usuario_id = auth.uid()
+    )
+  );
 
 -- Imágenes: propietario puede eliminar
 CREATE POLICY "Propietario puede eliminar imágenes" ON anuncio_imagenes
