@@ -1176,6 +1176,12 @@ a:hover {
   font-size: 1.3rem;
   line-height: 1;
 }
+.categorias-scroll .badge-categoria .cat-icon svg,
+#categoria-badges .badge-categoria .cat-icon svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
 .categorias-scroll .badge-categoria .cat-label,
 #categoria-badges .badge-categoria .cat-label {
   font-size: 0.72rem;

@@ -185,6 +185,12 @@
       return d.innerHTML
     }
 
+    function renderIcono(icono) {
+      if (!icono) return '📦'
+      if (icono.trim().startsWith('<svg')) return icono
+      return escapeHtml(icono)
+    }
+
     let categoriaActiva = null
     let ordenActual = 'desc'
 
@@ -304,7 +310,7 @@
       container.innerHTML = anuncios.map(a => {
         const imgUrl = a.imagenes?.[0]?.url || 'assets/img/no-image.svg'
         const badge = a.imagenes?.length > 1 ? `<span class="gallery-badge">+${a.imagenes.length - 1}</span>` : ''
-        const catPill = `<span class="badge-categoria">${escapeHtml(a.categorias?.icono || '📦')} ${escapeHtml(a.categorias?.nombre || '')}</span>`
+        const catPill = `<span class="badge-categoria">${renderIcono(a.categorias?.icono)} ${escapeHtml(a.categorias?.nombre || '')}</span>`
         const ubicacion = a.ubicacion ? `<span class="card-ubicacion">${escapeHtml(a.ubicacion)}</span>` : ''
         return `
         <div class="card-anuncio" role="button" tabindex="0" onclick="verAnuncio('${a.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();verAnuncio('${a.id}')}">

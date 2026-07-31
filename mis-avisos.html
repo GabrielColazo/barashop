@@ -84,6 +84,12 @@
       return d.innerHTML
     }
 
+    function renderIcono(icono) {
+      if (!icono) return '📦'
+      if (icono.trim().startsWith('<svg')) return icono
+      return escapeHtml(icono)
+    }
+
     async function cargarMisAvisos() {
       const loading = document.getElementById('mis-avisos-loading')
       const container = document.getElementById('mis-avisos-container')
@@ -106,7 +112,7 @@
 
         container.innerHTML = anuncios.map(a => {
           const imgUrl = a.imagenes?.[0]?.url || 'assets/img/no-image.svg'
-          const icono = escapeHtml(a.categorias?.icono || '📦')
+          const icono = renderIcono(a.categorias?.icono)
           const nombreCategoria = escapeHtml(a.categorias?.nombre || '')
           const fecha = new Date(a.created_at).toLocaleDateString('es-AR')
           return `

@@ -337,6 +337,11 @@
     .cat-icon {
       font-size: 1.3rem;
       line-height: 1;
+      svg {
+        width: 20px;
+        height: 20px;
+        display: block;
+      }
     }
 
     .cat-label {

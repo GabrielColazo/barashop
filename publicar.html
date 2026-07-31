@@ -217,6 +217,12 @@
     let editandoImagenesExistentes = []
     function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML }
 
+    function renderIcono(icono) {
+      if (!icono) return '📦'
+      if (icono.trim().startsWith('<svg')) return icono
+      return escHtml(icono)
+    }
+
     const desc = document.getElementById('descripcion')
     const descCounter = document.getElementById('descripcion-counter')
     desc.addEventListener('input', () => { descCounter.textContent = desc.value.length + '/300' })
@@ -235,12 +241,12 @@
       const categorias = await obtenerCategorias()
       const container = document.getElementById('categoria-badges')
       container.innerHTML = categorias.map(c => `
-        <span class="badge-categoria" data-id="${c.id}" onclick="seleccionarCategoria('${c.id}', this)"><span class="cat-icon">${escHtml(c.icono)}</span><span class="cat-label">${escHtml(c.nombre)}</span></span>
+        <span class="badge-categoria" data-id="${c.id}" onclick="seleccionarCategoria('${c.id}', this)"><span class="cat-icon">${renderIcono(c.icono)}</span><span class="cat-label">${escHtml(c.nombre)}</span></span>
       `).join('')
 
       const panelPublicar = document.getElementById('categorias-mobile-panel-publicar')
       panelPublicar.innerHTML = categorias.map(c => `
-        <button type="button" class="badge-categoria categoria-grid-item" data-id="${c.id}" onclick="seleccionarCategoriaMobile('${c.id}', this)"><span class="cat-icon">${escHtml(c.icono)}</span><span class="cat-label">${escHtml(c.nombre)}</span></button>
+        <button type="button" class="badge-categoria categoria-grid-item" data-id="${c.id}" onclick="seleccionarCategoriaMobile('${c.id}', this)"><span class="cat-icon">${renderIcono(c.icono)}</span><span class="cat-label">${escHtml(c.nombre)}</span></button>
       `).join('')
 
       document.getElementById('categorias-mobile-trigger-publicar').addEventListener('click', (e) => {
