@@ -1,6 +1,13 @@
 const MAX_IMAGENES = 2
 const MAX_PESO_MB = 5
 
+function armarLinkWhatsapp(telefono, tituloAnuncio) {
+  const numeroLimpio = telefono.replace(/\D/g, '')
+  const numeroWhatsapp = `549${numeroLimpio}`
+  const mensaje = encodeURIComponent(`Hola, vi tu aviso en BaraShop "${tituloAnuncio}" y me interesa`)
+  return `https://wa.me/${numeroWhatsapp}?text=${mensaje}`
+}
+
 async function obtenerAnuncios(filtro = {}) {
   let query = sb.from('anuncios')
     .select('*, categorias(*)')
