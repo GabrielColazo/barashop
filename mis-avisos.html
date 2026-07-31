@@ -132,7 +132,7 @@
             </div>
             <div class="card-acciones-mis-avisos">
               <a href="publicar.html?editar=${a.id}" class="btn-sm-edit" onclick="event.stopPropagation()">✏️ Editar</a>
-              ${diasRestantes <= 2 ? `<button onclick="event.stopPropagation(); renovarAviso('${a.id}')" class="btn-sm-edit" style="color:#1D4ED8;border-color:#BFDBFE;">🔄 Renovar</button>` : ''}
+              ${diasRestantes >= 0 ? `<button onclick="event.stopPropagation(); renovarAviso('${a.id}')" class="btn-sm-edit" style="color:#1D4ED8;border-color:#BFDBFE;">🔄 Renovar</button>` : ''}
               <button onclick="event.stopPropagation(); eliminarAviso('${a.id}')" class="btn-sm-delete">🗑 Eliminar</button>
             </div>
           </div>`
