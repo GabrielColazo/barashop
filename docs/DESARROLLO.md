@@ -42,6 +42,7 @@
 | categoria_id | UUID | FK → categorias(id) |
 | usuario_id | UUID | FK → auth.users(id) |
 | created_at | TIMESTAMPTZ | |
+| renovado_at | TIMESTAMPTZ | default NULL, se setea al renovar |
 
 ### Tabla `anuncio_imagenes`
 | Columna | Tipo | Notas |
@@ -293,6 +294,8 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **CSP agregado a auth-callback.html (jul 2026):** Última página sin header Content-Security-Policy. Misma política que el resto del sitio (`*.supabase.co`, `cdn.jsdelivr.net`, etc.).
 - **Touch target categorías (jul 2026):** `.badge-categoria` padding aumentado de `0.3rem 0.65rem` a `0.55rem 0.75rem` + `min-height: 40px` para cumplir tamaño táctil mínimo (~44px).
 - **Accesibilidad label foto (jul 2026):** `<label>` de "Foto" en publicar.html ahora tiene `for="file-input"` — click en el texto abre el selector de archivos.
+- **Renovar aviso (jul 2026):** Nueva columna `renovado_at` (TIMESTAMPTZ, nullable) en tabla `anuncios`. Botón "🔄 Renovar" en mis-avisos.html visible cuando quedan ≤2 días. Al hacer click, actualiza `renovado_at` con la fecha actual y recarga la lista. Lógica de vencimiento en index.html, anuncio.html y mis-avisos.html ahora usa `fechaBase = renovado_at || created_at` — si el aviso fue renovado, cuenta 7 días desde la renovación. Script de limpieza (`scripts/limpiar-vencidos/index.js`) ahora trae `renovado_at` y filtra en JS. Migración en `migraciones_aplicadas/migracion_renovar_avisos.sql` (ejecutar manual en SQL Editor).
+- **Fix: botones desbordados en mis-avisos (jul 2026):** Agregado `flex-wrap: wrap` a `.card-acciones-mis-avisos` para que los botones Editar/Renovar/Eliminar se envuelvan cuando no caben en el ancho de la tarjeta.
 
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
@@ -317,7 +320,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Estado actual (jul 2026)
 
-- Último commit: `4d50ee1` — Fix: eliminar #user-indicator duplicado en publicar.html
+- Último commit: `6a7cfaf` — revert: restore Renew button threshold to <= 2 days
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://gabrielcolazo.github.io/barashop/`
 
