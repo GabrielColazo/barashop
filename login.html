@@ -48,6 +48,15 @@
         <div id="auth-error" class="d-none mb-3" style="color:#EF4444;font-size:0.875rem;"></div>
         <div id="auth-success" class="d-none mb-3" style="color:#10B981;font-size:0.875rem;"></div>
 
+        <div class="form-group d-none" id="nombre-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" class="input-custom" placeholder="Tu nombre" autocomplete="given-name">
+        </div>
+
+        <div class="form-group d-none" id="apellido-group">
+          <label for="apellido">Apellido</label>
+          <input type="text" id="apellido" class="input-custom" placeholder="Tu apellido" autocomplete="family-name">
+        </div>
 
         <div class="form-group">
           <label for="email">Email</label>
@@ -99,6 +108,8 @@
       document.getElementById('auth-error').classList.add('d-none')
       document.getElementById('auth-success').classList.add('d-none')
       document.getElementById('aviso-privacidad').classList.toggle('d-none', isLogin)
+      document.getElementById('nombre-group').classList.toggle('d-none', isLogin)
+      document.getElementById('apellido-group').classList.toggle('d-none', isLogin)
     }
 
     async function handleAuth() {
@@ -122,12 +133,22 @@
         return
       }
 
+      let nombre = ''
+      let apellido = ''
+
       try {
         if (isLogin) {
           await iniciarSesion(email, password)
           window.location.href = 'index.html'
         } else {
-          await registrar(email, password)
+          nombre = document.getElementById('nombre').value.trim()
+          apellido = document.getElementById('apellido').value.trim()
+          if (!nombre || !apellido) {
+            errorEl.textContent = 'Completá nombre y apellido'
+            errorEl.classList.remove('d-none')
+            return
+          }
+          await registrar(email, password, nombre, apellido)
           successEl.textContent = 'Registro exitoso. Revisá tu email para confirmar la cuenta.'
           successEl.classList.remove('d-none')
         }
