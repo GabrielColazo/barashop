@@ -1311,6 +1311,12 @@ a:hover {
 }
 .categoria-grid-item .cat-icon {
   font-size: 1.3rem;
+  line-height: 1;
+}
+.categoria-grid-item .cat-icon svg {
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 .categoria-grid-item .cat-label {
   font-size: 0.68rem;

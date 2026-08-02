@@ -462,7 +462,15 @@
   font-size: 0.7rem;
   line-height: 1.2;
 
-  .cat-icon { font-size: 1.3rem; }
+  .cat-icon {
+    font-size: 1.3rem;
+    line-height: 1;
+    svg {
+      width: 20px;
+      height: 20px;
+      display: block;
+    }
+  }
   .cat-label { font-size: 0.68rem; font-weight: 500; }
 
   &.active {
