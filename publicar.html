@@ -147,6 +147,14 @@
         </div>
         <p style="font-size:0.9rem;color:#166534;margin-bottom:1rem;">Completá estos datos y al publicar se crea tu cuenta automáticamente</p>
         <div class="form-group">
+          <label for="reg-nombre" style="font-weight:600;font-size:0.85rem;color:#059669;">Tu nombre</label>
+          <input type="text" id="reg-nombre" class="input-custom" placeholder="Nombre" style="border-color:#86EFAC;">
+        </div>
+        <div class="form-group">
+          <label for="reg-apellido" style="font-weight:600;font-size:0.85rem;color:#059669;">Tu apellido</label>
+          <input type="text" id="reg-apellido" class="input-custom" placeholder="Apellido" style="border-color:#86EFAC;">
+        </div>
+        <div class="form-group">
           <label for="reg-email" style="font-weight:600;font-size:0.85rem;color:#059669;">Tu email</label>
           <input type="email" id="reg-email" class="input-custom" placeholder="ejemplo@email.com" style="border-color:#86EFAC;">
         </div>
@@ -553,13 +561,15 @@
 
     async function handleRegistro() {
       const btn = document.getElementById('btn-registrarse')
+      const nombre = document.getElementById('reg-nombre').value.trim()
+      const apellido = document.getElementById('reg-apellido').value.trim()
       const email = document.getElementById('reg-email').value.trim()
       const password = document.getElementById('reg-password').value
       const errorEl = document.getElementById('publicar-error')
       errorEl.classList.add('d-none')
 
-      if (!email || !password) {
-        errorEl.textContent = 'Completá tu email y contraseña'
+      if (!nombre || !apellido || !email || !password) {
+        errorEl.textContent = 'Completá todos los campos'
         errorEl.classList.remove('d-none')
         return
       }
@@ -573,7 +583,7 @@
       btn.innerHTML = '⏳ Registrando...'
 
       try {
-        await registrar(email, password)
+        await registrar(email, password, nombre, apellido)
 
         errorEl.style.color = '#10B981'
         errorEl.textContent = '✅ Revisá tu email para confirmar la cuenta. Después ingresá con tu email y contraseña.'
