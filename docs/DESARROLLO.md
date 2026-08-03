@@ -81,7 +81,7 @@
 ## Flujo de publicación
 
 1. Usuario completa: título, precio, teléfono, foto (opcional), descripción (opcional)
-2. Si no está registrado → completa email + contraseña en PASO 1
+2. Si no está registrado → en PASO 1 ("Creá tu cuenta gratis"), completa nombre, apellido, email + contraseña (colapsado por defecto, se abre al clickear o al intentar publicar)
 3. Toca "Registrarse" → se crea la cuenta y se envía email de confirmación
 4. Luego de confirmar email, puede ingresar desde `login.html` y publicar
 5. Si ya está logueado, publica directo
@@ -102,7 +102,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - Logo: imagen `barashop.webp` (fondo blanco #FFFFFF) en header, tamaño 92px (64px mobile)
 - Header: fondo blanco #FFFFFF, backdrop-filter blur, borde inferior gris suave, shadow sutil. Botón "Publicar" verde lima #84cc16 (hover #65a30d). Dropdown de usuario animado (fadeDown).
 - Hero: compacto (padding 1.5rem), fondo gradiente verde (#D1FAE5 → #A7F3D0 → #FAFAFA), título chico 1.15rem, barra de búsqueda redonda con lupa SVG integrada (`.hero-search`). Foto de fondo `imagenbaradero.webp` vía pseudo-elemento `::before` con overlay gradiente semitransparente (opacidad 0.75–0.85), fallback al gradiente si no carga la imagen. Mobile: background-position center 30%.
-- Categorías: chips con `flex-wrap` (`.categorias-scroll`), outline white, active verde sólido. Todas visibles de una, sin scroll horizontal.
+- Categorías: chips con CSS grid (4 columnas, `#categoria-badges`), `min-height: 80px`, checkmark verde al seleccionar. En mobile, panel desplegable con grid de celdas parejas (`.categorias-mobile-panel`).
 - Cards (`.card-anuncio`): 1:1 aspect ratio, imagen cover, pill de categoría overlay posicionado arriba-izquierda (`.card-img-wrap .badge-categoria`), precio como tag naranja (#EA580C) superpuesto abajo-izquierda (`.card-precio-tag`), meta compacta. Hover: translateY(-6px) + shadow. Clavito decorativo arriba-centro. Overflow visible para tag y clavito.
 - Grid (`.grid-anuncios`): minmax(150px, 1fr) mobile → 180px tablet → 180–210px desktop, gaps justos.
 - Skeleton (`.card-skeleton`): 1:1 ratio, pulse animation.
@@ -296,6 +296,12 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **Accesibilidad label foto (jul 2026):** `<label>` de "Foto" en publicar.html ahora tiene `for="file-input"` — click en el texto abre el selector de archivos.
 - **Renovar aviso (jul 2026):** Nueva columna `renovado_at` (TIMESTAMPTZ, nullable) en tabla `anuncios`. Botón "🔄 Renovar" en mis-avisos.html visible cuando quedan ≤2 días. Al hacer click, actualiza `renovado_at` con la fecha actual y recarga la lista. Lógica de vencimiento en index.html, anuncio.html y mis-avisos.html ahora usa `fechaBase = renovado_at || created_at` — si el aviso fue renovado, cuenta 7 días desde la renovación. Script de limpieza (`scripts/limpiar-vencidos/index.js`) ahora trae `renovado_at` y filtra en JS. Migración en `migraciones_aplicadas/migracion_renovar_avisos.sql` (ejecutar manual en SQL Editor).
 - **Fix: botones desbordados en mis-avisos (jul 2026):** Agregado `flex-wrap: wrap` a `.card-acciones-mis-avisos` para que los botones Editar/Renovar/Eliminar se envuelvan cuando no caben en el ancho de la tarjeta.
+- **Nombre y apellido en registro (jul 2026):** Campos "Nombre" y "Apellido" agregados al formulario de `login.html` (antes del email, ocultos en modo login, visibles al toggle a "Registrate"). Validación: no vacíos. `js/auth.js`: `registrar(email, password, nombre, apellido)` pasa los datos via `options.data` a Supabase user_metadata. Formulario inline de `publicar.html` (PASO 1 "Creá tu cuenta gratis") también incluye los campos con la misma validación.
+- **Nombre visible en header (jul 2026):** En las 4 páginas con dropdown de usuario (index, anuncio, mis-avisos, publicar), el dropdown y offcanvas muestran el nombre completo arriba del email. Resolución: `user_metadata.nombre + apellido` → fallback `full_name` (Google) → fallback `name` (Google) → oculto si no hay datos. Mismo patrón en desktop (dropdown) y mobile (offcanvas).
+- **Categorías #categoria-badges: CSS grid (jul 2026):** Reemplazado `flex-wrap` por `display: grid` con `grid-template-columns: repeat(4, 1fr)` (tablet/mobile) y `repeat(4, 1fr)` (desktop ≥992px). Eliminadas clases Bootstrap `d-flex gap-2 flex-wrap` del HTML que pisaban el grid con `!important`. Cada pastilla ocupa el mismo ancho sin importar el largo del texto.
+- **Categorías #categoria-badges: pills con checkmark (jul 2026):** `.badge-categoria` con `position: relative`, `min-height: 80px`. Estado `.active::after`: círculo verde `14x14px` con SVG de tilde blanco en esquina superior derecha (`top: 4px; right: 4px`). Padding `0.75rem 0.5rem`, SVG `19px`, font `0.68rem`.
+- **.publicar-page responsive (jul 2026):** Max-width ampliado en tablet/desktop: `700px` en ≥768px, `900px` en ≥992px (antes `520px` fijo). Las 16 categorías ahora caben cómodamente en 4 columnas sin scroll.
+- **Registro inline colapsado (jul 2026):** `#registro-campos` (wraps form-group + botón + aviso privacidad) arranca con `d-none`. Header "PASO 1 - Creá tu cuenta gratis" es clickeable con flecha ▼ que rota al abrir. `handlePublicar()` abre `#registro-campos` automáticamente cuando el usuario intenta publicar sin registrarse.
 
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
@@ -320,7 +326,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Estado actual (jul 2026)
 
-- Último commit: `6a7cfaf` — revert: restore Renew button threshold to <= 2 days
+- Último commit: `46c34b7` — feat: collapse registro-inline by default and reduce category grid to 4 columns
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://gabrielcolazo.github.io/barashop/`
 
