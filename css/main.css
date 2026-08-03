@@ -1198,7 +1198,7 @@ a:hover {
 
 #categoria-badges {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.6rem;
   margin-top: 0.75rem;
 }
@@ -1261,7 +1261,7 @@ a:hover {
 
 @media (min-width: 992px) {
   #categoria-badges {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 .categorias-scroll {
@@ -1320,6 +1320,15 @@ a:hover {
   font-weight: 600;
   color: #111827;
   cursor: pointer;
+}
+
+.flecha-registro {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.flecha-registro-abierta {
+  transform: rotate(180deg);
 }
 
 .categorias-mobile-panel {
