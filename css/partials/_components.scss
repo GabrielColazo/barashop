@@ -367,8 +367,8 @@
 
 #categoria-badges {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.8rem;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.6rem;
   margin-top: 0.75rem;
 
   .badge-categoria {
@@ -378,9 +378,8 @@
     align-items: center;
     justify-content: center;
     gap: 0.3rem;
-    padding: 1.25rem 0.7rem;
-    border-radius: 14px;
-    min-height: 112px;
+    padding: 0.75rem 0.5rem;
+    min-height: 80px;
     border-radius: 10px;
     white-space: normal;
     text-align: center;
@@ -392,16 +391,16 @@
       font-size: 1.1rem;
       line-height: 1;
       svg {
-        width: 28px;
-        height: 28px;
+        width: 19px;
+        height: 19px;
         display: block;
       }
     }
 
     .cat-label {
-      font-size: 0.85rem;
+      font-size: 0.68rem;
       font-weight: 500;
-      line-height: 1.2;
+      line-height: 1.15;
     }
 
     &:hover {
@@ -437,7 +436,7 @@
 
 @media (min-width: 992px) {
   #categoria-badges {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 
