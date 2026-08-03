@@ -1198,7 +1198,7 @@ a:hover {
 
 #categoria-badges {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 0.6rem;
   margin-top: 0.75rem;
 }
@@ -1208,8 +1208,8 @@ a:hover {
   align-items: center;
   justify-content: center;
   gap: 0.3rem;
-  padding: 0.7rem 0.6rem;
-  border-radius: 12px;
+  padding: 0.45rem 0.35rem;
+  border-radius: 10px;
   white-space: normal;
   text-align: center;
   background: rgba(5, 150, 105, 0.05);
@@ -1217,17 +1217,18 @@ a:hover {
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 #categoria-badges .badge-categoria .cat-icon {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   line-height: 1;
 }
 #categoria-badges .badge-categoria .cat-icon svg {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   display: block;
 }
 #categoria-badges .badge-categoria .cat-label {
-  font-size: 0.72rem;
+  font-size: 0.6rem;
   font-weight: 500;
+  line-height: 1.1;
 }
 #categoria-badges .badge-categoria:hover {
   transform: translateY(-2px);
@@ -1244,7 +1245,7 @@ a:hover {
 
 @media (min-width: 992px) {
   #categoria-badges {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
   }
 }
 .categorias-scroll {
