@@ -117,6 +117,7 @@
       <form id="publicar-form" onsubmit="return handlePublicar(event)">
       <input type="hidden" id="anuncio-id" value="">
 
+      <div id="campos-anuncio">
       <div class="form-group">
         <label for="file-input">Foto (opcional, máximo 2)</label>
         <small style="color:#6B7280;font-size:0.8rem;display:block;margin-bottom:0.5rem;">La foto se recorta a formato cuadrado en las tarjetas — centrá el producto para que se vea bien. Se comprime automáticamente, no te preocupes por el peso.</small>
@@ -189,6 +190,7 @@
         ✅ Publicar anuncio
       </button>
       <a href="mis-avisos.html" id="cancelar-edicion" class="d-none btn-outline-custom w-100 justify-content-center mt-2">← Cancelar</a>
+      </div>
     </form>
     </div>
 
@@ -281,9 +283,12 @@
       if (!sesion.data.session) {
         document.getElementById('alerta-registro').classList.remove('d-none')
         document.getElementById('registro-inline').classList.remove('d-none')
+        document.getElementById('campos-anuncio').classList.add('d-none')
         const paso2 = document.getElementById('paso2-label')
         paso2.classList.remove('d-none')
         paso2.style.display = 'flex'
+      } else {
+        document.getElementById('campos-anuncio').classList.remove('d-none')
       }
 
       const params = new URLSearchParams(window.location.search)
