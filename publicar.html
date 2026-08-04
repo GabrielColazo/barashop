@@ -600,6 +600,7 @@
         errorEl.style.color = '#10B981'
         errorEl.textContent = '✅ Revisá tu email para confirmar la cuenta. Después ingresá con tu email y contraseña.'
         errorEl.classList.remove('d-none')
+        document.getElementById('alerta-registro').classList.add('d-none')
 
         document.getElementById('registro-inline').innerHTML = `
           <p style="font-size:0.95rem;color:#166534;">📧 Te enviamos un mail de confirmación. Cuando lo confirmes, iniciá sesión y publicá tu anuncio.</p>
