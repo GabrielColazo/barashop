@@ -156,16 +156,26 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 | Método | Función | Redirect | Estado |
 |--------|---------|----------|-------|
 | Email + contraseña | `iniciarSesion()` / `registrar()` | `auth-callback.html` (emailRedirectTo) | ✅ Funciona |
-| Google | OAuth redirect (`signInWithOAuth`) | `auth-callback.html` | ✅ Funciona, muestra `supabase.co` |
+| Google | OAuth redirect (`signInWithOAuth`) | `auth-callback.html` | ✅ Funciona |
+| Recuperar contraseña | `resetPassword()` | `auth-callback.html` → `login.html?mode=reset` | ✅ Funciona |
 
 ### Auth redirect flow
 
-1. Todos los métodos de auth usan `AUTH_REDIRECT = 'https://gabrielcolazo.github.io/barashop/auth-callback.html'`
-2. `auth-callback.html` recibe el redirect de Supabase, parsea la URL buscando errores
-3. Si hay error (`error`, `error_description` en query string o hash) → lo muestra en pantalla sin redirigir
-4. Si no hay error → llama `getSession()`, si hay sesión redirige a `publicar.html`
-5. Si no hay sesión → se suscribe a `onAuthStateChange` y redirige en `SIGNED_IN`
-6. Timeout de seguridad de 8s (cancelable si ya se redirigió por los pasos anteriores)
+1. Todos los métodos de auth usan `AUTH_REDIRECT = 'https://barashop.com.ar/auth-callback.html'`
+2. `auth-callback.html` escucha eventos de `onAuthStateChange`:
+   - `PASSWORD_RECOVERY` → redirige a `login.html?mode=reset`
+   - `SIGNED_IN` → redirige a `publicar.html`
+3. Fallback: si no se detecta ningún evento en 4s, redirige a `login.html?mode=reset`
+4. Si hay error en query string → lo muestra en pantalla sin redirigir
+
+### Recuperación de contraseña — flujo completo
+
+1. Usuario hace click en "¿Olvidaste tu contraseña?" en `login.html`
+2. Ingresa su email → se llama `resetPassword(email)` → Supabase envía email
+3. Email en español con logo de BaraShop (template configurado en Supabase Dashboard)
+4. Usuario hace click en link → `auth-callback.html` detecta `PASSWORD_RECOVERY` → redirige a `login.html?mode=reset`
+5. Se muestra formulario "Nueva contraseña"
+6. Usuario ingresa nueva contraseña → `sb.auth.updateUser({ password })` → redirige a login después de 3s
 
 ### Google — implementación
 
@@ -302,6 +312,14 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **Categorías #categoria-badges: pills con checkmark (jul 2026):** `.badge-categoria` con `position: relative`, `min-height: 80px`. Estado `.active::after`: círculo verde `14x14px` con SVG de tilde blanco en esquina superior derecha (`top: 4px; right: 4px`). Padding `0.75rem 0.5rem`, SVG `19px`, font `0.68rem`.
 - **.publicar-page responsive (jul 2026):** Max-width ampliado en tablet/desktop: `700px` en ≥768px, `900px` en ≥992px (antes `520px` fijo). Las 16 categorías ahora caben cómodamente en 4 columnas sin scroll.
 - **Registro inline colapsado (jul 2026):** `#registro-campos` (wraps form-group + botón + aviso privacidad) arranca con `d-none`. Header "PASO 1 - Creá tu cuenta gratis" es clickeable con flecha ▼ que rota al abrir. `handlePublicar()` abre `#registro-campos` automáticamente cuando el usuario intenta publicar sin registrarse.
+- **Refactor publicar.html: registro + campos (ago 2026):** `#registro-inline` movido antes del `<form>`, después de `#alerta-registro`. Acordeón eliminado (sin onclick, sin flecha). `#registro-campos` siempre visible cuando `#registro-inline` está visible. Botón "Registrarme con Google" agregado al registro inline. Contenido del form envuelto en `#campos-anuncio` — se oculta cuando el usuario no está logueado, se muestra al registrarse/loguearse. `escucharAuth()` actualiza UI al cambiar estado de sesión.
+- **Dominio custom barashop.com.ar (ago 2026):** `AUTH_REDIRECT` en `js/auth.js` actualizado a `https://barashop.com.ar/auth-callback.html`. Meta tags (canonical, og:url, og:image) de las 6 páginas HTML actualizados a `barashop.com.ar`. `sitemap.xml` y `robots.txt` actualizados. Configuración de Supabase Dashboard: Site URL `https://barashop.com.ar`, Redirect URLs `https://barashop.com.ar/**`.
+- **Recuperación de contraseña (ago 2026):** Flujo completo implementado:
+  - `js/auth.js`: nueva función `resetPassword(email)` que llama a `sb.auth.resetPasswordForEmail()` con redirect a `barashop.com.ar/auth-callback.html`
+  - `login.html`: link "¿Olvidaste tu contraseña?" debajo del campo contraseña. Al clickear, muestra formulario con email prellenado y botón "Enviar link de recuperación". Formulario `#reset-form` con estilo consistente (colores, tipografía del sitio).
+  - `login.html?mode=reset`: formulario "Nueva contraseña" que aparece cuando el usuario llega desde el email de recuperación. Usa `sb.auth.updateUser({ password })` para actualizar. Redirige a login después de 3 segundos.
+  - `auth-callback.html`: detecta evento `PASSWORD_RECOVERY` del SDK de Supabase y redirige a `login.html?mode=reset`. Fallback con timeout de 4 segundos.
+  - Template de email en español configurado en Supabase Dashboard (Authentication → Email Templates → Reset Password) con logo de BaraShop.
 
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
@@ -317,18 +335,15 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Pendientes
 
-- [ ] Probar registro completo (crear usuario, confirmar email, publicar)
 - [ ] Configurar SMTP en Supabase con `contacto@gaboweb.com.ar` (DonWeb)
-- [ ] SITE_URL y Redirect URLs en Supabase Auth ya configurados para GitHub Pages
 - [ ] Ejecutar migración RLS (`migracion_rls_imagenes.sql`) en SQL Editor de Supabase
-- [ ] (Opcional) Login con Google
 - [ ] (Opcional) Hostear en DonWeb
 
-## Estado actual (jul 2026)
+## Estado actual (ago 2026)
 
-- Último commit: `46c34b7` — feat: collapse registro-inline by default and reduce category grid to 4 columns
+- Último commit: `091bccf` — fix: simplify auth-callback - listen for PASSWORD_RECOVERY event
 - Repo: `https://github.com/GabrielColazo/barashop`
-- URL: `https://gabrielcolazo.github.io/barashop/`
+- URL: `https://barashop.com.ar`
 
 ## Estructura de archivos
 
