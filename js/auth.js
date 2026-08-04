@@ -33,6 +33,13 @@ async function cerrarSesion() {
   if (error) throw error
 }
 
+async function resetPassword(email) {
+  const { error } = await sb.auth.resetPasswordForEmail(email, {
+    redirectTo: AUTH_REDIRECT
+  })
+  if (error) throw error
+}
+
 function obtenerSesion() {
   return sb.auth.getSession()
 }

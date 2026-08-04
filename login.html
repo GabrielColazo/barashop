@@ -68,6 +68,24 @@
           <input type="password" id="password" class="input-custom" placeholder="••••••••" autocomplete="current-password" minlength="6">
         </div>
 
+        <div id="forgot-password-link" style="text-align:right;margin-top:-0.5rem;margin-bottom:1rem;">
+          <a onclick="showResetForm()" style="font-size:0.82rem;color:#059669;font-weight:500;cursor:pointer;">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <div id="reset-form" class="d-none" style="margin-bottom:1rem;">
+          <p style="font-size:0.85rem;color:#6B7280;margin-bottom:0.75rem;">Ingresá tu email y te enviamos un link para restablecer tu contraseña.</p>
+          <div class="form-group">
+            <label for="reset-email" style="font-weight:500;font-size:0.85rem;">Tu email</label>
+            <input type="email" id="reset-email" class="input-custom" placeholder="tu@email.com" autocomplete="email">
+          </div>
+          <button type="button" class="btn-primary-custom w-100 justify-content-center" onclick="handleResetPassword()" id="reset-submit">
+            Enviar link de recuperación
+          </button>
+          <p style="text-align:center;margin-top:0.75rem;">
+            <a onclick="hideResetForm()" style="font-size:0.82rem;color:#6B7280;cursor:pointer;">← Volver al login</a>
+          </p>
+        </div>
+
         <button class="btn-primary-custom w-100 justify-content-center mt-3" id="auth-submit" onclick="handleAuth()">
           Ingresar
         </button>
@@ -86,6 +104,23 @@
         <div class="auth-switch">
           ¿No tenés cuenta? <a id="auth-toggle" onclick="toggleAuth()">Registrate</a>
         </div>
+      </div>
+
+      <div id="reset-password-form" class="d-none">
+        <h2>Nueva contraseña</h2>
+        <p>Ingresá tu nueva contraseña para completar la recuperación.</p>
+
+        <div id="reset-error" class="d-none mb-3" style="color:#EF4444;font-size:0.875rem;"></div>
+        <div id="reset-success" class="d-none mb-3" style="color:#10B981;font-size:0.875rem;"></div>
+
+        <div class="form-group">
+          <label for="new-password">Nueva contraseña</label>
+          <input type="password" id="new-password" class="input-custom" placeholder="Mínimo 6 caracteres" autocomplete="new-password" minlength="6">
+        </div>
+
+        <button class="btn-primary-custom w-100 justify-content-center mt-3" onclick="handleUpdatePassword()">
+          Guardar nueva contraseña
+        </button>
       </div>
     </div>
   </div>
@@ -173,6 +208,94 @@
     document.getElementById('password').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') handleAuth()
     })
+
+    function showResetForm() {
+      document.getElementById('password-group').classList.add('d-none')
+      document.getElementById('forgot-password-link').classList.add('d-none')
+      document.getElementById('auth-submit').classList.add('d-none')
+      document.getElementById('google-btn').classList.add('d-none')
+      document.querySelector('.divider').classList.add('d-none')
+      document.getElementById('auth-toggle').parentElement.classList.add('d-none')
+      document.getElementById('reset-form').classList.remove('d-none')
+      document.getElementById('reset-email').value = document.getElementById('email').value.trim()
+      document.getElementById('auth-error').classList.add('d-none')
+      document.getElementById('auth-success').classList.add('d-none')
+    }
+
+    function hideResetForm() {
+      document.getElementById('password-group').classList.remove('d-none')
+      document.getElementById('forgot-password-link').classList.remove('d-none')
+      document.getElementById('auth-submit').classList.remove('d-none')
+      document.getElementById('google-btn').classList.remove('d-none')
+      document.querySelector('.divider').classList.remove('d-none')
+      document.getElementById('auth-toggle').parentElement.classList.remove('d-none')
+      document.getElementById('reset-form').classList.add('d-none')
+      document.getElementById('auth-error').classList.add('d-none')
+      document.getElementById('auth-success').classList.add('d-none')
+    }
+
+    async function handleResetPassword() {
+      const email = document.getElementById('reset-email').value.trim()
+      const errorEl = document.getElementById('auth-error')
+      const successEl = document.getElementById('auth-success')
+      const btn = document.getElementById('reset-submit')
+
+      errorEl.classList.add('d-none')
+      successEl.classList.add('d-none')
+
+      if (!email) {
+        errorEl.textContent = 'Ingresá tu email'
+        errorEl.classList.remove('d-none')
+        return
+      }
+
+      btn.disabled = true
+      btn.textContent = '⏳ Enviando...'
+
+      try {
+        await resetPassword(email)
+        successEl.textContent = '📧 Te enviamos un email con las instrucciones para restablecer tu contraseña.'
+        successEl.classList.remove('d-none')
+        btn.disabled = false
+        btn.textContent = 'Enviar link de recuperación'
+      } catch (err) {
+        errorEl.textContent = err.message
+        errorEl.classList.remove('d-none')
+        btn.disabled = false
+        btn.textContent = 'Enviar link de recuperación'
+      }
+    }
+
+    async function handleUpdatePassword() {
+      const password = document.getElementById('new-password').value
+      const errorEl = document.getElementById('reset-error')
+      const successEl = document.getElementById('reset-success')
+
+      errorEl.classList.add('d-none')
+      successEl.classList.add('d-none')
+
+      if (!password || password.length < 6) {
+        errorEl.textContent = 'La contraseña debe tener al menos 6 caracteres'
+        errorEl.classList.remove('d-none')
+        return
+      }
+
+      try {
+        const { error } = await sb.auth.updateUser({ password })
+        if (error) throw error
+        successEl.textContent = '✅ Contraseña actualizada. Ya podés ingresar con tu nueva contraseña.'
+        successEl.classList.remove('d-none')
+        setTimeout(() => { window.location.href = 'login.html' }, 3000)
+      } catch (err) {
+        errorEl.textContent = err.message
+        errorEl.classList.remove('d-none')
+      }
+    }
+
+    if (new URLSearchParams(window.location.search).get('mode') === 'reset') {
+      document.getElementById('auth-form').classList.add('d-none')
+      document.getElementById('reset-password-form').classList.remove('d-none')
+    }
   </script>
 
   <footer class="footer">

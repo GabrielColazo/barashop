@@ -91,6 +91,12 @@
 
         sb.auth.onAuthStateChange((event) => {
           if (event === 'SIGNED_IN') redirect()
+          if (event === 'PASSWORD_RECOVERY') {
+            if (redirigido) return
+            redirigido = true
+            clearTimeout(timeout)
+            window.location.href = 'login.html?mode=reset'
+          }
         })
       } catch {
         redirect()
