@@ -67,16 +67,18 @@
         window.location.href = page || 'publicar.html'
       }
 
-      const params = new URLSearchParams(window.location.search)
-      const hashParams = new URLSearchParams(window.__rawHash.replace('#', '?'))
-      const error = params.get('error') || hashParams.get('error')
-      const errorDesc = params.get('error_description') || hashParams.get('error_description')
-      const type = hashParams.get('type')
+      const rawHash = window.__rawHash || ''
+      const hasRecovery = rawHash.includes('type=recovery')
 
-      if (type === 'recovery') {
+      if (hasRecovery) {
         redirect('login.html?mode=reset')
         return
       }
+
+      const params = new URLSearchParams(window.location.search)
+      const hashParams = new URLSearchParams(rawHash.replace('#', '?'))
+      const error = params.get('error') || hashParams.get('error')
+      const errorDesc = params.get('error_description') || hashParams.get('error_description')
 
       if (error) {
         document.getElementById('fallback-link').style.display = 'none'
@@ -89,19 +91,13 @@
 
       const timeout = setTimeout(redirect, 8000)
 
-      try {
-        const { data: { session } } = await sb.auth.getSession()
-        if (session) {
+      sb.auth.onAuthStateChange((event) => {
+        if (event === 'PASSWORD_RECOVERY') {
+          redirect('login.html?mode=reset')
+        } else if (event === 'SIGNED_IN') {
           redirect()
-          return
         }
-
-        sb.auth.onAuthStateChange((event) => {
-          if (event === 'SIGNED_IN') redirect()
-        })
-      } catch {
-        redirect()
-      }
+      })
     })()
   </script>
 </body>
