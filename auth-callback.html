@@ -58,48 +58,30 @@
   <script src="js/supabase.js"></script>
   <script>
     (async () => {
-      let redirigido = false
-
-      function redirect(page) {
-        if (redirigido) return
-        redirigido = true
-        clearTimeout(timeout)
-        clearTimeout(recoveryTimeout)
-        window.location.href = page || 'publicar.html'
-      }
-
-      const rawHash = window.__rawHash || ''
-      const hasRecovery = rawHash.includes('type=recovery')
-
-      if (hasRecovery) {
-        redirect('login.html?mode=reset')
-        return
-      }
-
       const params = new URLSearchParams(window.location.search)
-      const hashParams = new URLSearchParams(rawHash.replace('#', '?'))
-      const error = params.get('error') || hashParams.get('error')
-      const errorDesc = params.get('error_description') || hashParams.get('error_description')
+      const error = params.get('error')
 
       if (error) {
         document.getElementById('fallback-link').style.display = 'none'
         document.querySelector('.spinner').style.display = 'none'
         document.querySelector('h2').textContent = 'No pudimos iniciar sesión'
+        const errorDesc = params.get('error_description')
         document.querySelector('p').textContent = errorDesc ? decodeURIComponent(errorDesc) : 'Ocurrió un error inesperado.'
         document.querySelector('p').innerHTML += '<br><br><a href="login.html">Volver a intentar</a>'
         return
       }
 
-      const timeout = setTimeout(redirect, 8000)
-      const recoveryTimeout = setTimeout(() => redirect('login.html?mode=reset'), 3000)
-
-      sb.auth.onAuthStateChange((event) => {
+      sb.auth.onAuthStateChange((event, session) => {
         if (event === 'PASSWORD_RECOVERY') {
-          redirect('login.html?mode=reset')
-        } else if (event === 'SIGNED_IN') {
-          redirect()
+          window.location.href = 'login.html?mode=reset'
+        } else if (event === 'SIGNED_IN' && session) {
+          window.location.href = 'publicar.html'
         }
       })
+
+      setTimeout(() => {
+        window.location.href = 'login.html?mode=reset'
+      }, 4000)
     })()
   </script>
 </body>
