@@ -59,17 +59,23 @@
     (async () => {
       let redirigido = false
 
-      function redirect() {
+      function redirect(page) {
         if (redirigido) return
         redirigido = true
         clearTimeout(timeout)
-        window.location.href = 'publicar.html'
+        window.location.href = page || 'publicar.html'
       }
 
       const params = new URLSearchParams(window.location.search)
       const hashParams = new URLSearchParams(window.location.hash.replace('#', '?'))
       const error = params.get('error') || hashParams.get('error')
       const errorDesc = params.get('error_description') || hashParams.get('error_description')
+      const type = hashParams.get('type')
+
+      if (type === 'recovery') {
+        redirect('login.html?mode=reset')
+        return
+      }
 
       if (error) {
         document.getElementById('fallback-link').style.display = 'none'
@@ -91,12 +97,6 @@
 
         sb.auth.onAuthStateChange((event) => {
           if (event === 'SIGNED_IN') redirect()
-          if (event === 'PASSWORD_RECOVERY') {
-            if (redirigido) return
-            redirigido = true
-            clearTimeout(timeout)
-            window.location.href = 'login.html?mode=reset'
-          }
         })
       } catch {
         redirect()
