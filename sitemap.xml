@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://gabrielcolazo.github.io/barashop/index.html</loc>
+    <loc>https://barashop.com.ar/index.html</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://gabrielcolazo.github.io/barashop/publicar.html</loc>
+    <loc>https://barashop.com.ar/publicar.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://gabrielcolazo.github.io/barashop/contacto.html</loc>
+    <loc>https://barashop.com.ar/contacto.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://gabrielcolazo.github.io/barashop/terminos.html</loc>
+    <loc>https://barashop.com.ar/terminos.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://gabrielcolazo.github.io/barashop/privacidad.html</loc>
+    <loc>https://barashop.com.ar/privacidad.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

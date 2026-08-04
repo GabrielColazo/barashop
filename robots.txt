@@ -4,4 +4,4 @@ Disallow: /login.html
 Disallow: /mis-avisos.html
 Disallow: /auth-callback.html
 
-Sitemap: https://gabrielcolazo.github.io/barashop/sitemap.xml
+Sitemap: https://barashop.com.ar/sitemap.xml
