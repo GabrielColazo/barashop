@@ -64,6 +64,7 @@
         if (redirigido) return
         redirigido = true
         clearTimeout(timeout)
+        clearTimeout(recoveryTimeout)
         window.location.href = page || 'publicar.html'
       }
 
@@ -90,6 +91,7 @@
       }
 
       const timeout = setTimeout(redirect, 8000)
+      const recoveryTimeout = setTimeout(() => redirect('login.html?mode=reset'), 3000)
 
       sb.auth.onAuthStateChange((event) => {
         if (event === 'PASSWORD_RECOVERY') {
