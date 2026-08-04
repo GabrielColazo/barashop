@@ -818,6 +818,12 @@
 
       escucharAuth((event, session) => {
         actualizarSesionHeader(session)
+        if (session) {
+          document.getElementById('alerta-registro').classList.add('d-none')
+          document.getElementById('registro-inline').classList.add('d-none')
+          document.getElementById('campos-anuncio').classList.remove('d-none')
+          document.getElementById('campos-anuncio').scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
       })
     })
 
