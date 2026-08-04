@@ -45,6 +45,7 @@
   </style>
 </head>
 <body>
+  <script>window.__rawHash = window.location.hash</script>
   <div class="card">
     <div class="spinner"></div>
     <h2>Bienvenido a BaraShop</h2>
@@ -67,7 +68,7 @@
       }
 
       const params = new URLSearchParams(window.location.search)
-      const hashParams = new URLSearchParams(window.location.hash.replace('#', '?'))
+      const hashParams = new URLSearchParams(window.__rawHash.replace('#', '?'))
       const error = params.get('error') || hashParams.get('error')
       const errorDesc = params.get('error_description') || hashParams.get('error_description')
       const type = hashParams.get('type')
