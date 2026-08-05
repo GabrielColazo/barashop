@@ -949,6 +949,53 @@ a:hover {
   outline-offset: 2px;
 }
 
+.btn-nav-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  border: 2px solid #16A34A;
+  border-radius: 10px;
+  background: #FFFFFF;
+  color: #14532D;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+.btn-nav-box:hover {
+  background: #F0FDF4;
+  border-color: #15803D;
+  color: #14532D;
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(22, 163, 74, 0.25);
+}
+.btn-nav-box:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.2);
+}
+.btn-nav-box svg, .btn-nav-box .nav-icon {
+  flex-shrink: 0;
+  transition: transform 0.18s ease;
+}
+.btn-nav-box:hover svg, .btn-nav-box:hover .nav-icon {
+  transform: scale(1.1);
+}
+
+.btn-nav-box-solid {
+  background: linear-gradient(135deg, #16A34A, #15803D);
+  border: none;
+  color: #FFFFFF;
+}
+.btn-nav-box-solid:hover {
+  background: linear-gradient(135deg, #15803D, #14532D);
+  color: #FFFFFF;
+  box-shadow: 0 6px 14px rgba(21, 128, 61, 0.35);
+}
+
 .card-anuncio {
   background: #FFFFFF;
   border-radius: 8px;
