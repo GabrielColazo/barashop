@@ -320,6 +320,9 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
   - `login.html?mode=reset`: formulario "Nueva contraseña" que aparece cuando el usuario llega desde el email de recuperación. Usa `sb.auth.updateUser({ password })` para actualizar. Redirige a login después de 3 segundos.
   - `auth-callback.html`: detecta evento `PASSWORD_RECOVERY` del SDK de Supabase y redirige a `login.html?mode=reset`. Fallback con timeout de 4 segundos.
   - Template de email en español configurado en Supabase Dashboard (Authentication → Email Templates → Reset Password) con logo de BaraShop.
+- **Clases btn-nav-box (ago 2026):** Nuevas clases `.btn-nav-box` y `.btn-nav-box-solid` en `_components.scss` para botones de navegación tipo "caja". Borde verde #16A34A, fondo blanco, texto verde oscuro #14532D. Hover: translateY(-2px), sombra verde. Versión sólida: fondo degradado verde. SVG icon: `#user-avatar svg { width: 22px }`.
+- **Header redesign completo (ago 2026):** Todas las 7 páginas con header migradas de `.btn-publicar` / `.header-link` / `.avatar-barco` a `.btn-nav-box`. Estructura uniforme: `🗂️ Inicio/Categorías` (scroll suave en index, link a index en otras) → `+ Publicar` (sólido) → `➜ Ingresar` (auth-buttons) / `👤 Mi cuenta` con dropdown → `✉️ Contacto`. Login.html no tiene auth-buttons ni user-menu.
+- **Avatar barco en sesión (ago 2026):** En todas las páginas, `#user-avatar` muestra `👤 Mi cuenta` (emoji) cuando no hay sesión. Al loguearse, `actualizarHeaderSegunSesion()` / `actualizarSesionHeader()` inyecta el SVG del barco vía `avatar.innerHTML`. Al cerrar sesión, se restaura `👤 Mi cuenta`. IDs únicos por página: `user-avatar` (index/terminos/privacidad/contacto), `mis-user-avatar`, `detalle-user-avatar`, `pub-user-avatar`.
 
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
@@ -341,7 +344,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Estado actual (ago 2026)
 
-- Último commit: `091bccf` — fix: simplify auth-callback - listen for PASSWORD_RECOVERY event
+- Último commit: `aaecec4` — feat: apply btn-nav-box header redesign to all 7 pages with boat SVG avatar on login
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://barashop.com.ar`
 
@@ -376,11 +379,10 @@ barashop/
 ├── js/
 │   ├── supabase.js           # Config conexión
 │   ├── auth.js               # Auth functions
-│   ├── anuncios.js           # CRUD anuncios + imágenes
-│   └── mobile-menu.js        # Toggle menú hamburguesa mobile
+│   └── anuncios.js           # CRUD anuncios + imágenes
 ├── assets/
 │   └── img/
-│       ├── barashop.webp             # Logo
+│       ├── nuevologobarashop.png    # Logo
 │       ├── imagenbaradero.webp       # Fondo del hero
 │       └── no-image.svg
 ├── .gitignore
