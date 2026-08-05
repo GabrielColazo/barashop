@@ -129,7 +129,7 @@
           const nombreCategoria = escapeHtml(a.categorias?.nombre || '')
           const fecha = new Date(a.created_at).toLocaleDateString('es-AR')
           const fechaBase = a.renovado_at || a.created_at
-          const diasRestantes = 7 - Math.floor((Date.now() - new Date(fechaBase)) / (1000*60*60*24))
+          const diasRestantes = 30 - Math.floor((Date.now() - new Date(fechaBase)) / (1000*60*60*24))
           return `
           <div class="card-anuncio">
             <div class="card-img-wrap">
@@ -169,7 +169,7 @@
     async function renovarAviso(id) {
       try {
         await actualizarAnuncio(id, { renovado_at: new Date().toISOString() })
-        alert('Aviso renovado por 7 días más')
+        alert('Aviso renovado por 30 días más')
         cargarMisAvisos()
       } catch (err) {
         alert(err.message)

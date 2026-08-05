@@ -11,7 +11,7 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 
 ;(async () => {
-  const fechaLimite = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+  const fechaLimite = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
 
   const { data: anuncios, error } = await supabase
     .from('anuncios')
