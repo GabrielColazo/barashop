@@ -323,6 +323,10 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **Clases btn-nav-box (ago 2026):** Nuevas clases `.btn-nav-box` y `.btn-nav-box-solid` en `_components.scss` para botones de navegación tipo "caja". Borde verde #16A34A, fondo blanco, texto verde oscuro #14532D. Hover: translateY(-2px), sombra verde. Versión sólida: fondo degradado verde. SVG icon: `#user-avatar svg { width: 22px }`.
 - **Header redesign completo (ago 2026):** Todas las 7 páginas con header migradas de `.btn-publicar` / `.header-link` / `.avatar-barco` a `.btn-nav-box`. Estructura uniforme: `🗂️ Inicio/Categorías` (scroll suave en index, link a index en otras) → `+ Publicar` (sólido) → `➜ Ingresar` (auth-buttons) / `👤 Mi cuenta` con dropdown → `✉️ Contacto`. Login.html no tiene auth-buttons ni user-menu.
 - **Avatar barco en sesión (ago 2026):** En todas las páginas, `#user-avatar` muestra `👤 Mi cuenta` (emoji) cuando no hay sesión. Al loguearse, `actualizarHeaderSegunSesion()` / `actualizarSesionHeader()` inyecta el SVG del barco vía `avatar.innerHTML`. Al cerrar sesión, se restaura `👤 Mi cuenta`. IDs únicos por página: `user-avatar` (index/terminos/privacidad/contacto), `mis-user-avatar`, `detalle-user-avatar`, `pub-user-avatar`.
+- **Barco SVG en botón Inicio/Categorías (ago 2026):** Reemplazado emoji 🗂️ por SVG del barco inline (`width:18px`) en el botón de Inicio (terminos, privacidad, contacto, mis-avisos, anuncio, publicar, login) y Categorías (index). Consistencia visual entre header desktop y mobile.
+- **Offcanvas mobile: íconos más grandes y consistentes (ago 2026):** Todos los íconos del menú hamburguesa (offcanvas `#menuMobile`) cambiados a `font-size: 1.4rem` (~22px). SVGs inline reemplazados por emojis del header de escritorio: `+` (Publicar), `➜` (Ingresar), 📋 (Mis Avisos), 🚪 (Cerrar sesión), ✉️ (Contacto). Gap entre items aumentado a `1.1rem` en `_layout.scss`.
+- **Logo optimizado (ago 2026):** PNG original 854KB → 402KB (TinyPNG) → convertido a WebP 32KB (Pillow). Fondo blanco eliminado (transparencia). 28 referencias en 8 archivos HTML actualizadas de `.png` a `.webp`.
+- **Vigencia avisos: 30 días (ago 2026):** Cambiado de 7 a 30 días en: `index.html` (contador tarjetas), `anuncio.html` (detalle), `mis-avisos.html` (contador + alerta renovación), `scripts/limpiar-vencidos/index.js` (cron), `terminos.html` (texto legal).
 
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
@@ -344,7 +348,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Estado actual (ago 2026)
 
-- Último commit: `aaecec4` — feat: apply btn-nav-box header redesign to all 7 pages with boat SVG avatar on login
+- Último commit: `3accd5e` — feat: remove white background from logo (transparent)
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://barashop.com.ar`
 
