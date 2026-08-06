@@ -139,7 +139,8 @@
   }
 }
 
-#user-avatar svg {
+#user-avatar svg,
+[id$="-user-avatar"] svg {
   width: 22px;
   height: auto;
 }
