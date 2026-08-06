@@ -156,7 +156,7 @@
               ${imagenes.length > 1 ? `
                 <div class="d-flex gap-2 flex-wrap mb-3" id="galeria-thumbs">
                   ${imagenes.map((img, i) => `
-                    <img class="gallery-thumb ${i === 0 ? 'active' : ''}" src="${img.url}" alt="" onclick="cambiarImagen(${i})">
+                    <img class="gallery-thumb ${i === 0 ? 'active' : ''}" src="${img.url}" alt="${escapeHtml(a.titulo)} - foto ${i + 1}" onclick="cambiarImagen(${i})">
                   `).join('')}
                 </div>
               ` : ''}
