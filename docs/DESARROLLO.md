@@ -330,6 +330,9 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **Vigencia avisos: 30 días (ago 2026):** Cambiado de 7 a 30 días en: `index.html` (contador tarjetas), `anuncio.html` (detalle), `mis-avisos.html` (contador + alerta renovación), `scripts/limpiar-vencidos/index.js` (cron), `terminos.html` (texto legal).
 - **Botón Cafecito en footer (ago 2026):** Imagen `button_5.png` de cafecito.app (negro, letras blancas) con srcset para retina. Agregado en footer de las 8 páginas, antes de "Desarrollado por GABOWEB". Link a `https://cafecito.app/barashop`.
 - **Fix: avatar SVG width todas las páginas (ago 2026):** Selector `#user-avatar svg { width: 22px }` solo aplicaba a index.html. Corregido a `#user-avatar svg, [id$="-user-avatar"] svg { width: 22px; height: auto }` en `_components.scss` para cubrir `pub-user-avatar` (publicar), `mis-user-avatar` (mis-avisos), `detalle-user-avatar` (anuncio). Sin este fix, el SVG del barco no tenía tamaño y el avatar quedaba invisible en esas páginas.
+- **Fix: centrar botón Cafecito en footer mobile (ago 2026):** Regla `img[alt*="cafecito"] { display: block; margin: 0 auto }` en `_layout.scss` para centrar el botón en pantallas chicas.
+- **SEO dinámico en anuncio.html (ago 2026):** En `cargarAnuncio()`, después de cargar el aviso se actualizan `<title>`, meta description, canonical, Open Graph y Twitter Cards con datos reales del aviso (título, descripción truncada a 155 chars, imagen principal, URL con ID). Fallback a logo si no hay imágenes.
+- **Hero subtitle p→h1 (ago 2026):** Cambiado `<p class="hero-subtitle">` a `<h1 class="hero-subtitle">` en `index.html` para mejor semántica SEO. Sin cambio visual (el estilo depende de la clase, no del tag).
 
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
