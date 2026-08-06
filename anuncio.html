@@ -126,6 +126,25 @@
         document.getElementById('loading').classList.add('d-none')
         imagenes = a.imagenes || []
 
+        // Actualizar SEO dinámico
+        const tituloSEO = `${a.titulo} - BaraShop Baradero`
+        const descSEO = a.descripcion
+          ? (a.descripcion.length > 155 ? a.descripcion.slice(0, 152) + '...' : a.descripcion)
+          : `Mirá "${a.titulo}" en BaraShop, el clasificado local de Baradero.`
+        const imagenSEO = imagenes.length > 0 ? imagenes[0].url : 'https://barashop.com.ar/assets/img/nuevologobarashop.webp'
+        const urlSEO = `https://barashop.com.ar/anuncio.html?id=${a.id}`
+
+        document.title = tituloSEO
+        document.querySelector('meta[name="description"]').setAttribute('content', descSEO)
+        document.querySelector('link[rel="canonical"]').setAttribute('href', urlSEO)
+        document.querySelector('meta[property="og:title"]').setAttribute('content', tituloSEO)
+        document.querySelector('meta[property="og:description"]').setAttribute('content', descSEO)
+        document.querySelector('meta[property="og:image"]').setAttribute('content', imagenSEO)
+        document.querySelector('meta[property="og:url"]').setAttribute('content', urlSEO)
+        document.querySelector('meta[name="twitter:title"]').setAttribute('content', tituloSEO)
+        document.querySelector('meta[name="twitter:description"]').setAttribute('content', descSEO)
+        document.querySelector('meta[name="twitter:image"]').setAttribute('content', imagenSEO)
+
         const sesion = await obtenerSesion()
         const esPropio = sesion.data.session && sesion.data.session.user.id === a.usuario_id
 
