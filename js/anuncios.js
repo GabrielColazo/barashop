@@ -54,13 +54,18 @@ async function publicarAnuncio(anuncio) {
   const sesion = await obtenerSesion()
   if (!sesion.data.session) throw new Error('Debes iniciar sesión')
 
+  const user = sesion.data.session.user
+  const meta = user.user_metadata || {}
+
   const { data, error } = await sb.from('anuncios').insert({
     titulo: anuncio.titulo,
     descripcion: anuncio.descripcion,
     precio: anuncio.precio,
     telefono: anuncio.telefono,
     categoria_id: anuncio.categoria_id,
-    usuario_id: sesion.data.session.user.id
+    usuario_id: user.id,
+    nombre: meta.nombre || null,
+    apellido: meta.apellido || null
   }).select().single()
 
   if (error) throw error

@@ -19,6 +19,8 @@ CREATE TABLE anuncios (
   categoria_id UUID REFERENCES categorias(id) ON DELETE SET NULL,
   usuario_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
   imagen_url TEXT DEFAULT '',
+  nombre TEXT,
+  apellido TEXT,
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
