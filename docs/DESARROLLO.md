@@ -336,6 +336,30 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **Alt descriptivo en galería de fotos (ago 2026):** Thumbnails de `anuncio.html` cambiado de `alt=""` a `alt="${escapeHtml(a.titulo)} - foto ${i + 1}"` para accesibilidad y SEO.
 - **Sitemap actualizado (ago 2026):** Home URL cambiada de `/index.html` a `/` (canónica). Agregada entrada para `login.html` (changefreq yearly, priority 0.4).
 
+## PWA (rama prueba)
+
+### Paso 1 — Manifest + Iconos (`32832ac`)
+
+- **manifest.json** en raíz del proyecto: `name`, `short_name`, `display: standalone`, `theme_color: #059669`, `orientation: portrait`
+- **4 iconos PNG** generados a partir del SVG del avatar (barquito simplificado):
+  - `assets/img/icons/icon-192.png` — fondo transparente, propósito `any`
+  - `assets/img/icons/icon-512.png` — fondo transparente, propósito `any`
+  - `assets/img/icons/icon-maskable-192.png` — fondo sólido `#059669`, barquito al 60%, ~20% margen
+  - `assets/img/icons/icon-maskable-512.png` — mismo criterio
+- **`<link rel="manifest" href="/manifest.json">`** agregado en las 9 páginas HTML (después de `apple-touch-icon`)
+
+### Paso 2 — Service Worker (`c46df5b`)
+
+- **`sw.js`** en raíz del proyecto
+- **Estrategia:** cache-first para assets estáticos, network-first para HTML
+- **`STATIC_ASSETS` precacheados:**
+  - `/css/main.css`
+  - `/js/supabase.js`, `/js/auth.js`, `/js/anuncios.js`
+  - `/assets/img/icons/icon-192.png`, `icon-512.png`, `icon-maskable-192.png`, `icon-maskable-512.png`
+- **Nunca cachea:** HTML (navegación), Supabase, dominios externos, métodos no-GET
+- **Registro:** script antes de `</body>` en las 9 páginas, `navigator.serviceWorker.register('/sw.js')`
+- **Cache name:** `barashop-static-v1` (subir número en cada deploy grande)
+
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
 > **NUNCA editar `css/main.css` directamente.** Todo el CSS va en los parciales SCSS (`css/partials/_*.scss`). Después compilar con `sass css/main.scss css/main.css`.
@@ -356,7 +380,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Estado actual (ago 2026)
 
-- Último commit: `3accd5e` — feat: remove white background from logo (transparent)
+- Último commit: `c46df5b` — feat: service worker cache-first para assets estáticos (rama prueba)
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://barashop.com.ar`
 
@@ -392,11 +416,15 @@ barashop/
 │   ├── supabase.js           # Config conexión
 │   ├── auth.js               # Auth functions
 │   └── anuncios.js           # CRUD anuncios + imágenes
+├── manifest.json              # PWA manifest
+├── sw.js                      # Service Worker (cache-first estáticos)
 ├── assets/
 │   └── img/
 │       ├── nuevologobarashop.png    # Logo
 │       ├── imagenbaradero.webp       # Fondo del hero
-│       └── no-image.svg
+│       ├── no-image.svg
+│       ├── favicon/                 # Favicon tradicional
+│       └── icons/                   # Iconos PWA (192/512, any/maskable)
 ├── .gitignore
 ├── mis-avisos.html            # Listado de mis anuncios (editar/eliminar)
 ├── .github/
