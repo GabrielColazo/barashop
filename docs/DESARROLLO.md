@@ -333,6 +333,8 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **Fix: centrar botón Cafecito en footer mobile (ago 2026):** Regla `img[alt*="cafecito"] { display: block; margin: 0 auto }` en `_layout.scss` para centrar el botón en pantallas chicas.
 - **SEO dinámico en anuncio.html (ago 2026):** En `cargarAnuncio()`, después de cargar el aviso se actualizan `<title>`, meta description, canonical, Open Graph y Twitter Cards con datos reales del aviso (título, descripción truncada a 155 chars, imagen principal, URL con ID). Fallback a logo si no hay imágenes.
 - **Hero subtitle p→h1 (ago 2026):** Cambiado `<p class="hero-subtitle">` a `<h1 class="hero-subtitle">` en `index.html` para mejor semántica SEO. Sin cambio visual (el estilo depende de la clase, no del tag).
+- **Alt descriptivo en galería de fotos (ago 2026):** Thumbnails de `anuncio.html` cambiado de `alt=""` a `alt="${escapeHtml(a.titulo)} - foto ${i + 1}"` para accesibilidad y SEO.
+- **Sitemap actualizado (ago 2026):** Home URL cambiada de `/index.html` a `/` (canónica). Agregada entrada para `login.html` (changefreq yearly, priority 0.4).
 
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
