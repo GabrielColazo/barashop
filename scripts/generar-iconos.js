@@ -27,7 +27,7 @@ function makeIconSVG(bgColor) {
   // Boat center: (340, 146.5)
   // To occupy ~90% of 1000px canvas: scale = 900/250 = 3.6
   // Strategy: translate to canvas center → scale → translate back by boat center
-  const scale = 3.6;
+  const scale = 3.2; // ~80% del ancho del ícono
   const cx = 340, cy = 146.5; // boat center in SVG coords
   return `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 1000 1000">
   <rect width="1000" height="1000" fill="${bgColor}"/>
