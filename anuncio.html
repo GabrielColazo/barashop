@@ -213,8 +213,43 @@
 
     function abrirLightbox(index) {
       if (!imagenes.length) return
-      window.open(imagenes[index].url, '_blank')
+      imagenActual = index
+      const lb = document.getElementById('lightbox')
+      document.getElementById('lb-img').src = imagenes[index].url
+      document.getElementById('lb-img').alt = `Foto ${index + 1} de ${imagenes.length}`
+      const hayNav = imagenes.length > 1
+      document.getElementById('lb-prev').style.display = hayNav ? '' : 'none'
+      document.getElementById('lb-next').style.display = hayNav ? '' : 'none'
+      lb.style.display = 'flex'
+      document.body.style.overflow = 'hidden'
+      // sincronizar miniatura
+      document.querySelectorAll('.gallery-thumb').forEach((el, i) => {
+        el.classList.toggle('active', i === index)
+      })
     }
+
+    function cerrarLightbox() {
+      document.getElementById('lightbox').style.display = 'none'
+      document.body.style.overflow = ''
+    }
+
+    function navegarLightbox(dir) {
+      if (imagenes.length <= 1) return
+      imagenActual = (imagenActual + dir + imagenes.length) % imagenes.length
+      document.getElementById('lb-img').src = imagenes[imagenActual].url
+      document.getElementById('lb-img').alt = `Foto ${imagenActual + 1} de ${imagenes.length}`
+      document.querySelectorAll('.gallery-thumb').forEach((el, i) => {
+        el.classList.toggle('active', i === imagenActual)
+      })
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const lb = document.getElementById('lightbox')
+      if (!lb || lb.style.display === 'none') return
+      if (e.key === 'ArrowRight') navegarLightbox(1)
+      else if (e.key === 'ArrowLeft') navegarLightbox(-1)
+      else if (e.key === 'Escape') cerrarLightbox()
+    })
 
     async function eliminarAnuncioHandler(id) {
       if (!confirm('¿Estás seguro de eliminar este anuncio?')) return
@@ -336,6 +371,12 @@
         Contacto
       </a>
     </div>
+  </div>
+  <div id="lightbox" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;" onclick="if(event.target===this)cerrarLightbox()">
+    <button onclick="cerrarLightbox()" style="position:absolute;top:16px;right:20px;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;z-index:10;line-height:1;">&times;</button>
+    <button id="lb-prev" onclick="event.stopPropagation();navegarLightbox(-1)" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:2.5rem;cursor:pointer;padding:8px 14px;border-radius:8px;z-index:10;line-height:1;">&#8249;</button>
+    <button id="lb-next" onclick="event.stopPropagation();navegarLightbox(1)" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:2.5rem;cursor:pointer;padding:8px 14px;border-radius:8px;z-index:10;line-height:1;">&#8250;</button>
+    <img id="lb-img" src="" alt="" style="max-width:90vw;max-height:85vh;object-fit:contain;border-radius:6px;" onclick="event.stopPropagation()">
   </div>
   <script>
     if ('serviceWorker' in navigator) {
