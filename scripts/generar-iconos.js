@@ -1,10 +1,9 @@
 const sharp = require('sharp');
 const path = require('path');
 
-// SVG del barco CON CARA (hero de index.html)
-const BOAT_SVG = `<svg viewBox="0 0 680 320" xmlns="http://www.w3.org/2000/svg">
-<ellipse fill="#8FDDE8" cx="340" cy="270" rx="230" ry="20"/>
-<path fill="#5EC5D6" d="M115 262 Q160 246 205 262 T290 262 T375 262 T460 262 T535 262 V294 H115 Z"/>
+// SVG del barco CON CARA — SOLO casco+mástil+velas+cara (sin agua/olas)
+// Bounding box del barco: x=215..465 (w=250), y=50..243 (h=193)
+const BOAT_ELEMENTS = `
 <path stroke="#7A5230" stroke-width="5" stroke-linecap="round" d="M340 190 L340 50"/>
 <path fill="#3E8E4F" d="M340 55 Q400 80 418 128 Q378 138 340 140 Z"/>
 <path fill="#2F6E3C" d="M340 55 Q280 80 262 128 Q302 138 340 140 Z"/>
@@ -20,21 +19,20 @@ const BOAT_SVG = `<svg viewBox="0 0 680 320" xmlns="http://www.w3.org/2000/svg">
 <path d="M298 186 Q340 202 382 186" fill="none" stroke="#1F2937" stroke-width="4" stroke-linecap="round"/>
 <ellipse cx="288" cy="180" rx="9" ry="5" fill="#F59E0B" opacity="0.35"/>
 <ellipse cx="398" cy="180" rx="9" ry="5" fill="#F59E0B" opacity="0.35"/>
-</svg>`;
+`;
 
-// Create a wrapper SVG with padding for square icons
+// Create a wrapper SVG with the boat centered at ~90% width
 function makeIconSVG(bgColor) {
-  // viewBox 680x320, we want to embed in a square canvas with ~90% coverage
-  // For the boat to occupy ~90% of the icon, we need appropriate padding
-  // The boat SVG is 680x320. To fit in a square, we center it horizontally
-  // and add padding vertically.
-  // Boat viewBox is 680x320. To occupy ~90% of 1000px canvas width:
-  // scale = 900/680 ≈ 1.324. Height at this scale: 320*1.324 ≈ 424px (~42%)
-  // Vertical centering: (1000 - 424) / 2 = 288
+  // Boat bounding box: x=215..465 (w=250), y=50..243 (h=193)
+  // Boat center: (340, 146.5)
+  // To occupy ~90% of 1000px canvas: scale = 900/250 = 3.6
+  // Strategy: translate to canvas center → scale → translate back by boat center
+  const scale = 3.6;
+  const cx = 340, cy = 146.5; // boat center in SVG coords
   return `<svg xmlns="http://www.w3.org/2000/svg" width="SIZE" height="SIZE" viewBox="0 0 1000 1000">
   <rect width="1000" height="1000" fill="${bgColor}"/>
-  <g transform="translate(500, 288) scale(1.324) translate(-340, -160)">
-    ${BOAT_SVG.replace(/<svg[^>]*>/, '').replace(/<\/svg>/, '')}
+  <g transform="translate(500, 500) scale(${scale}) translate(${-cx}, ${-cy})">
+    ${BOAT_ELEMENTS}
   </g>
 </svg>`;
 }
