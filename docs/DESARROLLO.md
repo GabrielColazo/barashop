@@ -360,6 +360,18 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **Registro:** script antes de `</body>` en las 9 páginas, `navigator.serviceWorker.register('/sw.js')`
 - **Cache name:** `barashop-static-v1` (subir número en cada deploy grande)
 
+### Paso 3 — Fixes de compatibilidad PWA (validados en repo de test `barashop-pwa-test`)
+
+- **Rutas relativas:** Todas las rutas de PWA cambiadas de absolutas (`/`) a relativas (`./` o sin barra inicial) para compatibilidad con subdirectorios y servidores que no sirven desde la raíz.
+  - `manifest.json`: `start_url`, `scope` → `"./"`; `src` de los 4 iconos → sin `/` inicial
+  - 9 páginas HTML: `<link rel="manifest" href="manifest.json">` (sin `/`)
+  - 9 páginas HTML: `navigator.serviceWorker.register('sw.js')` (sin `/`)
+  - `sw.js`: `STATIC_ASSETS` sin `/` inicial; filtro de fetch cambiado de `===` a `url.pathname.endsWith(asset)`
+- **Íconos con barco con cara:** Regenerados los 4 PNG usando el SVG inline del hero de `index.html` (barco con ojitos, boca, mejillas), no el avatar simplificado.
+  - `icon-192.png` / `icon-512.png`: fondo transparente, propósito `any`
+  - `icon-maskable-192.png` / `icon-maskable-512.png`: barco al ~90% del ícono, fondo blanco `#ffffff`
+- **Script de generación:** `scripts/generar-iconos.js` (Node.js + sharp) para regenerar los íconos desde el SVG del hero
+
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
 > **NUNCA editar `css/main.css` directamente.** Todo el CSS va en los parciales SCSS (`css/partials/_*.scss`). Después compilar con `sass css/main.scss css/main.css`.
