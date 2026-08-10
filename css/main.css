@@ -1376,13 +1376,24 @@ a:hover {
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  border: 1px solid #E5E7EB;
+  border: 1.5px solid #059669;
   border-radius: 12px;
   padding: 0.65rem 1rem;
   font-size: 0.9rem;
   font-weight: 600;
   color: #111827;
   cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+.categorias-mobile-trigger:hover {
+  background: #E1F5EE;
+  border-color: #047857;
+}
+.categorias-mobile-trigger svg {
+  width: 16px;
+  height: 16px;
+  color: #059669;
 }
 
 .flecha-registro {
