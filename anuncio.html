@@ -114,6 +114,53 @@
     let imagenActual = 0
     let imagenes = []
 
+    async function cargarAvisosRelacionados(categoriaId, nombreCategoria, avisoActualId) {
+      try {
+        const filtro = { categoria_id: categoriaId, orden: 'desc' }
+        const todos = await obtenerAnuncios(filtro)
+        const relacionados = todos.filter(a => a.id !== avisoActualId).slice(0, 6)
+        if (relacionados.length === 0) return
+
+        const container = document.getElementById('anuncio-detalle')
+        const section = document.createElement('section')
+        section.className = 'avisos-relacionados'
+        section.innerHTML = `
+          <h2 class="avisos-relacionados-titulo">Más publicaciones en ${escapeHtml(nombreCategoria)}</h2>
+          <div class="grid-anuncios">
+            ${relacionados.map(a => {
+              const imgUrl = a.imagenes?.[0]?.url || 'assets/img/no-image.svg'
+              const badge = a.imagenes?.length > 1 ? `<span class="gallery-badge">+${a.imagenes.length - 1}</span>` : ''
+              const catPill = `<span class="badge-categoria">${renderIcono(a.categorias?.icono)} ${escapeHtml(a.categorias?.nombre || '')}</span>`
+              const ubicacion = a.ubicacion ? `<span class="card-ubicacion">${escapeHtml(a.ubicacion)}</span>` : ''
+              return `
+              <div class="card-anuncio" role="button" tabindex="0" onclick="verAnuncioRelacionado('${a.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();verAnuncioRelacionado('${a.id}')}">
+                <div class="card-img-wrap">
+                  <img class="card-img" src="${imgUrl}" alt="${escapeHtml(a.titulo)}" loading="lazy" width="400" height="400">
+                  ${badge}
+                  ${catPill}
+                  <div class="card-precio-tag">${a.precio === null || a.precio === undefined ? 'A convenir' : '$' + Number(a.precio).toLocaleString('es-AR')}</div>
+                </div>
+                <div class="card-body">
+                  <div class="card-titulo">${escapeHtml(a.titulo)}</div>
+                  <div class="card-meta">
+                    <span class="card-fecha">${new Date(a.created_at).toLocaleDateString('es-AR')}</span>
+                    ${ubicacion}
+                  </div>
+                </div>
+              </div>`
+            }).join('')}
+          </div>
+        `
+        container.appendChild(section)
+      } catch (err) {
+        console.error('Error cargando avisos relacionados:', err)
+      }
+    }
+
+    function verAnuncioRelacionado(id) {
+      window.location.href = `anuncio.html?id=${id}`
+    }
+
     async function cargarAnuncio() {
       const params = new URLSearchParams(window.location.search)
       const id = params.get('id')
@@ -198,6 +245,8 @@
             ${esPropio ? `<button class="btn-outline-custom" style="border-color:#EF4444;color:#EF4444;" onclick="eliminarAnuncioHandler('${a.id}')">🗑 Eliminar</button>` : ''}
           </div>
         `
+
+        cargarAvisosRelacionados(a.categoria_id, a.categorias?.nombre || 'esta categoría', a.id)
       } catch (err) {
         document.getElementById('anuncio-detalle').innerHTML = `<p class="text-center py-5 text-secondary">Error al cargar el anuncio: ${escapeHtml(err.message)}</p>`
       }

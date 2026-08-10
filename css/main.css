@@ -2164,4 +2164,23 @@ a:hover {
   }
 }
 
+.avisos-relacionados {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #E5E7EB;
+}
+
+.avisos-relacionados-titulo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 576px) {
+  .avisos-relacionados-titulo {
+    font-size: 1.25rem;
+  }
+}
+
 /*# sourceMappingURL=main.css.map */
