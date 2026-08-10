@@ -367,10 +367,10 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
   - 9 páginas HTML: `<link rel="manifest" href="manifest.json">` (sin `/`)
   - 9 páginas HTML: `navigator.serviceWorker.register('sw.js')` (sin `/`)
   - `sw.js`: `STATIC_ASSETS` sin `/` inicial; filtro de fetch cambiado de `===` a `url.pathname.endsWith(asset)`
-- **Íconos con barco con cara:** Regenerados los 4 PNG usando el SVG inline del hero de `index.html` (barco con ojitos, boca, mejillas), no el avatar simplificado.
+- **Íconos con barco con cara:** Regenerados los 4 PNG usando el SVG inline del hero de `index.html` (barco con ojitos, boca, mejillas), no el avatar simplificado. Escala final ~80% del ancho del ícono, centrado, sin agua/olas.
   - `icon-192.png` / `icon-512.png`: fondo transparente, propósito `any`
-  - `icon-maskable-192.png` / `icon-maskable-512.png`: barco al ~90% del ícono, fondo blanco `#ffffff`
-- **Script de generación:** `scripts/generar-iconos.js` (Node.js + sharp) para regenerar los íconos desde el SVG del hero
+  - `icon-maskable-192.png` / `icon-maskable-512.png`: fondo blanco `#ffffff`
+- **Script de generación:** `scripts/generar-iconos.js` (Node.js + sharp) para regenerar los íconos desde el SVG del hero. Bounding box recortado a casco+mástil+velas+cara (sin olas), transform centrado en el canvas.
 
 ## ⚠️ REGLA CRÍTICA — SCSS partials
 
@@ -384,6 +384,22 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 > 3. Verificar que el cambio aparezca en el navegador
 > 4. Commitear AMBOS archivos (`.scss` y `.css`)
 
+## Lightbox de anuncio (rama prueba → main)
+
+- **Fix bug imagen inicial (`7264310`):** `abrirLightbox(0)` estaba hardcodeado al índice 0. Cambiado a `abrirLightbox(imagenActual)` para que abra la imagen seleccionada.
+- **Navegación en lightbox (`a1f2337`):** Reemplazado `window.open()` por modal overlay completo.
+  - Overlay fijo (`position:fixed; inset:0; z-index:9999`), fondo oscuro 92%
+  - Flechas ‹ › a los costados (solo visibles con 2+ imágenes), loop circular
+  - Navegación sincroniza `imagenActual` y la miniatura activa en la galería de fondo
+  - Teclado: ← → para navegar, Escape para cerrar
+  - Click en fondo oscuro cierra el lightbox; × arriba a la derecha también
+
+## Menú hamburguesa mobile — Cafecito (`fff2638`)
+
+- Botón de Cafecito (`button_5.png` con srcset retina) agregado en el offcanvas de las 8 páginas que lo tienen (todas menos `auth-callback.html`)
+- Ubicación: después de "Contacto", `height:28px`, mismo estilo `header-link` que las demás opciones del menú
+- Link abre en nueva pestaña (`target="_blank"`, `rel="noopener"`)
+
 ## Pendientes
 
 - [ ] Configurar SMTP en Supabase con `contacto@gaboweb.com.ar` (DonWeb)
@@ -392,9 +408,10 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Estado actual (ago 2026)
 
-- Último commit: `c46df5b` — feat: service worker cache-first para assets estáticos (rama prueba)
+- Último commit: `fff2638` — feat: botón Cafecito en menú hamburguesa mobile (rama main)
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://barashop.com.ar`
+- Rama `prueba` merged a `main` (fast-forward, sin conflictos)
 
 ## Estructura de archivos
 
