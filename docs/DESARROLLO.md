@@ -412,6 +412,16 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
   - Estilos: `.avisos-relacionados` (margin-top 2rem, padding-top 1.5rem, border-top) y `.avisos-relacionados-titulo` (font-family Montserrat explícito, font-weight 700, font-size 1.1rem/1.25rem desktop).
   - Commits: `143be6e` (feat) + `4c318ed` (fix font-family).
 
+## Selector de categorías mobile (ago 2026)
+
+- **Mejora visual del trigger (index.html):** El botón "Mostrar todas las categorías" (`.categorias-mobile-trigger`) pasó de texto plano con borde gris a un elemento con señal visual clara de interactividad.
+  - Borde: `1.5px solid #059669` (antes `1px solid #E5E7EB`).
+  - Sombra: `box-shadow: 0 1px 3px rgba(0,0,0,0.08)`.
+  - Font-weight: `600` (ya existía).
+  - Flecha SVG: tamaño `16x16px` (antes `14x14`), color `#059669` via `color` en el SVG (antes heredaba `currentColor` gris).
+  - Hover: fondo `#E1F5EE`, borde oscurecido `#047857`, `transition: all 0.2s ease`.
+  - Commit: `3a91c29`.
+
 ## Pendientes
 
 - [ ] Configurar SMTP en Supabase con `contacto@gaboweb.com.ar` (DonWeb)
@@ -420,7 +430,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Estado actual (ago 2026)
 
-- Último commit: `175a8e7` — Merge branch 'main' into prueba (feat: avisos relacionados + fix font-family)
+- Último commit: `530828f` — Merge branch 'main' into prueba (style: selector categorías mobile)
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://barashop.com.ar`
 - Rama `prueba` merged a `main` (fast-forward, sin conflictos)
