@@ -400,6 +400,18 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - Ubicación: después de "Contacto", `height:28px`, mismo estilo `header-link` que las demás opciones del menú
 - Link abre en nueva pestaña (`target="_blank"`, `rel="noopener"`)
 
+## Avisos relacionados en detalle (ago 2026)
+
+- **Sección "Más publicaciones en esta categoría" (anuncio.html):** Nueva sección que se muestra debajo del contenido del aviso actual (después de la descripción, antes del footer). Muestra hasta 6 avisos activos de la misma categoría (excluyendo el actual), ordenados por más recientes primero.
+  - Título dinámico: "Más publicaciones en [Nombre de la categoría]" usando el nombre real de la categoría del aviso actual.
+  - Grilla de tarjetas reutilizando el mismo componente `.card-anuncio` / `.grid-anuncios` del home (index.html).
+  - Cada tarjeta es clickeable y lleva al detalle de ese otro aviso (`anuncio.html?id=...`).
+  - Si no hay otros avisos en la categoría, la sección no se renderiza (ni título ni mensaje).
+  - Función `cargarAvisosRelacionados(categoriaId, nombreCategoria, avisoActualId)` en `anuncio.html`.
+  - Función `verAnuncioRelacionado(id)` para navegación entre avisos.
+  - Estilos: `.avisos-relacionados` (margin-top 2rem, padding-top 1.5rem, border-top) y `.avisos-relacionados-titulo` (font-family Montserrat explícito, font-weight 700, font-size 1.1rem/1.25rem desktop).
+  - Commits: `143be6e` (feat) + `4c318ed` (fix font-family).
+
 ## Pendientes
 
 - [ ] Configurar SMTP en Supabase con `contacto@gaboweb.com.ar` (DonWeb)
@@ -408,7 +420,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Estado actual (ago 2026)
 
-- Último commit: `fff2638` — feat: botón Cafecito en menú hamburguesa mobile (rama main)
+- Último commit: `175a8e7` — Merge branch 'main' into prueba (feat: avisos relacionados + fix font-family)
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://barashop.com.ar`
 - Rama `prueba` merged a `main` (fast-forward, sin conflictos)
