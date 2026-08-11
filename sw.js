@@ -2,7 +2,7 @@
 // Estrategia: cache-first SOLO para assets estáticos (CSS/JS/fuentes/íconos).
 // Nunca cachea HTML ni llamadas a Supabase, para evitar mostrar datos viejos.
 
-const CACHE_NAME = 'barashop-static-v4'; // ⚠️ subir el número (v2, v3...) en cada deploy grande de CSS/JS
+const CACHE_NAME = 'barashop-static-v5'; // ⚠️ subir el número (v2, v3...) en cada deploy grande de CSS/JS
 
 const STATIC_ASSETS = [
   'css/main.css',
