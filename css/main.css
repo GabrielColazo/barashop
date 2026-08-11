@@ -926,7 +926,7 @@ a:hover {
   align-items: center;
   gap: 0.4rem;
   background: #059669;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   font-weight: 600;
   font-size: 0.85rem;
   padding: 0.55rem 1.1rem;
@@ -934,12 +934,18 @@ a:hover {
   border-radius: 10px;
   text-decoration: none;
   cursor: pointer;
-  transition: background 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.2s ease;
 }
 .btn-mp:hover {
   background: #047857;
-  color: #FFFFFF;
-  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3);
+  color: #FFFFFF !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35);
+  text-decoration: none;
+}
+.btn-mp:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(5, 150, 105, 0.2);
 }
 .btn-mp svg {
   width: 15px;
