@@ -661,6 +661,9 @@ a:hover {
   color: white;
   text-decoration: underline;
 }
+.footer .btn-mp:hover {
+  text-decoration: none !important;
+}
 
 .promo-banner {
   position: fixed;
