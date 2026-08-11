@@ -422,6 +422,21 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
   - Hover: fondo `#E1F5EE`, borde oscurecido `#047857`, `transition: all 0.2s ease`.
   - Commit: `3a91c29`.
 
+## Botón "Apoyá este proyecto" — MercadoPago (ago 2026)
+
+- **Reemplazo de Cafecito por MercadoPago:** Link de donación cambiado de `cafecito.app/barashop` a `link.mercadopago.com.ar/barashop` en todo el sitio (footer + offcanvas de las 9 páginas HTML).
+- **Estilo botón sólido (`.btn-mp`):** Fondo `#059669`, texto blanco `#FFFFFF`, padding `0.55rem 1.1rem`, border-radius `10px`, font-weight `600`, font-size `0.85rem`.
+- **Ícono corazón SVG:** Stroke `currentColor` (hereda blanco del botón), tamaño `15x15px`, dibujado con path Feather Icons.
+- **Hover animado:**
+  - Gradiente animado `#047857` → `#059669` → `#10B981` con `background-size: 200%` + `@keyframes btnMpShine` (efecto brillo infinito).
+  - Escala `scale(1.03)` + `translateY(-2px)` (se agranda y sube).
+  - Glow doble: `box-shadow: 0 6px 20px rgba(5,150,105,0.45), 0 0 0 3px rgba(5,150,105,0.15)`.
+  - Sin underline (sobreescribe `.footer a:hover { text-decoration: underline }` con `!important`).
+- **Click:** `scale(0.98)` + sombra chica (efecto press).
+- **Especificidad:** Selector `.footer .btn-mp, .btn-mp` para sobreescribir `.footer a { color: #6EE7B7 }`.
+- **CSS limpiado:** Eliminadas reglas residuales `.footer img[alt*=cafecito]` de `main.css` y `_layout.scss`.
+- **Commits:** `b67d186` (reemplazo), `d988bc2` (estilo sólido), `16d0ed0` (texto blanco), `759493a` (especificidad), `e408fc9` (sin underline), `bf42108` (hover animado).
+
 ## Pendientes
 
 - [ ] Configurar SMTP en Supabase con `contacto@gaboweb.com.ar` (DonWeb)
@@ -430,7 +445,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Estado actual (ago 2026)
 
-- Último commit: `530828f` — Merge branch 'main' into prueba (style: selector categorías mobile)
+- Último commit: `4757ada` — Merge branch 'main' into prueba (btn-mp MercadoPago)
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://barashop.com.ar`
 - Rama `prueba` merged a `main` (fast-forward, sin conflictos)
