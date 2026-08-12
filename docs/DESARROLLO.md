@@ -446,14 +446,14 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 ## Cache busting + .htaccess (ago 2026)
 
 - **Problema:** usuarios que ya habían entrado a barashop.com.ar no veían cambios de CSS/JS porque el service worker (cache-first) y el caché del navegador servían archivos viejos. Los usuarios nuevos no tenían este problema.
-- **Solución 1 — `.htaccess`:** Archivo en la raíz del repo con `Cache-Control "no-cache, no-store, must-revalidate"` para archivos `.html`. Fuerza al navegador a siempre verificar versiones nuevas de HTML desde el servidor.
+- **Solución 1 — `.htaccess`:** Archivo en la raíz del repo con headers de no-cache para archivos `.html`, `.css` y `.js`. Incluye `Cache-Control "no-cache, no-store, must-revalidate"` y `Header unset Expires` para eliminar el header Expires que algunos servidores agregan por defecto y puede entrar en conflicto.
 - **Solución 2 — Cache busting con query strings:** Agregado `?v=20260811` a los links de CSS (`css/main.css`) y JS (`js/supabase.js`, `js/auth.js`, `js/anuncios.js`) en las 9 páginas HTML. El browser ve la URL como "nueva" y descarga el archivo fresco.
 - **Resultado:** todos los usuarios (nuevos y existentes) ven los estilos y funcionalidad actualizados sin necesidad de borrar caché manualmente.
-- ** Commits:** `7d57403` (.htaccess), `f5b998d` (cache busting query strings).
+- **Commits:** `7d57403` (.htaccess inicial), `f5b998d` (cache busting query strings), `5313d76` (extender no-cache a CSS/JS), `c477999` (eliminar header Expires).
 
 ## Estado actual (ago 2026)
 
-- Último commit: `f5b998d` — fix: cache busting con query string en CSS y JS
+- Último commit: `c477999` — fix: eliminar header Expires conflictivo
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://barashop.com.ar`
 - Rama `prueba` merged a `main` (fast-forward, sin conflictos)
