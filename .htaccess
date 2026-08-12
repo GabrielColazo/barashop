@@ -1,5 +1,6 @@
 <IfModule mod_headers.c>
   <FilesMatch "\.(html|css|js)$">
     Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header unset Expires
   </FilesMatch>
 </IfModule>
