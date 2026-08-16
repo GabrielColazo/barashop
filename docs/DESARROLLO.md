@@ -437,6 +437,15 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **CSS limpiado:** Eliminadas reglas residuales `.footer img[alt*=cafecito]` de `main.css` y `_layout.scss`.
 - **Commits:** `b67d186` (reemplazo), `d988bc2` (estilo sólido), `16d0ed0` (texto blanco), `759493a` (especificidad), `e408fc9` (sin underline), `bf42108` (hover animado).
 
+## Página de agradecimiento (gracias.html)
+
+- **Propósito:** Página de retorno después de un pago exitoso en el link de Mercado Pago ("Apoyá este proyecto").
+- **Estructura:** Basada en terminos.html/contacto.html con header, offcanvas mobile y footer completos. Incluye scripts de supabase.js/auth.js para mantener la sesión.
+- **Contenido:** Bloque centrado con ícono de corazón SVG verde (#059669), título "¡Gracias por apoyar BaraShop! 💚", texto descriptivo y botón "Volver al inicio" con estilo sólido verde.
+- **Meta tags:** `<meta name="robots" content="noindex">` para que no se indexe.
+- **Estilos:** En `css/partials/_layout.scss` (clases `.gracias-page`, `.gracias-card`, `.gracias-icon`, `.gracias-titulo`, `.gracias-texto`, `.btn-primary-custom`). Compilados a `css/main.css`.
+- **Configuración MercadoPago:** Para configurar esta página como retorno en Mercado Pago, usar la URL `https://barashop.com.ar/gracias.html` en la configuración del link de donación.
+
 ## Pendientes
 
 - [ ] Configurar SMTP en Supabase con `contacto@gaboweb.com.ar` (DonWeb)
@@ -474,6 +483,7 @@ barashop/
 ├── privacidad.html            # Política de Privacidad
 ├── terminos.html              # Términos y Condiciones
 ├── contacto.html              # Formulario de contacto (Web3Forms)
+├── gracias.html               # Página de agradecimiento (retorno MercadoPago)
 ├── schema.sql                # SQL completo de la DB (fuente única)
 ├── migraciones_aplicadas/    # Migraciones históricas (referencia)
 ├── css/

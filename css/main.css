@@ -661,9 +661,6 @@ a:hover {
   color: white;
   text-decoration: underline;
 }
-.footer .btn-mp:hover {
-  text-decoration: none !important;
-}
 
 .promo-banner {
   position: fixed;
@@ -866,6 +863,69 @@ a:hover {
   margin: 0.5rem 0 0;
 }
 
+.gracias-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 3rem 0;
+}
+
+.gracias-card {
+  text-align: center;
+  max-width: 480px;
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid #E5E7EB;
+}
+
+.gracias-icon {
+  margin-bottom: 1.5rem;
+}
+
+.gracias-icon svg {
+  display: inline-block;
+}
+
+.gracias-titulo {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.gracias-texto {
+  font-size: 1rem;
+  color: #6B7280;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.btn-primary-custom {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #059669;
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.75rem 2rem;
+  border-radius: 16px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.btn-primary-custom:hover {
+  background: #047857;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+.btn-primary-custom:active {
+  transform: scale(0.98);
+}
+
 .btn-primary-custom {
   display: inline-flex;
   align-items: center;
@@ -924,47 +984,6 @@ a:hover {
   outline-offset: 2px;
 }
 
-.footer .btn-mp,
-.btn-mp {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: #059669;
-  color: #FFFFFF !important;
-  font-weight: 600;
-  font-size: 0.85rem;
-  padding: 0.55rem 1.1rem;
-  border: none;
-  border-radius: 10px;
-  text-decoration: none !important;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.footer .btn-mp:hover,
-.btn-mp:hover {
-  background: linear-gradient(135deg, #047857, #059669, #10B981);
-  background-size: 200% 200%;
-  animation: btnMpShine 1.5s ease infinite;
-  color: #FFFFFF !important;
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 6px 20px rgba(5, 150, 105, 0.45), 0 0 0 3px rgba(5, 150, 105, 0.15);
-  text-decoration: none !important;
-}
-.btn-mp:active {
-  transform: translateY(0) scale(0.98);
-  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.25);
-}
-@keyframes btnMpShine {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-.btn-mp svg {
-  width: 15px;
-  height: 15px;
-  flex-shrink: 0;
-}
-
 .btn-accent {
   display: inline-flex;
   align-items: center;
@@ -982,7 +1001,7 @@ a:hover {
   box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
 }
 .btn-accent:hover {
-  background: rgb(206.7275590551, 133.0173228346, 8.4724409449);
+  background: rgb(81.069631002%, 52.1636560136%, 3.3225258607%);
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
@@ -1413,24 +1432,13 @@ a:hover {
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  border: 1.5px solid #059669;
+  border: 1px solid #E5E7EB;
   border-radius: 12px;
   padding: 0.65rem 1rem;
   font-size: 0.9rem;
   font-weight: 600;
   color: #111827;
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  transition: all 0.2s ease;
-}
-.categorias-mobile-trigger:hover {
-  background: #E1F5EE;
-  border-color: #047857;
-}
-.categorias-mobile-trigger svg {
-  width: 16px;
-  height: 16px;
-  color: #059669;
 }
 
 .flecha-registro {
@@ -2211,25 +2219,3 @@ a:hover {
     transform: scale(1) translateY(0);
   }
 }
-
-.avisos-relacionados {
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #E5E7EB;
-}
-
-.avisos-relacionados-titulo {
-  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #111827;
-  margin-bottom: 1rem;
-}
-
-@media (min-width: 576px) {
-  .avisos-relacionados-titulo {
-    font-size: 1.25rem;
-  }
-}
-
-/*# sourceMappingURL=main.css.map */

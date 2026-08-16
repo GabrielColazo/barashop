@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="assets/img/favicon/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gracias por apoyar BaraShop</title>
+  <meta name="description" content="Gracias por apoyar BaraShop. Tu aporte ayuda a que este proyecto siga creciendo para todo Baradero.">
+  <meta name="robots" content="noindex">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.supabase.co https://cdn.jsdelivr.net; img-src 'self' https: data: blob:; style-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com 'unsafe-inline'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="css/main.css?v=20260811" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-text" aria-label="BaraShop">
+        <img src="assets/img/nuevologobarashop.webp" alt="BaraShop">
+      </a>
+      <button class="mobile-menu-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuMobile" aria-controls="menuMobile" aria-label="Abrir menú">
+        <span class="linea-menu"></span>
+        <span class="linea-menu"></span>
+        <span class="linea-menu"></span>
+      </button>
+      <div class="d-flex align-items-center gap-2" id="header-actions">
+
+        <a href="index.html" class="btn-nav-box">
+          <svg viewBox="0 0 60 44" xmlns="http://www.w3.org/2000/svg" style="width:18px;height:auto;"><path d="M8 30 Q30 38 52 30 L47 40 Q30 44 13 40 Z" fill="#C99461"/><path stroke="#7A5230" stroke-width="3" stroke-linecap="round" d="M30 26 L30 4"/><path d="M30 6 Q46 14 49 26 Q39 30 30 30 Z" fill="#3E8E4F"/><path d="M30 6 Q14 14 11 26 Q21 30 30 30 Z" fill="#2F6E3C"/></svg>
+          Inicio
+        </a>
+
+        <a href="publicar.html" class="btn-nav-box btn-nav-box-solid">
+          + Publicar
+        </a>
+
+        <div id="auth-buttons">
+          <a href="login.html" class="btn-nav-box">
+            ➜ Ingresar
+          </a>
+        </div>
+
+        <div id="user-menu" class="d-none" style="position:relative;">
+          <div class="btn-nav-box" id="user-avatar" title="Mi cuenta" onclick="toggleUserMenu()" style="cursor:pointer;">
+            👤 Mi cuenta
+          </div>
+          <div id="user-dropdown" class="d-none" style="position:absolute;top:100%;right:0;margin-top:0.5rem;background:white;border:1px solid #E5E7EB;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.1);min-width:180px;z-index:200;padding:0.5rem;">
+            <div style="padding:0.5rem 0.75rem;font-size:0.85rem;color:#6B7280;border-bottom:1px solid #E5E7EB;" id="user-dropdown-email"></div>
+            <a href="mis-avisos.html" style="display:block;padding:0.5rem 0.75rem;font-size:0.9rem;color:#111827;text-decoration:none;border-radius:6px;">📋 Mis Avisos</a>
+            <button onclick="cerrarSesion();toggleUserMenu()" style="width:100%;text-align:left;padding:0.5rem 0.75rem;border:none;background:none;font-size:0.9rem;color:#EF4444;cursor:pointer;border-radius:6px;">🚪 Cerrar sesión</button>
+          </div>
+        </div>
+
+        <a href="contacto.html" class="btn-nav-box">
+          ✉️ Contacto
+        </a>
+
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="gracias-page">
+      <div class="gracias-card">
+        <div class="gracias-icon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h1 class="gracias-titulo">¡Gracias por apoyar BaraShop! 💚</h1>
+        <p class="gracias-texto">Tu aporte ayuda a que este proyecto siga creciendo para todo Baradero.</p>
+        <a href="index.html" class="btn-primary-custom">Volver al inicio</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-brand">BaraShop</p>
+      <div class="sello-artesanal">Hecho en Baradero</div>
+      <p class="footer-copy">&copy; 2026 BaraShop &mdash; Todos los derechos reservados.</p>
+      <p class="footer-copy"><a href="terminos.html" class="footer-link">Términos y Condiciones</a> &middot; <a href="privacidad.html" class="footer-link">Política de Privacidad</a></p>
+      <p class="footer-copy" style="margin-bottom:0.5rem;"><a href="https://link.mercadopago.com.ar/barashop" target="_blank" rel="noopener" class="btn-mp"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Apoyá este proyecto</a></p>
+      <p class="footer-copy">Desarrollado por <a href="https://www.gaboweb.com.ar" target="_blank" rel="noopener" class="gaboweb-link"><span class="gw-orange">&lt;</span>GABO<span class="gw-orange">WEB/&gt;</span></a></p>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/supabase.js?v=20260811"></script>
+  <script src="js/auth.js?v=20260811"></script>
+  <script>
+    function toggleUserMenu() {
+      document.getElementById('user-dropdown').classList.toggle('d-none')
+    }
+
+    document.addEventListener('click', (e) => {
+      const dd = document.getElementById('user-dropdown')
+      if (!e.target.closest('#user-menu')) dd.classList.add('d-none')
+    })
+
+    document.addEventListener('DOMContentLoaded', function () {
+      function actualizarHeaderSegunSesion(session) {
+        const authButtons = document.getElementById('auth-buttons')
+        const userMenu = document.getElementById('user-menu')
+        const avatar = document.getElementById('user-avatar')
+        const emailLabel = document.getElementById('user-dropdown-email')
+        const offcanvasIngresar = document.getElementById('offcanvas-ingresar')
+        const offcanvasUserInfo = document.getElementById('offcanvas-user-info')
+        const offcanvasAvatar = document.getElementById('offcanvas-avatar')
+        const offcanvasEmail = document.getElementById('offcanvas-user-email')
+
+        if (session) {
+          authButtons.classList.add('d-none')
+          userMenu.classList.remove('d-none')
+          offcanvasIngresar.classList.add('d-none')
+          offcanvasUserInfo.classList.remove('d-none')
+          avatar.innerHTML = '<svg viewBox="0 0 60 44" xmlns="http://www.w3.org/2000/svg"><path d="M8 30 Q30 38 52 30 L47 40 Q30 44 13 40 Z" fill="#C99461"/><path stroke="#7A5230" stroke-width="3" stroke-linecap="round" d="M30 26 L30 4"/><path d="M30 6 Q46 14 49 26 Q39 30 30 30 Z" fill="#3E8E4F"/><path d="M30 6 Q14 14 11 26 Q21 30 30 30 Z" fill="#2F6E3C"/></svg>'
+          const email = session.user.email
+          avatar.title = email
+          emailLabel.textContent = email
+          offcanvasEmail.textContent = email
+        } else {
+          authButtons.classList.remove('d-none')
+          userMenu.classList.add('d-none')
+          offcanvasIngresar.classList.remove('d-none')
+          offcanvasUserInfo.classList.add('d-none')
+          avatar.innerHTML = '👤 Mi cuenta'
+        }
+      }
+
+      obtenerSesion().then(({ data: { session } }) => {
+        actualizarHeaderSegunSesion(session)
+      })
+
+      escucharAuth((event, session) => {
+        actualizarHeaderSegunSesion(session)
+      })
+    })
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const btn = document.querySelector('.mobile-menu-toggle')
+      const panel = document.getElementById('menuMobile')
+      if (!btn || !panel) return
+      panel.addEventListener('shown.bs.offcanvas', () => btn.classList.add('abierto'))
+      panel.addEventListener('hidden.bs.offcanvas', () => btn.classList.remove('abierto'))
+    })
+  </script>
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="menuMobile" aria-labelledby="menuMobileLabel">
+    <div class="offcanvas-header">
+      <img src="assets/img/nuevologobarashop.webp" alt="BaraShop" style="height:32px;">
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column gap-2">
+      <a href="publicar.html" class="btn-publicar">
+        <span style="font-size:1.4rem;line-height:1;">+</span>
+        Publicar
+      </a>
+      <a href="login.html" class="header-link" id="offcanvas-ingresar">
+        <span style="font-size:1.4rem;line-height:1;">➜</span>
+        Ingresar
+      </a>
+      <div id="offcanvas-user-info" class="d-none">
+        <div class="d-flex align-items-center gap-2 py-2 px-1">
+          <div class="avatar avatar-barco" id="offcanvas-avatar"><svg viewBox="0 0 60 44" xmlns="http://www.w3.org/2000/svg"><path d="M8 30 Q30 38 52 30 L47 40 Q30 44 13 40 Z" fill="#C99461"/><path stroke="#7A5230" stroke-width="3" stroke-linecap="round" d="M30 26 L30 4"/><path d="M30 6 Q46 14 49 26 Q39 30 30 30 Z" fill="#3E8E4F"/><path d="M30 6 Q14 14 11 26 Q21 30 30 30 Z" fill="#2F6E3C"/></svg></div>
+          <span id="offcanvas-user-email" style="font-size:0.85rem;color:#6B7280;"></span>
+        </div>
+        <a href="mis-avisos.html" class="btn-secundario w-100 mb-2">
+          <span style="font-size:1.4rem;line-height:1;">📋</span>
+          Mis Avisos
+        </a>
+        <button onclick="cerrarSesion()" class="btn-secundario w-100" style="color:#EF4444;border-color:#EF4444;">
+          <span style="font-size:1.4rem;line-height:1;">🚪</span>
+          Cerrar sesión
+        </button>
+      </div>
+      <a href="contacto.html" class="header-link">
+        <span style="font-size:1.4rem;line-height:1;">✉️</span>
+        Contacto
+      </a>
+      <a href="https://link.mercadopago.com.ar/barashop" target="_blank" rel="noopener" class="btn-mp">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Apoyá este proyecto
+      </a>
+    </div>
+  </div>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => {
+            console.log('SW registrado:', reg.scope);
+            reg.addEventListener('updatefound', () => {
+              const newSW = reg.installing;
+              newSW.addEventListener('statechange', () => {
+                if (newSW.state === 'activated') {
+                  window.location.reload();
+                }
+              });
+            });
+          })
+          .catch(err => console.error('Error registrando SW:', err));
+      });
+    }
+  </script>
+</body>
+</html>
