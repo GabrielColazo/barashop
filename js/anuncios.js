@@ -167,3 +167,10 @@ async function obtenerCategorias() {
   if (error) throw error
   return data
 }
+
+async function incrementarVisitas(id) {
+  const { error } = await sb.rpc('incrementar_visitas', { anuncio_id: id })
+  if (error) {
+    console.error('Error incrementando visitas:', error)
+  }
+}

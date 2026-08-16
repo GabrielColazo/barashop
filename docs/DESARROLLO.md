@@ -460,9 +460,17 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **Resultado:** todos los usuarios (nuevos y existentes) ven los estilos y funcionalidad actualizados sin necesidad de borrar caché manualmente.
 - **Commits:** `7d57403` (.htaccess inicial), `f5b998d` (cache busting query strings), `5313d76` (extender no-cache a CSS/JS), `c477999` (eliminar header Expires).
 
+## Contador de visitas por aviso (ago 2026)
+
+- **Funcionalidad:** Cada aviso muestra un contador de visitas visible en las tarjetas del home.
+- **Base de datos:** Columna `visitas INTEGER DEFAULT 0` en tabla `anuncios` (migración manual SQL: `ALTER TABLE anuncios ADD COLUMN visitas INTEGER DEFAULT 0;`).
+- **Incremento:** En `anuncio.html`, cada vez que se carga la página de detalle, se ejecuta `incrementarVisitas(id)` que llama a la función RPC `incrementar_visitas` en Supabase (UPDATE simple `visitas = visitas + 1`, sin control de repetidos).
+- **Visualización:** En `index.html`, cada tarjeta `.card-anuncio` muestra un ícono de ojo SVG + número de visitas en la esquina inferior derecha de la imagen (`.card-visitas`), estilo sutil (texto gris pequeño, fondo semi-transparente).
+- **Archivos modificados:** `js/anuncios.js` (función `incrementarVisitas`), `anuncio.html` (llamada al cargar detalle), `index.html` (renderizado en tarjetas), `css/partials/_components.scss` (estilos `.card-visitas`), `css/main.css` (compilado).
+
 ## Estado actual (ago 2026)
 
-- Último commit: `3beb973` — feat: agregar página de agradecimiento gracias.html (retorno MercadoPago)
+- Último commit: pendiente — feat: contador de visitas por aviso
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://barashop.com.ar`
 - Rama `prueba` merged a `main` (fast-forward, sin conflictos)

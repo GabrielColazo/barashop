@@ -226,6 +226,31 @@
       z-index: 2;
       white-space: nowrap;
     }
+
+    .card-visitas {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(2px);
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: #6B7280;
+      padding: 0.2rem 0.45rem;
+      border-radius: 20px;
+      z-index: 2;
+      white-space: nowrap;
+      line-height: 1;
+
+      svg {
+        width: 12px;
+        height: 12px;
+        flex-shrink: 0;
+      }
+    }
   }
 
   .card-precio-tag {

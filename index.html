@@ -332,6 +332,10 @@
             ${badge}
             ${catPill}
             <div class="card-precio-tag">${a.precio === null || a.precio === undefined ? 'A convenir' : '$' + Number(a.precio).toLocaleString('es-AR')}</div>
+            <span class="card-visitas">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              ${a.visitas || 0}
+            </span>
           </div>
           <div class="card-body">
             <div class="card-titulo">${escapeHtml(a.titulo)}</div>
