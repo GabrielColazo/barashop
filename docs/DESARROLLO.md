@@ -468,9 +468,20 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 - **Visualización:** En `index.html`, cada tarjeta `.card-anuncio` muestra un ícono de ojo SVG + número de visitas en la esquina inferior derecha de la imagen (`.card-visitas`), estilo sutil (texto gris pequeño, fondo semi-transparente).
 - **Archivos modificados:** `js/anuncios.js` (función `incrementarVisitas`), `anuncio.html` (llamada al cargar detalle), `index.html` (renderizado en tarjetas), `css/partials/_components.scss` (estilos `.card-visitas`), `css/main.css` (compilado).
 
+## Fix estilos perdidos por recompilación SCSS (ago 2026)
+
+- **Problema:** Al compilar SCSS para `gracias.html`, el `sass` reconstruyó `main.css` desde cero usando solo el contenido de los `.scss`. Tres bloques de estilos que existían solo en el CSS compilado (nunca en SCSS) se perdieron: `.btn-mp`, `.avisos-relacionados` y `.categorias-mobile-trigger`.
+- **Causa:** Los estilos habían sido agregados directamente al CSS compilado en commits anteriores, sin crear las reglas correspondientes en los archivos SCSS fuente.
+- **Solución:** Restaurar los estilos en los SCSS parciales correctos:
+  - `.btn-mp` + `.footer .btn-mp` + `@keyframes btnMpShine` → `_components.scss`
+  - `.avisos-relacionados` + `.avisos-relacionados-titulo` → `_anuncios.scss`
+  - `.categorias-mobile-trigger` (green border, hover, SVG) → `_components.scss`
+- **Lección:** Siempre agregar estilos nuevos en archivos `.scss` parciales, nunca directamente en `main.css` compilado.
+- **Commit:** `37ac2b8`
+
 ## Estado actual (ago 2026)
 
-- Último commit: `37ac2b8` — fix: restaurar estilos .btn-mp, .avisos-relacionados y .categorias-mobile-trigger perdidos por recompilación SCSS
+- Último commit: `4ec9f98` — merge prueba a main (gracias.html, contador de visitas, fix estilos)
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://barashop.com.ar`
 - Rama `prueba` merged a `main` (fast-forward, sin conflictos)
