@@ -551,3 +551,21 @@
     transform: scale(1) translateY(0);
   }
 }
+
+.avisos-relacionados {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid v.$border;
+}
+
+.avisos-relacionados-titulo {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1rem;
+
+  @media (min-width: 576px) {
+    font-size: 1.25rem;
+  }
+}
