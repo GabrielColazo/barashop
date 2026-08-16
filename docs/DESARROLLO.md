@@ -462,7 +462,7 @@ connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net
 
 ## Estado actual (ago 2026)
 
-- Último commit: `c477999` — fix: eliminar header Expires conflictivo
+- Último commit: `3beb973` — feat: agregar página de agradecimiento gracias.html (retorno MercadoPago)
 - Repo: `https://github.com/GabrielColazo/barashop`
 - URL: `https://barashop.com.ar`
 - Rama `prueba` merged a `main` (fast-forward, sin conflictos)
